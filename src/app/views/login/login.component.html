@@ -1,0 +1,34 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card" style="width: 25rem;">
+        <div class="card-body">
+            <h5 class="card-title text-center">Inicio de Sesión</h5>
+            <form>
+
+                <div class="mb-3 d-flex flex-column align-items-center">
+                    <label for="documentNumber" class="form-label">Número de Documento</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="documentNumber" name="documentNumber"
+                            placeholder="Ej. 71789632" [(ngModel)]="documentNumber">
+                    </div>
+                    <button class="btn btn-primary mt-2" (click)="handleConsultCompanies()">Consultar Compañías</button>
+                </div>
+
+                <div class="mb-3">
+                    <label for="companyName" class="form-label">Nombre de la compañía</label>
+                    <select class="form-select" id="companyName" name="companyName" disabled>
+                        <option selected>Seleccione</option>
+                        <option value="1">Compañía 1</option>
+                        <option value="2">Compañía 2</option>
+                        <option value="3">Compañía 3</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="companyPassword" class="form-label">Password de la compañía</label>
+                    <input type="password" class="form-control" id="companyPassword" name="companyPassword"
+                        placeholder="Ej. Appel01569*" disabled>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" disabled>Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
