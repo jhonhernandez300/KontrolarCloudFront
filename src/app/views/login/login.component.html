@@ -14,20 +14,18 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="companyName" class="form-label">Nombre de la compañía</label>
-                    <select class="form-select" id="companyName" name="companyName" disabled>
-                        <option selected>Seleccione</option>
-                        <option value="1">Compañía 1</option>
-                        <option value="2">Compañía 2</option>
-                        <option value="3">Compañía 3</option>
+                    <label for="companyName" class="form-label">Nombre de la Compañía</label>
+                    <select class="form-control" id="companyName" name="companyName" [(ngModel)]="selectedCompany" [disabled]="!companyNames.length" (change)="updateCompanyPassword()">
+                        <option *ngFor="let companyName of companyNames" [value]="companyName">{{ companyName }}</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="companyPassword" class="form-label">Password de la compañía</label>
-                    <input type="password" class="form-control" id="companyPassword" name="companyPassword"
-                        placeholder="Ej. Appel01569*" disabled>
-                </div>
-                <button type="submit" class="btn btn-primary w-100" disabled>Iniciar Sesión</button>
+
+                <div class="mb-3" *ngIf="isCompanySelected">
+                    <label for="password" class="form-label">Password de la Compañía</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" [(ngModel)]="password" #passwordInput>
+                  </div>
+
+                  <button type="button" class="btn btn-primary w-100" [disabled]="!isCompanySelected" (click)="handleLogin()">Iniciar Sesión</button>
             </form>
         </div>
     </div>
