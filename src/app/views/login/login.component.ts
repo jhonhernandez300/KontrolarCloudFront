@@ -48,7 +48,7 @@ export class LoginComponent {
       this.showModal('Número de documento debe contener solo números');
       return;
     }
-
+  
     this.userService
       .GetCompaniesByDocumentNumber(this.documentNumber)
       .subscribe(
@@ -57,21 +57,19 @@ export class LoginComponent {
           
           if (Array.isArray(response)) {
             this.companyNames = response.map((company: any) => company.CompanyName);
-            //console.log("this.companyNames ", this.companyNames);
           } else {
             console.error("La respuesta no es un array", response);
           }
-
+  
           this.userService.setLastResponse(response);         
           console.log("this.companyNames ", this.companyNames);
-
+  
           if (this.companyNames.length > 0) {
             // Por defecto se usa el primer elemento
             this.selectedCompany = this.companyNames[0];
-            //console.log("this.selectedCompany ", this.selectedCompany);
             this.updateCompanyPassword();
             this.isCompanySelected = true;
-
+  
             setTimeout(() => {
               if (this.passwordInput) {
                 this.passwordInput.nativeElement.focus();
@@ -84,10 +82,14 @@ export class LoginComponent {
           }
         },
         (error) => {
-          console.error('Error fetching company names: ', error);
+          if (error.status === 404) {
+            this.showModal('No se encontraron compañías para el número de documento proporcionado.');
+          } else {
+            console.error('Error fetching company names: ', error);
+          }
         }
       );
-  }
+  }  
 
   updateCompanyPassword(): void {
     const selectedCompanyIndex = this.companyNames.findIndex(
