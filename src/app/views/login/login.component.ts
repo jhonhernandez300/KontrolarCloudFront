@@ -11,6 +11,8 @@ import * as bootstrap from 'bootstrap';
 })
 export class LoginComponent {
   documentNumber: number = 0;
+  idCompany: number = 0;
+  idUser: number = 0;
   items: any[] = [];
   companyNames: string[] = [];
   selectedCompany: string = '';
@@ -53,7 +55,7 @@ export class LoginComponent {
       .GetCompaniesByDocumentNumber(this.documentNumber)
       .subscribe(
         (response) => {
-          console.log('response of GetCompaniesByDocumentNumber ', response);
+          //console.log('response of GetCompaniesByDocumentNumber ', response);
           
           if (Array.isArray(response)) {
             this.companyNames = response.map((company: any) => company.CompanyName);
@@ -62,11 +64,13 @@ export class LoginComponent {
           }
   
           this.userService.setLastResponse(response);         
-          console.log("this.companyNames ", this.companyNames);
+          //console.log("this.companyNames ", this.companyNames);
   
           if (this.companyNames.length > 0) {
             // Por defecto se usa el primer elemento
             this.selectedCompany = this.companyNames[0];
+            this.idCompany = response[0]['IdCompany'];
+            //console.log("this.idCompany ", this.idCompany);
             this.updateCompanyPassword();
             this.isCompanySelected = true;
   
@@ -102,7 +106,27 @@ export class LoginComponent {
       //console.log('this.response ', response);  
       this.companyPassword = response[selectedCompanyIndex]['CompanyPassword'];
       //console.log('this.companyPassword ', this.companyPassword);
+      this.idCompany = response[selectedCompanyIndex]['IdCompany'];
+      //console.log('this.idCompany ', this.idCompany);
     }
+  }
+
+  getToken(): void{
+    this.userService
+      .getToken(this.documentNumber, this.idCompany)
+      .subscribe(
+        (response) => {
+          console.log('response of GetToken ', response);
+          //Guardar el token
+        },
+        (error) => {
+          if (error.status === 404) {
+            this.showModal('Hubo un error al obtener el token.');
+          } else {
+            console.error('Error al obtener el token ', error);
+          }
+        }
+      );
   }
 
   handleLogin(): void {    
@@ -113,7 +137,8 @@ export class LoginComponent {
       this.showModal('El password de la compañía no puede estar vacío');
       return;
     }else if (this.password === this.companyPassword) {
-      console.log('Contraseña correcta ', this.password, this.companyPassword);      
+      //console.log('Contraseña correcta ', this.password, this.companyPassword);      
+      this.getToken();
     } else {
       //console.log('Contraseña incorrecta. Verifica tus credenciales.');
       this.showModal('Contraseña incorrecta. Verifica tus credenciales.');
