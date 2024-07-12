@@ -2,8 +2,14 @@ import { NgModule, isDevMode } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginComponent } from '../app/views/login/login.component';
+import { canActivateGuard } from '../app/helpers/auth.guard';
+import { BienvenidoComponent } from '../app/views/bienvenido/bienvenido.component';
 
 const routes: Routes = [
+  { path: 'bienvenido', 
+    component: BienvenidoComponent, 
+    canActivate: [canActivateGuard]
+  },
   { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent }, 
   { path: '**', component: LoginComponent } 

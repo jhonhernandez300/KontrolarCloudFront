@@ -22,8 +22,34 @@ interface Company {
 export class UserService {
   private lastResponse: any;
   private apiUrl = 'https://localhost:7202/api/User';
+  lastDate: any;  
+  fechaHoraActual: Date = new Date();  
 
   constructor(private http: HttpClient) {}
+
+  IsAuthenticated(): boolean{  
+    const lastDate = localStorage.getItem('last date');      
+    console.log("lastDate ", lastDate);
+
+    if (lastDate === null) {   
+      this.lastDate = new Date(1900, 0, 1, 0, 0, 0); 
+    }else {
+      this.lastDate = new Date(lastDate);
+    }  
+  
+    const fechaHoraActual = new Date();
+    const diferenciaMs = this.lastDate.getTime() - this.fechaHoraActual.getTime(); 
+       
+      // Convertir la diferencia de milisegundos a minutos
+    const diferenciaMinutos = diferenciaMs / (1000 * 60);  
+    console.log("(-1 * diferenciaMinutos) ", (-1 * diferenciaMinutos));
+      // Comprobar si la diferencia es mayor a 20 minutos
+    if((-1 * diferenciaMinutos) > 20)  {
+      return false;
+    }else{
+      return true;
+    }    
+  }
 
   getToken(documentNumber: number, idCompany: number): Observable<any> {
     const encryptedDocumentNumber = CryptoHelper.encrypt(documentNumber.toString());

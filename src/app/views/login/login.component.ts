@@ -3,6 +3,8 @@ import { iCompany } from '../../models/iCompany';
 import { UserService } from '../../services/user/user.service';
 import { ViewChild, ElementRef } from '@angular/core';
 import * as bootstrap from 'bootstrap';
+import { LocalStorageService } from '../../helpers/local-storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +23,16 @@ export class LoginComponent {
   isCompanySelected: boolean = false;
   companyPassword: string = '';
   modalMessage: string = '';
+  token: string = '';
 
   @ViewChild('passwordInput', { static: false })
   passwordInput: ElementRef | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, 
+    private localStorageService: LocalStorageService,    
+    private route: ActivatedRoute, 
+    private router: Router
+  ) {}
 
   showModal(message: string): void {
     this.modalMessage = message;
@@ -116,8 +123,8 @@ export class LoginComponent {
       .getToken(this.documentNumber, this.idCompany)
       .subscribe(
         (response) => {
-          console.log('response of GetToken ', response);
-          //Guardar el token
+          console.log('response of GetToken ', response);    
+          this.token = response;      
         },
         (error) => {
           if (error.status === 404) {
@@ -139,6 +146,12 @@ export class LoginComponent {
     }else if (this.password === this.companyPassword) {
       //console.log('Contraseña correcta ', this.password, this.companyPassword);      
       this.getToken();
+      console.log("this.token ", this.token);
+      this.localStorageService.setData('token', this.token);
+      const currentDate = new Date();
+      const dateString = currentDate.toISOString();        
+      localStorage.setItem('last date', dateString);
+      this.router.navigate(['/bienvenido']);
     } else {
       //console.log('Contraseña incorrecta. Verifica tus credenciales.');
       this.showModal('Contraseña incorrecta. Verifica tus credenciales.');
