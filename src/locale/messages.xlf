@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="2685918626715420108" datatype="html">
+        <source>Inicio de Sesión</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8291623872431660900" datatype="html">
+        <source>Número de Documento</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2476195549269711698" datatype="html">
+        <source>Consultar Compañías</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7497261357162709950" datatype="html">
+        <source>Nombre de la Compañía</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6106516515517567359" datatype="html">
+        <source>Password de la Compañía</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8024932591315166082" datatype="html">
+        <source>Iniciar Sesión</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1519954996184640001" datatype="html">
+        <source>Error</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7708270344948043036" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ modalMessage }}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">43,45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4798961227159743968" datatype="html">
+        <source>Cerrar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/login/login.component.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

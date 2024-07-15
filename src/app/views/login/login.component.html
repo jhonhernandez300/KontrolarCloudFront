@@ -1,31 +1,31 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card" style="width: 25rem;">
         <div class="card-body">
-            <h5 class="card-title text-center">Inicio de Sesión</h5>
+            <h5 i18n class="card-title text-center">Inicio de Sesión</h5>
             <form>
 
                 <div class="mb-3 d-flex flex-column align-items-center">
-                    <label for="documentNumber" class="form-label">Número de Documento</label>
+                    <label i18n for="documentNumber" class="form-label">Número de Documento</label>
                     <div class="input-group">
                         <input type="text" class="form-control" id="documentNumber" name="documentNumber"
                             placeholder="Ej. 71789632" [(ngModel)]="documentNumber">
                     </div>
-                    <button class="btn btn-primary mt-2" (click)="handleConsultCompanies()">Consultar Compañías</button>
+                    <button i18n class="btn btn-primary mt-2" (click)="handleConsultCompanies()">Consultar Compañías</button>
                 </div>
 
                 <div class="mb-3">
-                    <label for="companyName" class="form-label">Nombre de la Compañía</label>
+                    <label i18n for="companyName" class="form-label">Nombre de la Compañía</label>
                     <select class="form-control" id="companyName" name="companyName" [(ngModel)]="selectedCompany" [disabled]="!companyNames.length" (change)="updateCompanyPassword()">
                         <option *ngFor="let companyName of companyNames" [value]="companyName">{{ companyName }}</option>
                     </select>
                 </div>
 
                 <div class="mb-3" *ngIf="isCompanySelected">
-                    <label for="password" class="form-label">Password de la Compañía</label>
+                    <label i18n for="password" class="form-label">Password de la Compañía</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" [(ngModel)]="password" #passwordInput>
                   </div>
 
-                  <button type="button" class="btn btn-primary w-100" [disabled]="!isCompanySelected" (click)="handleLogin()">Iniciar Sesión</button>
+                  <button i18n type="button" class="btn btn-primary w-100" [disabled]="!isCompanySelected" (click)="handleLogin()">Iniciar Sesión</button>
             </form>
         </div>
     </div>
@@ -36,14 +36,14 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="errorModalLabel">Error</h5>
+          <h5 i18n class="modal-title" id="errorModalLabel">Error</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div i18n class="modal-body">
           {{ modalMessage }}
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button i18n type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
