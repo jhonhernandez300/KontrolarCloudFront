@@ -31,7 +31,7 @@ export class LoginComponent {
   constructor(private userService: UserService, 
     private localStorageService: LocalStorageService,    
     private route: ActivatedRoute, 
-    private router: Router
+    private router: Router    
   ) {}
 
   showModal(message: string): void {

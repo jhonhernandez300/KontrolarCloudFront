@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
+import { LanguageServiceService } from '../app/services/language-service.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,17 @@ export class AppComponent {
   title = 'kontrolar-cloud-pwa';
 
   constructor(
-    private _swUpdate: SwUpdate
-  ) {}
+    private _swUpdate: SwUpdate,    
+    private languageService: LanguageServiceService
+  ) {
+    
+  }
+
+  setLanguage(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const language = selectElement.value;
+    this.languageService.setLanguage(language);
+  }
 
   ngOnInit(): void {
     this.checkForUpdates();

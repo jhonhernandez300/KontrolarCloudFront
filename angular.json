@@ -30,7 +30,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "localize": ["es-CO"],
+            "localize": ["es-CO", "en-US", "pt-PT"],
             "outputPath": "dist/kontrolar-cloud-pwa",
             "index": "src/index.html",
             "browser": "src/main.ts",
