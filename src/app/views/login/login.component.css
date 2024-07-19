@@ -1,12 +1,46 @@
 .container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .card {
-    width: 100%;
-    max-width: 25rem;
-  }
-  
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa; /* Fondo gris claro */
+}
+
+.card {
+  width: 100%;
+  max-width: 25rem;
+  background-color: #000; 
+  color: #fff; 
+}
+
+.bg-light-gray {
+  background-color: #2c2e31; 
+}
+
+.bg-dark-form {
+  background-color: #000; 
+}
+
+.text-light {
+  color: #fff; 
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.btn-custom {
+  background-color: #1562b5; 
+  border-color: #007bff; 
+  color: #fff; 
+}
+
+.btn-custom:hover {
+  background-color: #0056b3; 
+  border-color: #0056b3; 
+}
+
+.text-center {
+  text-align: center;
+}

@@ -1,11 +1,19 @@
 {
     "TITLE": "Início de Sessão",
-    "DOCUMENT_NUMBER": "Número do Documento",
+    "DOCUMENT_NUMBER": "Número do Identificação",
     "CONSULT_COMPANIES": "Consultar Empresas",
     "COMPANY_NAME": "Nome da Empresa",
     "COMPANY_PASSWORD": "Senha da Empresa",
     "LOGIN": "Iniciar Sessão",
     "ERROR": "Erro",
-    "CLOSE": "Fechar"
+    "CLOSE": "Fechar",
+    "THIS_USERS_ACCOUNT_FOR_THIS_COMPANY_IS_DEACTIVATED":"A conta deste usuário para esta empresa está desativada",
+    "THE_LICENCE_HAS_EXPIRED":"A licença expirou",
+    "INCORRECT_PASSWORD_VERIFY_YOUR_CREDENTIALS":"Senha incorreta verifique suas credenciais",
+    "THE_PASSWORD_CANNOT_BE_EMPTY":"A senha não pode estar vazia",    
+    "THERE_WAS_AN_ERROR_GETTING_THE_TOKEN":"Ocorreu um erro ao obter o token",
+    "NO_COMPANIES_FOUND_FOR_THE_IDENTIFICATION_NUMBER_PROVIDED":"Nenhuma empresa encontrada para o número de identificação fornecido",
+    "IDENTIFICATION_NUMBER_MUST_HAVE_ONLY_NUMBERS":"O número de identificação deve conter apenas números",
+    "IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY":"O número de identificação não pode ficar vazio"
   }
   

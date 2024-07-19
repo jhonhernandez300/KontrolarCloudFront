@@ -13,9 +13,7 @@ export class AppComponent {
   constructor(
     private _swUpdate: SwUpdate,    
     private languageService: LanguageServiceService
-  ) {
-    
-  }
+  ) {}
 
   setLanguage(event: Event) {
     const selectElement = event.target as HTMLSelectElement;

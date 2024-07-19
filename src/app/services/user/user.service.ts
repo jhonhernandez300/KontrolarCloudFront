@@ -75,14 +75,14 @@ export class UserService {
     return this.http.post<any>(`${this.apiUrl}/SaveData`, { encryptedData });
   }
 
-  GetCompaniesByDocumentNumber(documentNumber: number): Observable<any> {
+  GetCompaniesByIdentificationNumber(identificationNumber: number): Observable<any> {
     const encryptedDocumentNumber = CryptoHelper.encrypt(
-      documentNumber.toString()
+      identificationNumber.toString()
     );
     //console.log("encryptedDocumentNumber ", encryptedDocumentNumber);
     return this.http
       .get(
-        `${this.apiUrl}/GetCompaniesByDocumentNumber/${encodeURIComponent(
+        `${this.apiUrl}/GetCompaniesByIdentificationNumber/${encodeURIComponent(
           encryptedDocumentNumber
         )}`,
         { responseType: 'text' }

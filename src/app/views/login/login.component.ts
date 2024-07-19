@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { iCompany } from '../../models/iCompany';
 import { UserService } from '../../services/user/user.service';
-import { ViewChild, ElementRef } from '@angular/core';
-import * as bootstrap from 'bootstrap';
 import { LocalStorageService } from '../../helpers/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
+import { DateFormatter } from '../../helpers/date-formatter';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
-  documentNumber: number = 0;
+export class LoginComponent implements OnInit {
+  identificationNumber: number = 0;
   idCompany: number = 0;
   idUser: number = 0;
   items: any[] = [];
@@ -21,150 +22,184 @@ export class LoginComponent {
   companyName: string = '';
   password: string = '';
   isCompanySelected: boolean = false;
+  isEnabled: boolean = false;
   companyPassword: string = '';
   modalMessage: string = '';
   token: string = '';
+  licenseValidDate: string = '';
 
   @ViewChild('passwordInput', { static: false })
   passwordInput: ElementRef | null = null;
 
-  constructor(private userService: UserService, 
-    private localStorageService: LocalStorageService,    
-    private route: ActivatedRoute, 
-    private router: Router    
+  constructor(
+    private userService: UserService,
+    private localStorageService: LocalStorageService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private translate: TranslateService
   ) {}
 
-  showModal(message: string): void {
-    this.modalMessage = message;
-    const modalElement = document.getElementById('errorModal');
+  ngOnInit(): void {}
 
-    if (modalElement) {
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
-    } else {
-      console.error('No se encontró el elemento modal con id "errorModal".');
+  private showModal(messageKey: string): void {
+    this.translate.get(messageKey).subscribe((translatedMessage: string) => {
+      this.modalMessage = translatedMessage;
+      const modalElement = document.getElementById('errorModal');
+      if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+      } else {
+        console.error('No se encontró el elemento modal con id "errorModal".');
+      }
+    });
+  }
+
+  private validateIdentificationNumber(): boolean {
+    const numberPattern = /^\d+$/;
+    if (!this.identificationNumber) {
+      this.showModal('IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY');
+      return false;
+    } else if (!numberPattern.test(this.identificationNumber.toString())) {
+      this.showModal('IDENTIFICATION_NUMBER_MUST_HAVE_ONLY_NUMBERS');
+      return false;
     }
+    return true;
+  }
+
+  private handleCompaniesResponse(response: any): void {
+    if (Array.isArray(response)) {
+      this.companyNames = response.map((company: any) => company.CompanyName);
+    } else {
+      console.error("La respuesta no es un array", response);
+    }
+
+    this.userService.setLastResponse(response);
+    if (this.companyNames.length > 0) {
+      this.selectFirstCompany(response);
+    } else {
+      this.resetCompanySelection();
+    }
+  }
+
+  private selectFirstCompany(response: any): void {
+    this.selectedCompany = this.companyNames[0];
+    this.idCompany = response[0]['IdCompany'];
+    this.updateCompanyPassword();
+    this.isCompanySelected = true;
+    this.focusPasswordInput();
+  }
+
+  private resetCompanySelection(): void {
+    this.isCompanySelected = false;
+    this.selectedCompany = '';
+    this.companyPassword = '';
+  }
+
+  private focusPasswordInput(): void {
+    setTimeout(() => {
+      if (this.passwordInput) {
+        this.passwordInput.nativeElement.focus();
+      }
+    }, 0);
   }
 
   handleConsultCompanies(): void {
-    const numberPattern = /^\d+$/;
-    if (!this.documentNumber) {
-      console.error('Número de documento no puede estar vacío');
-      this.showModal('Número de documento no puede estar vacío');
-      return;
-    } else if (!numberPattern.test(this.documentNumber.toString())) {
-      console.error('Número de documento debe contener solo números');
-      this.showModal('Número de documento debe contener solo números');
-      return;
-    }
-  
-    this.userService
-      .GetCompaniesByDocumentNumber(this.documentNumber)
-      .subscribe(
-        (response) => {
-          //console.log('response of GetCompaniesByDocumentNumber ', response);
-          
-          if (Array.isArray(response)) {
-            this.companyNames = response.map((company: any) => company.CompanyName);
-          } else {
-            console.error("La respuesta no es un array", response);
-          }
-  
-          this.userService.setLastResponse(response);         
-          //console.log("this.companyNames ", this.companyNames);
-  
-          if (this.companyNames.length > 0) {
-            // Por defecto se usa el primer elemento
-            this.selectedCompany = this.companyNames[0];
-            this.idCompany = response[0]['IdCompany'];
-            //console.log("this.idCompany ", this.idCompany);
-            this.updateCompanyPassword();
-            this.isCompanySelected = true;
-  
-            setTimeout(() => {
-              if (this.passwordInput) {
-                this.passwordInput.nativeElement.focus();
-              }
-            }, 0);
-          } else {
-            this.isCompanySelected = false;
-            this.selectedCompany = '';
-            this.companyPassword = '';
-          }
-        },
-        (error) => {
-          if (error.status === 404) {
-            this.showModal('No se encontraron compañías para el número de documento proporcionado.');
-          } else {
-            console.error('Error fetching company names: ', error);
-          }
-        }
-      );
-  }  
+    if (!this.validateIdentificationNumber()) return;
 
-  updateCompanyPassword(): void {
+    this.userService
+      .GetCompaniesByIdentificationNumber(this.identificationNumber)
+      .subscribe(
+        (response) => this.handleCompaniesResponse(response),
+        (error) => this.handleCompaniesError(error)
+      );
+  }
+
+  private handleCompaniesError(error: any): void {
+    if (error.status === 404) {
+      this.showModal('NO_COMPANIES_FOUND_FOR_THE_IDENTIFICATION_NUMBER_PROVIDED');
+    } else {
+      console.error('Error fetching company names: ', error);
+    }
+  }
+
+  public updateCompanyPassword(): void {
     const selectedCompanyIndex = this.companyNames.findIndex(
       (company) => company === this.selectedCompany
     );
-    //console.log('this.selectedCompanyIndex ', selectedCompanyIndex);    
 
     if (selectedCompanyIndex !== -1) {
       const response = this.userService.getLastResponse();
-      //console.log('this.response ', response);  
-      this.companyPassword = response[selectedCompanyIndex]['CompanyPassword'];
-      //console.log('this.companyPassword ', this.companyPassword);
+      this.companyPassword = response[selectedCompanyIndex]['Password'];
+      this.isEnabled = response[selectedCompanyIndex]['IsEnabled'];
+      const date = new Date(response[selectedCompanyIndex]['LicenseValidDate']);
+      const dateFormatter = new DateFormatter();
+      this.licenseValidDate = dateFormatter.formatDate(date);
       this.idCompany = response[selectedCompanyIndex]['IdCompany'];
-      //console.log('this.idCompany ', this.idCompany);
     }
   }
 
-  getToken(): void{
+  private handleTokenResponse(response: any): void {
+    this.token = response;
+    this.localStorageService.setData('token', this.token);
+    localStorage.setItem('last date', new Date().toISOString());
+    this.router.navigate(['/bienvenido']);
+  }
+
+  private handleTokenError(error: any): void {
+    if (error.status === 404) {
+      this.showModal('THERE_WAS_AN_ERROR_GETTING_THE_TOKEN');
+    } else {
+      console.error('Error al obtener el token ', error);
+    }
+  }
+
+  getToken(): void {
     this.userService
-      .getToken(this.documentNumber, this.idCompany)
+      .getToken(this.identificationNumber, this.idCompany)
       .subscribe(
-        (response) => {
-          console.log('response of GetToken ', response);    
-          this.token = response;      
-        },
-        (error) => {
-          if (error.status === 404) {
-            this.showModal('Hubo un error al obtener el token.');
-          } else {
-            console.error('Error al obtener el token ', error);
-          }
-        }
+        (response) => this.handleTokenResponse(response),
+        (error) => this.handleTokenError(error)
       );
   }
 
-  handleLogin(): void {    
-    //console.log("this.password ", this.password);
-    //console.log("this.companyPassword ", this.companyPassword);
+  private isPasswordValid(): boolean {
     if (!this.password) {
-      console.error('Número de documento no puede estar vacío');
-      this.showModal('El password de la compañía no puede estar vacío');
-      return;
-    }else if (this.password === this.companyPassword) {
-      //console.log('Contraseña correcta ', this.password, this.companyPassword);      
-      this.getToken();
-      console.log("this.token ", this.token);
-      this.localStorageService.setData('token', this.token);
-      const currentDate = new Date();
-      const dateString = currentDate.toISOString();        
-      localStorage.setItem('last date', dateString);
-      this.router.navigate(['/bienvenido']);
+      this.showModal('THE_PASSWORD_CANNOT_BE_EMPTY');
+      return false;
+    } else if (this.password !== this.companyPassword) {
+      this.showModal('INCORRECT_PASSWORD_VERIFY_YOUR_CREDENTIALS');
+      return false;
+    }
+    return true;
+  }
+
+  private isLicenseValid(): boolean {
+    const today = new Date();
+    const dateFormatter = new DateFormatter();
+    const formattedDate = dateFormatter.formatDate(today);
+
+    if (this.licenseValidDate < formattedDate) {
+      this.showModal('THE_LICENCE_HAS_EXPIRED');
+      return false;
+    }
+    return true;
+  }
+
+  handleLogin(): void {
+    if (!this.isPasswordValid()) return;
+
+    if (this.isEnabled) {
+      if (this.isLicenseValid()) {
+        this.getToken();
+      }
     } else {
-      //console.log('Contraseña incorrecta. Verifica tus credenciales.');
-      this.showModal('Contraseña incorrecta. Verifica tus credenciales.');
-    }    
+      this.showModal('THIS_USERS_ACCOUNT_FOR_THIS_COMPANY_IS_DEACTIVATED');
+    }
   }
 
   enableFields(): void {
-    const companyNameElement = document.getElementById(
-      'companyName'
-    ) as HTMLSelectElement;
-    const companyPasswordElement = document.getElementById(
-      'companyPassword'
-    ) as HTMLInputElement;
+    const companyNameElement = document.getElementById('companyName') as HTMLSelectElement;
+    const companyPasswordElement = document.getElementById('companyPassword') as HTMLInputElement;
 
     if (companyNameElement && companyPasswordElement) {
       companyNameElement.disabled = false;

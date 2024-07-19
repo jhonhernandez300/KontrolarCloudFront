@@ -1,10 +1,18 @@
 {
-    "TITLE": "Inicio de Sesión",
-    "DOCUMENT_NUMBER": "Número de Documento",
+    "TITLE": "Industria Inteligente y Sincronizada",
+    "IDENTIFICATION_NUMBER": "Número de Identificación",
     "CONSULT_COMPANIES": "Consultar Compañías",
     "COMPANY_NAME": "Nombre de la Compañía",
     "COMPANY_PASSWORD": "Password de la Compañía",
     "LOGIN": "Iniciar Sesión",
     "ERROR": "Error",
-    "CLOSE": "Cerrar"
+    "CLOSE": "Cerrar",
+    "THIS_USERS_ACCOUNT_FOR_THIS_COMPANY_IS_DEACTIVATED":"La cuenta de este usuario para esta empresa está desactivada",
+    "THE_LICENCE_HAS_EXPIRED":"La licencia ha caducado",
+    "INCORRECT_PASSWORD_VERIFY_YOUR_CREDENTIALS":"Contraseña incorrecta verifica tus credenciales",
+    "THE_PASSWORD_CANNOT_BE_EMPTY":"La contraseña no puede estar vacía",    
+    "THERE_WAS_AN_ERROR_GETTING_THE_TOKEN":"Hubo un error al obtener el token",
+    "NO_COMPANIES_FOUND_FOR_THE_IDENTIFICATION_NUMBER_PROVIDED":"No se encontraron empresas para el número de identificación proporcionado",
+    "IDENTIFICATION_NUMBER_MUST_HAVE_ONLY_NUMBERS":"El número de identificación debe tener sólo números",
+    "IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY":"El número de identificación no puede estar vacío"
   }
