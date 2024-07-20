@@ -13,6 +13,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginComponent } from './views/login/login.component';
 import { AuthInterceptor } from '../app/services/authInterceptor';
 import { BienvenidoComponent } from './views/bienvenido/bienvenido.component';
+import { SidebarMenuComponent } from './views/sidebar-menu/sidebar-menu.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -22,7 +23,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     LoginComponent,
-    BienvenidoComponent
+    BienvenidoComponent,
+    SidebarMenuComponent
   ],
   imports: [
     BrowserModule,

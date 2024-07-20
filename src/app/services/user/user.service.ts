@@ -27,6 +27,29 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  GetOptionsByProfile(idUser: number, idProfile: number): Observable<any> {
+    console.log("idUser ", idUser);
+    const encryptedIdUser = CryptoHelper.encrypt(idUser.toString());
+    console.log("encryptedIdUser ", encryptedIdUser);
+
+    console.log("idProfile ", idProfile);
+    const encryptedIdProfile = CryptoHelper.encrypt(idProfile.toString());
+    console.log("encryptedIdProfile ", encryptedIdProfile);
+
+    return this.http
+      .get(
+        `${this.apiUrl}/GetOptionsByProfile/${encodeURIComponent(encryptedIdUser)}/${encodeURIComponent(encryptedIdProfile)}`,
+        { responseType: 'text' }
+      )
+      .pipe(
+        map((encryptedData) => {
+          console.log("encryptedData ", encryptedData);
+          console.log("CryptoHelper.decrypt(encryptedData) ", CryptoHelper.decrypt(encryptedData));
+          return CryptoHelper.decrypt(encryptedData);
+        })
+      );
+  }
+
   IsAuthenticated(): boolean{  
     const lastDate = localStorage.getItem('last date');      
     console.log("lastDate ", lastDate);

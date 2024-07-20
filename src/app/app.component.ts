@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
 import { LanguageServiceService } from '../app/services/language-service.service';
+import { UserService } from '../app/services/user/user.service'; 
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,12 @@ import { LanguageServiceService } from '../app/services/language-service.service
 })
 export class AppComponent {
   title = 'kontrolar-cloud-pwa';
+  isAuthenticated: boolean = false;
 
   constructor(
     private _swUpdate: SwUpdate,    
-    private languageService: LanguageServiceService
+    private languageService: LanguageServiceService,
+    private userService: UserService
   ) {}
 
   setLanguage(event: Event) {
@@ -23,6 +26,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.checkForUpdates();
+    this.isAuthenticated = this.userService.IsAuthenticated();
   }
 
   checkForUpdates(): void {
