@@ -1,1 +1,66 @@
-<p>sidebar-menu works!</p>
+<div>
+  <img src="../../../assets/img/LOGO_FONDO_TRANSPARENTE2.png" alt="Image Description" class="img-fluid mb-3">   
+</div>
+
+<div *ngIf="iobjOpcionMovil">
+  <div class="accordion" id="accordionExample" style="margin: 5px;">
+    <div *ngFor="let modulo of iobjOpcionMovil.listaModulos; let i = index" class="accordion-item">      
+      
+      <h2 class="accordion-header purple-background" id="heading{{ i }}">
+
+        <button class="accordion-button collapsed {{ modulo.clase }}" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          [attr.data-bs-target]="'#collapse' + i" 
+          aria-expanded="false" 
+          [attr.aria-controls]="'collapse' + i"
+        >
+
+          <span class="{{ modulo.icono }}"></span>
+          <span style="margin-left: 30px;">{{ modulo.nombre }}</span>
+        </button>
+      </h2>
+      
+      <div id="collapse{{ i }}" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <table class="table table-hover">
+            <tbody>
+              <ng-container *ngFor="let padre of getFilteredOptions(modulo.idModulo)">
+                <tr *ngIf="padre.tieneSubMenu">
+                  <td>
+
+                    <a data-bs-toggle="collapse" [attr.href]="'#item' + i" aria-expanded="false" [attr.aria-controls]="'item' + i">
+                      <span class="{{ padre.icono }}"></span>
+                      <span style="margin-left: 10px;">{{ padre.nombre }}</span>
+                    </a>
+
+                    <div class="collapse" [attr.id]="'item' + i">
+                      <div class="card card-body">
+                        <ng-container *ngFor="let hijo of getSubMenuOptions(modulo.idModulo, padre.idOpcion)">
+                          <div class="ms-3">
+                            <br>
+                            <span class="{{ hijo.icono }}"></span>
+                            <a [routerLink]="['/', hijo.controlador, hijo.accion, { Id: modulo.idModulo, IdOpcion: hijo.idOpcion }]">&nbsp;{{ hijo.nombre }}</a>
+                          </div>
+                        </ng-container>
+                      </div>
+
+                    </div>
+                  </td>
+                </tr>
+
+                <tr *ngIf="!padre.tieneSubMenu && padre.idPadre === 0">
+                  <td>
+                    <span class="{{ padre.icono }}"></span>
+                    <a [routerLink]="['/', padre.controlador, padre.accion, { Id: modulo.idModulo, IdOpcion: padre.idOpcion }]">&nbsp;{{ padre.nombre }}</a>
+                  </td>
+                </tr>
+                
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.checkForUpdates();
     this.isAuthenticated = this.userService.IsAuthenticated();
+    this.isAuthenticated = true;
   }
 
   checkForUpdates(): void {

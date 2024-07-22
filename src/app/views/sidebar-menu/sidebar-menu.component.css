@@ -1,0 +1,11 @@
+.accordion-button {
+    background-color: #C8348C; 
+    color: white; 
+    text-transform: uppercase;
+    font-weight: bold; 
+  }
+  
+  .accordion-item {
+    border: none; 
+  }
+  

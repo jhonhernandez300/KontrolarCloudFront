@@ -3,26 +3,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8f9fa; /* Fondo gris claro */
+  background-color: #ffffff; /* Fondo blanco */
 }
 
 .card {
   width: 100%;
   max-width: 25rem;
-  background-color: #000; 
-  color: #fff; 
-}
-
-.bg-light-gray {
-  background-color: #2c2e31; 
-}
-
-.bg-dark-form {
-  background-color: #000; 
+  background-color: #000000; /* Fondo negro de la tarjeta */
+  color: #ffffff; /* Texto blanco */
 }
 
 .text-light {
-  color: #fff; 
+  color: #ffffff; /* Ajustar a blanco si es necesario */
 }
 
 .img-fluid {

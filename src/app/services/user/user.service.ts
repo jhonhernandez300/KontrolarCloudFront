@@ -4,6 +4,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { iCompany } from '../../models/iCompany';
 import { map } from 'rxjs/operators';
 import { CryptoHelper } from '../../helpers/CryptoHelper';
+import { iModuleOptionDTO } from '../../models/iModuleOptionDTO';
+import { iObjOpcionMovil } from '../../models/iObjetoMovil';
+import { iModulo } from '../../models/iModulo';
+import { iMenu } from '../../models/iMenu';
 
 interface Company {
   [x: string]: any;
@@ -27,32 +31,63 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  GetOptionsByProfile(idUser: number, idProfile: number): Observable<any> {
-    console.log("idUser ", idUser);
+  GetOptionsByProfile(idUser: number, idProfile: number): Observable<iObjOpcionMovil> {
     const encryptedIdUser = CryptoHelper.encrypt(idUser.toString());
-    console.log("encryptedIdUser ", encryptedIdUser);
-
-    console.log("idProfile ", idProfile);
     const encryptedIdProfile = CryptoHelper.encrypt(idProfile.toString());
-    console.log("encryptedIdProfile ", encryptedIdProfile);
 
     return this.http
-      .get(
-        `${this.apiUrl}/GetOptionsByProfile/${encodeURIComponent(encryptedIdUser)}/${encodeURIComponent(encryptedIdProfile)}`,
-        { responseType: 'text' }
-      )
-      .pipe(
-        map((encryptedData) => {
-          console.log("encryptedData ", encryptedData);
-          console.log("CryptoHelper.decrypt(encryptedData) ", CryptoHelper.decrypt(encryptedData));
-          return CryptoHelper.decrypt(encryptedData);
-        })
-      );
-  }
+        .get(
+            `${this.apiUrl}/GetOptionsByProfile/${encodeURIComponent(encryptedIdUser)}/${encodeURIComponent(encryptedIdProfile)}`,
+            { responseType: 'text' }
+        )
+        .pipe(
+            map((encryptedData) => {              
+                const decryptedData = CryptoHelper.decrypt(encryptedData);
+                //console.log("decryptedData ", decryptedData);
+                const jsonString = JSON.stringify(decryptedData);
+                const moduleOptions: iModuleOptionDTO[] = JSON.parse(jsonString);
+                //console.log("moduleOptions ", moduleOptions);
+
+                const modulosMap = new Map<number, iModulo>();
+                const opcionesMoviles: iMenu[] = [];
+
+                moduleOptions.forEach(opt => {
+                    if (!modulosMap.has(opt.IdModule)) {
+                        modulosMap.set(opt.IdModule, {
+                            idModulo: opt.IdModule,
+                            nombre: opt.NameModule,
+                            manejaConsecutivo: false,
+                            icono: opt.Icon,
+                            clase: ''
+                        });
+                    }
+
+                    opcionesMoviles.push({
+                        selec: false,
+                        idOpcion: opt.IdOption,
+                        idModulo: opt.IdModule,
+                        nombre: opt.NameOption,
+                        descripcion: opt.Description,
+                        tieneSubMenu: false,
+                        opcionParametrizable: false,
+                        idPadre: 0,
+                        icono: opt.Icon,
+                        controlador: opt.Controler.trim(),
+                        accion: opt.Action.trim()
+                    });
+                });
+
+                return {
+                    listaModulos: Array.from(modulosMap.values()),
+                    listaOpcionesMoviles: opcionesMoviles
+                };
+            })
+        );
+}
 
   IsAuthenticated(): boolean{  
     const lastDate = localStorage.getItem('last date');      
-    console.log("lastDate ", lastDate);
+    //console.log("lastDate ", lastDate);
 
     if (lastDate === null) {   
       this.lastDate = new Date(1900, 0, 1, 0, 0, 0); 
@@ -65,7 +100,7 @@ export class UserService {
        
       // Convertir la diferencia de milisegundos a minutos
     const diferenciaMinutos = diferenciaMs / (1000 * 60);  
-    console.log("(-1 * diferenciaMinutos) ", (-1 * diferenciaMinutos));
+    //console.log("(-1 * diferenciaMinutos) ", (-1 * diferenciaMinutos));
       // Comprobar si la diferencia es mayor a 20 minutos
     if((-1 * diferenciaMinutos) > 20)  {
       return false;
