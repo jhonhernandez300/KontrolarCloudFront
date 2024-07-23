@@ -5,18 +5,22 @@
 <div *ngIf="iobjOpcionMovil">
 
   <div class="dropdown custom-dropdown">
-    <button class="btn btn-secondary dropdown-toggle custom-dropdown-button" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-secondary dropdown-toggle custom-dropdown-button" 
+      type="button" 
+      id="dropdownMenuButton"  
+      data-bs-toggle="dropdown" 
+      aria-expanded="false">
+      <i class="fa-solid fa-folder"></i>
       Administrador admin
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li><a class="dropdown-item" href="#">Cambiar Empresa</a></li>
-      <li><a class="dropdown-item" href="#">Cambiar Clave</a></li>
+      <li><a class="dropdown-item" href="#"><i class="fa-solid fa-city"></i> Cambiar Empresa</a></li>
+      <li><a class="dropdown-item" href="#"><i class="fa-solid fa-key"></i> Cambiar Clave</a></li>
       <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+      <li><a class="dropdown-item" href="#"><i class="fa-solid fa-circle-xmark"></i> Cerrar Sesión</a></li>
     </ul>
     <div class="selected-company">{{selectedCompany}}</div>  
-  </div>
-  
+  </div>  
 
   <div class="accordion" id="accordionExample" style="margin: 5px;">
     <div *ngFor="let modulo of iobjOpcionMovil.listaModulos; let i = index" class="accordion-item">      
@@ -30,7 +34,7 @@
           aria-expanded="false" 
           [attr.aria-controls]="'collapse' + i"
         >
-
+          <i class="fa-solid fa-globe"></i>
           <span class="{{ modulo.icono }}"></span>
           <span style="margin-left: 30px;">{{ modulo.nombre }}</span>
         </button>
