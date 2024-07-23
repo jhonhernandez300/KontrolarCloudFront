@@ -1,11 +1,34 @@
 .accordion-button {
-    background-color: #C8348C; 
-    color: white; 
-    text-transform: uppercase;
-    font-weight: bold; 
-  }
-  
-  .accordion-item {
-    border: none; 
-  }
-  
+  background-color: #C8348C; 
+  color: white; 
+  text-transform: uppercase;
+  font-weight: bold; 
+}
+
+.accordion-item {
+  border: none; 
+}
+
+#accordionExample{
+  padding-top: 5px;
+}
+
+.custom-dropdown {
+  padding-left: 19px;
+  padding-right: 9px;
+  border: 1px solid white; 
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.custom-dropdown-button {
+  background-color: black; 
+  color: white;
+  border: none; 
+}
+
+.selected-company {
+  margin-top: 10px; 
+  text-align: center;
+}

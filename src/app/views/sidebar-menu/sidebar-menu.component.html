@@ -3,6 +3,21 @@
 </div>
 
 <div *ngIf="iobjOpcionMovil">
+
+  <div class="dropdown custom-dropdown">
+    <button class="btn btn-secondary dropdown-toggle custom-dropdown-button" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      Administrador admin
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><a class="dropdown-item" href="#">Cambiar Empresa</a></li>
+      <li><a class="dropdown-item" href="#">Cambiar Clave</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+    </ul>
+    <div class="selected-company">{{selectedCompany}}</div>  
+  </div>
+  
+
   <div class="accordion" id="accordionExample" style="margin: 5px;">
     <div *ngFor="let modulo of iobjOpcionMovil.listaModulos; let i = index" class="accordion-item">      
       

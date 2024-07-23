@@ -3,6 +3,7 @@ import { UserService } from '../../services/user/user.service';
 import { iObjOpcionMovil } from '../../models/iObjetoMovil';
 import { iModulo } from '../../models/iModulo';
 import { iMenu } from '../../models/iMenu';
+import { LocalStorageService } from '../../helpers/local-storage.service';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -16,8 +17,12 @@ export class SidebarMenuComponent implements OnInit {
     listaModulos: [] as iModulo[]
   };
   filteredOptions: { [key: number]: iMenu[] } = {};
+  selectedCompany: string = '';
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private localStorageService: LocalStorageService
+  ) { }
 
   ngOnInit(): void {
     const idUser = 1;
@@ -28,6 +33,7 @@ export class SidebarMenuComponent implements OnInit {
         this.iobjOpcionMovil = data;
         this.filterOptions();
         //console.log('this.iobjOpcionMovil: ', this.iobjOpcionMovil);
+        this.selectedCompany = this.localStorageService.getData('selectedCompany');        
       },
       (error) => {
         console.error('Error fetching options', error);

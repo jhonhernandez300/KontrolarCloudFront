@@ -189,8 +189,9 @@ export class LoginComponent implements OnInit {
     if (!this.isPasswordValid()) return;
 
     if (this.isEnabled) {
-      if (this.isLicenseValid()) {
-        this.getToken();
+      if (this.isLicenseValid()) {        
+        this.getToken();        
+        this.localStorageService.setData('selectedCompany', this.selectedCompany);        
       }
     } else {
       this.showModal('THIS_USERS_ACCOUNT_FOR_THIS_COMPANY_IS_DEACTIVATED');
