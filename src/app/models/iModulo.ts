@@ -1,7 +1,8 @@
 export interface iModulo {
     idModulo: number;
-    nombre: string;
+    nombreModulo: string;
     manejaConsecutivo: boolean;
-    icono: string;
-    clase: string;
+    iconoModulo: string;
+    claseModulo: string;    
+    colorModule: string;
 }

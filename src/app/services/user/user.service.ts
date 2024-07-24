@@ -55,10 +55,11 @@ export class UserService {
                     if (!modulosMap.has(opt.IdModule)) {
                         modulosMap.set(opt.IdModule, {
                             idModulo: opt.IdModule,
-                            nombre: opt.NameModule,
+                            nombreModulo: opt.NameModule,
                             manejaConsecutivo: false,
-                            icono: opt.Icon,
-                            clase: ''
+                            iconoModulo: opt.IconModule, 
+                            claseModulo: '',
+                            colorModule: opt.colorModule
                         });
                     }
 
@@ -71,11 +72,13 @@ export class UserService {
                         tieneSubMenu: false,
                         opcionParametrizable: false,
                         idPadre: 0,
-                        icono: opt.Icon,
+                        icono: opt.IconOption, // Update here
                         controlador: opt.Controler.trim(),
                         accion: opt.Action.trim()
                     });
                 });
+                console.log("modulosMap: ", Array.from(modulosMap.values()));
+                console.log("opcionesMoviles: ", opcionesMoviles);
 
                 return {
                     listaModulos: Array.from(modulosMap.values()),

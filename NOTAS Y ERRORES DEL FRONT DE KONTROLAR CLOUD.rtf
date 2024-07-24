@@ -1,0 +1,699 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang3082{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red255\green255\blue0;}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sl240\slmult1\qc\f0\fs32\lang10 NOTAS Y ERRORES DEL FRONT DE KONTROLAR CLOUD\fs22\par
+
+\pard\sl240\slmult1\par
+1\par
+
+\pard\sa200\sl240\slmult1 ////////////////////            1\par
+
+\pard\sl240\slmult1\b Q tengo instalado?\b0\par
+Angular CLI: 17.0.0\par
+Node: 20.14.0\par
+Package Manager: npm 10.7.0\par
+\par
+////////////////////////           1\par
+\par
+\b Como saber qu\'e9 versi\'f3n de Angular tengo?\b0\par
+ng version\par
+\par
+///////////////////////////            1\par
+\par
+\b Como llenar un dropdown?\par
+\b0 Seleccionar los company names\par
+Usar el primer company name para llenar por defecto el dropdown\par
+Dejar los demas company names como opciones\par
+\par
+companyNames: string[] = [];\par
+  selectedCompany: string;\par
+\par
+this.\ul companyNames \ulnone = response.map((company: any) => company.companyName);\par
+if (this.\ul companyNames\ulnone .length > 0) \{\par
+            this.\highlight1 selectedCompany \highlight0 = this.\ul companyNames\ulnone [0];\par
+\}\par
+\par
+<div class="mb-3">\par
+  <label for="companyName" class="form-label">Nombre de la Compa\'f1\'eda</label>\par
+  <select class="form-control" \par
+\tab id="companyName" \par
+\tab [(ngModel)]="\highlight1 selectedCompany\highlight0 " \par
+\tab [disabled]="!\ul companyNames\ulnone .length"\par
+>\par
+\tab <option *ngFor="let companyName of \ul companyNames\ulnone " [value]="companyName">\tab\tab\{\{ companyName \}\}\par
+\tab </option>\par
+  </select>\par
+</div>\par
+\par
+///////////////////          1\par
+\par
+\b Uso de ViewChild\par
+\b0 @ViewChild('passwordInput', \{ static: false \}) passwordInput: ElementRef | null = null;\par
+\par
+Usa el decorador @ViewChild con \{ static: false \} para asegurarse de que el elemento solo sea referenciado despu\'e9s de que el componente se haya inicializado completamente.\par
+\par
+Aseg\'farate de que el campo de contrase\'f1a tenga el atributo #passwordInput para que pueda ser referenciado por ViewChild.\par
+\par
+Se utiliza para obtener una referencia a un componente, directiva o elemento DOM en la plantilla. Esto puede ser \'fatil cuando necesitas interactuar con elementos del DOM o componentes hijos directamente en tu clase de componente.\par
+\par
+Crea un componente hijo al que te referir\'e1s desde el componente padre.\par
+ng generate component child\par
+\par
+En el archivo child.component.ts, define una propiedad y un m\'e9todo:\par
+import \{ Component \} from '@angular/core';\par
+\par
+@Component(\{\par
+  selector: 'app-child',\par
+  templateUrl: './child.component.html',\par
+  styleUrls: ['./child.component.css']\par
+\})\par
+export class ChildComponent \{\par
+  message: string = 'Hello from the child component!';\par
+\par
+  showMessage() \{\par
+    alert(this.message);\par
+  \}\par
+\}\par
+\par
+En el archivo child.component.html:\par
+<p>\{\{ message \}\}</p>\par
+<button (click)="showMessage()">Show Message</button>\par
+\par
+En el componente padre refi\'e9rete al componente hijo utilizando ViewChild\par
+// app.component.ts\par
+import \{ Component, ViewChild, AfterViewInit \} from '@angular/core';\par
+import \{ ChildComponent \} from './child/child.component';\par
+\par
+@Component(\{\par
+  selector: 'app-root',\par
+  templateUrl: './app.component.html',\par
+  styleUrls: ['./app.component.css']\par
+\})\par
+export class AppComponent implements AfterViewInit \{\par
+  @ViewChild(ChildComponent) childComponent!: ChildComponent;\par
+\par
+  ngAfterViewInit() \{\par
+    // Puedes acceder a las propiedades y m\'e9todos del componente hijo aqu\'ed\par
+    console.log(this.childComponent.message);\par
+  \}\par
+\par
+  callChildMethod() \{\par
+    this.childComponent.showMessage();\par
+  \}\par
+\}\par
+\par
+En app.component.html:\par
+<app-child></app-child>\par
+<button (click)="callChildMethod()">Call Child Method</button>\par
+\par
+//////////////////////\par
+\par
+\b Activar bot\'f3n\par
+\b0 <button type="submit" class="btn btn-primary w-100" [disabled]="!isCompanySelected">Iniciar Sesi\'f3n</button>\par
+\par
+isCompanySelected: boolean = false;\par
+\par
+Cuando el servicio devuelve datos:\par
+this.isCompanySelected = true;\par
+\par
+////////////////////////////\par
+\par
+\b Convertir a texto\b0\par
+this.documentNumber.toString()\par
+\par
+///////////////////////////\par
+\par
+\b Mostrar un cuadro de di\'e1logo\b0\par
+<input type="text" class="form-control" id="documentNumber" name="documentNumber"\par
+                            placeholder="Ej. 71789632" [(ngModel)]="documentNumber">\par
+\par
+<!-- Modal -->\par
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">\par
+    <div class="modal-dialog">\par
+      <div class="modal-content">\par
+        <div class="modal-header">\par
+          <h5 class="modal-title" id="errorModalLabel">Error</h5>\par
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\par
+        </div>\par
+        <div class="modal-body">\par
+          \{\{ modalMessage \}\}\par
+        </div>\par
+        <div class="modal-footer">\par
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>\par
+        </div>\par
+      </div>\par
+    </div>\par
+  </div>\par
+\par
+documentNumber: number = 0;\par
+\par
+Evento del bot\'f3n\par
+if (!this.documentNumber) \{\par
+this.showModal('N\'famero de documento no puede estar vac\'edo');\par
+\par
+  showModal(message: string): void \{\par
+    this.modalMessage = message;\par
+    const modalElement = document.getElementById('errorModal');\par
+\par
+    if (modalElement) \{\par
+      const modal = new bootstrap.Modal(modalElement);\par
+      modal.show();\par
+    \} else \{\par
+      console.error('No se encontr\'f3 el elemento modal con id "errorModal".');\par
+    \}\par
+  \}\par
+\par
+//////////////////////////\par
+\par
+\b Encriptar y desencriptar\b0\par
+npm install crypto-js\par
+\par
+import * as CryptoJS from 'crypto-js';\par
+\par
+export class CryptoHelper \{\par
+  private static readonly Key = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16 bytes\par
+  private static readonly Iv = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16 bytes\par
+\par
+  static encrypt(data: any): string \{\par
+    const jsonData = JSON.stringify(data);\par
+    const encryptedData = CryptoJS.AES.encrypt(jsonData, CryptoHelper.Key, \{ iv: CryptoHelper.Iv \}).toString();\par
+    return encryptedData;\par
+  \}\par
+\par
+  static decrypt(encryptedData: string): any \{\par
+    const bytes = CryptoJS.AES.decrypt(encryptedData, CryptoHelper.Key, \{ iv: CryptoHelper.Iv \});\par
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));\par
+    return decryptedData;\par
+  \}\par
+\}\par
+\par
+En el servicio:\par
+GetCompaniesByDocumentNumber(documentNumber: number): Observable<any> \{\par
+    const encryptedDocumentNumber = CryptoHelper.encrypt(\par
+      documentNumber.toString()\par
+    );\par
+    //console.log("encryptedDocumentNumber ", encryptedDocumentNumber);\par
+    return this.http\par
+      .get(\par
+        `$\{this.apiUrl\}/GetCompaniesByDocumentNumber/$\{encodeURIComponent(\par
+          encryptedDocumentNumber\par
+        )\}`,\par
+        \{ responseType: 'text' \}\par
+      )\par
+      .pipe(\par
+        map((encryptedData) => \{\par
+          //console.log("encryptedData ", encryptedData);\par
+          return CryptoHelper.decrypt(encryptedData);\par
+        \})\par
+      );\par
+  \}\par
+\par
+//////////////////////////\par
+\par
+\b Como usar un par\'e1metro de salida de la base de datos para mostrar un modal\par
+\b0 En el componente:\par
+handleConsultCompanies(): void \{\par
+  const numberPattern = /^\\d+$/;\par
+  if (!this.documentNumber) \{\par
+    console.error('N\'famero de documento no puede estar vac\'edo');\par
+    this.showModal('N\'famero de documento no puede estar vac\'edo');\par
+    return;\par
+  \} else if (!numberPattern.test(this.documentNumber.toString())) \{\par
+    console.error('N\'famero de documento debe contener solo n\'fameros');\par
+    this.showModal('N\'famero de documento debe contener solo n\'fameros');\par
+    return;\par
+  \}\par
+\par
+  this.userService\par
+    .GetCompaniesByDocumentNumber(this.documentNumber)\par
+    .subscribe(\par
+      (response) => \{\par
+        console.log('response of GetCompaniesByDocumentNumber ', response);\par
+        \par
+        if (Array.isArray(response)) \{\par
+          this.companyNames = response.map((company: any) => company.CompanyName);\par
+        \} else \{\par
+          console.error("La respuesta no es un array", response);\par
+        \}\par
+\par
+        this.userService.setLastResponse(response);         \par
+        console.log("this.companyNames ", this.companyNames);\par
+\par
+        if (this.companyNames.length > 0) \{\par
+          // Por defecto se usa el primer elemento\par
+          this.selectedCompany = this.companyNames[0];\par
+          this.updateCompanyPassword();\par
+          this.isCompanySelected = true;\par
+\par
+          setTimeout(() => \{\par
+            if (this.passwordInput) \{\par
+              this.passwordInput.nativeElement.focus();\par
+            \}\par
+          \}, 0);\par
+        \} else \{\par
+          this.isCompanySelected = false;\par
+          this.selectedCompany = '';\par
+          this.companyPassword = '';\par
+        \}\par
+      \},\par
+      (error) => \{\par
+        if (error.status === 404) \{\par
+          this.showModal('No se encontraron compa\'f1\'edas para el n\'famero de documento proporcionado.');\par
+        \} else \{\par
+          console.error('Error fetching company names: ', error);\par
+        \}\par
+      \}\par
+    );\par
+\}\par
+\par
+/////////////////////\par
+\par
+\b Como guardar en el localStorage\par
+\b0 Crear un servicio y ah\'ed poner:\par
+ setData(key: string, data: any): void \{\par
+    localStorage.setItem(key, JSON.stringify(data));    \par
+  \}\par
+  \par
+  getData(key: string): any \{\par
+    const data = localStorage.getItem(key);\par
+    return data ? JSON.parse(data) : null;    \par
+  \}\par
+\par
+  removeData(key: string): void \{\par
+    localStorage.removeItem(key);\par
+  \}\par
+\par
+  removeAllData(): void \{\par
+    localStorage.clear();\par
+  \}\par
+\par
+  isEmpty(): boolean \{\par
+    return localStorage.length === 0;\par
+  \}\par
+\par
+En el componente:\par
+import \{ LocalStorageService \} from '../../helpers/local-storage.service';\par
+constructor(private userService: UserService, private localStorageService: \par
+LocalStorageService) \{\}\par
+this.localStorageService.setData('token', this.token);\par
+\par
+///////////////////////\par
+\par
+\b Implementar el authguard\par
+\b0 En el componente:\par
+handleLogin(): void \{    \par
+    //console.log("this.password ", this.password);\par
+    //console.log("this.companyPassword ", this.companyPassword);\par
+    if (!this.password) \{\par
+      console.error('N\'famero de documento no puede estar vac\'edo');\par
+      this.showModal('El password de la compa\'f1\'eda no puede estar vac\'edo');\par
+      return;\par
+    \}else if (this.password === this.companyPassword) \{\par
+      //console.log('Contrase\'f1a correcta ', this.password, this.companyPassword);      \par
+      this.getToken();\par
+      console.log("this.token ", this.token);\par
+      this.localStorageService.setData('token', this.token);\par
+      const currentDate = new Date();\par
+      const dateString = currentDate.toISOString();        \par
+      localStorage.setItem('last date', dateString);\par
+      this.router.navigate(['/bienvenido']);\par
+    \} else \{\par
+      //console.log('Contrase\'f1a incorrecta. Verifica tus credenciales.');\par
+      this.showModal('Contrase\'f1a incorrecta. Verifica tus credenciales.');\par
+    \}    \par
+  \}\par
+\par
+El guard se genera as\'ed:\par
+ng generate guard guards/auth\par
+auth.guard.ts\par
+import \{ CanActivateChildFn, CanActivateFn \} from '@angular/router';\par
+import \{ Injectable, inject \} from '@angular/core';\par
+import \{ CanActivate, Router \} from '@angular/router';\par
+import \{ UserService \} from '../services/user/user.service';\par
+import \{ CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree \} from '@angular/router';\par
+import \{ Observable, throwError \} from 'rxjs';\par
+import \{ catchError, map \} from 'rxjs/operators';\par
+\par
+export const canActivateGuard: CanActivateFn = (  \par
+  route: ActivatedRouteSnapshot,\par
+  state: RouterStateSnapshot\par
+) => \{   \par
+  if(inject(UserService).IsAuthenticated())\{\par
+    return true;\par
+  \}else \{\par
+    inject(Router).navigate(['/login']);\par
+    return false;\par
+  \}\par
+\}; \par
+\par
+El servicio\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ Observable \} from 'rxjs';\par
+import \{ HttpClient, HttpHeaders \} from '@angular/common/http';\par
+import \{ iCompany \} from '../../models/iCompany';\par
+import \{ map \} from 'rxjs/operators';\par
+import \{ CryptoHelper \} from '../../helpers/CryptoHelper';\par
+\par
+IsAuthenticated(): boolean\{  \par
+    const lastDate = localStorage.getItem('last date');      \par
+    console.log("lastDate ", lastDate);\par
+\par
+    if (lastDate === null) \{   \par
+      this.lastDate = new Date(1900, 0, 1, 0, 0, 0); \par
+    \}else \{\par
+      this.lastDate = new Date(lastDate);\par
+    \}  \par
+  \par
+    const fechaHoraActual = new Date();\par
+    const diferenciaMs = this.lastDate.getTime() - this.fechaHoraActual.getTime(); \par
+       \par
+      // Convertir la diferencia de milisegundos a minutos\par
+    const diferenciaMinutos = diferenciaMs / (1000 * 60);  \par
+    console.log("(-1 * diferenciaMinutos) ", (-1 * diferenciaMinutos));\par
+      // Comprobar si la diferencia es mayor a 20 minutos\par
+    if((-1 * diferenciaMinutos) > 20)  \{\par
+      return false;\par
+    \}else\{\par
+      return true;\par
+    \}    \par
+  \}\par
+\par
+app.module\par
+import \{ NgModule, isDevMode \} from '@angular/core';\par
+import \{ BrowserModule \} from '@angular/platform-browser';\par
+import \{ HttpClientModule \} from '@angular/common/http';\par
+import \{ FormsModule \} from '@angular/forms';\par
+import \{ HTTP_INTERCEPTORS \} from '@angular/common/http';\par
+\par
+providers: [\{\par
+    provide: HTTP_INTERCEPTORS,\par
+    useClass: AuthInterceptor,\par
+    multi: true\par
+  \}],\par
+\par
+authInterceptor.ts\par
+import \{ HttpEvent, HttpHandler, HttpInterceptor, HttpRequest \} from "@angular/common/http";\par
+import \{ Injectable \} from "@angular/core";\par
+import \{ Observable \} from "rxjs";\par
+\par
+@Injectable()\par
+export class AuthInterceptor implements HttpInterceptor \{\par
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> \{\par
+        const token = localStorage.getItem("token");\par
+\par
+        if(token)\{\par
+            const cloned = req.clone(\{\par
+                //headers: req.headers.set("Authorization", "Bearer" + token)\par
+                //Alt 96\par
+                setHeaders: \{Authorization: `Bearer $\{token\}`\}\par
+            \});\par
+\par
+            return next.handle(cloned);            \par
+        \}\par
+        else\par
+        \{\par
+            return next.handle(req);\par
+        \}\par
+    \}\par
+\}\par
+\par
+app-routing.module\par
+import \{ RouterModule, Routes \} from '@angular/router';\par
+import \{ canActivateGuard \} from '../app/helpers/auth.guard';\par
+\par
+const routes: Routes = [\par
+  \{ path: 'bienvenido', \par
+    component: BienvenidoComponent, \par
+    canActivate: [canActivateGuard]\par
+  \},\par
+\par
+ exports: [RouterModule]\par
+\par
+////////////////////////////////////////\par
+\par
+\b Como traducir a otro idioma internationalization\b0\par
+ng add @angular/localize\par
+Y\par
+\par
+En angular.json > projects\par
+"Nombre del proyecto": \{\par
+"i18n": \{\par
+"sourceLocale": "en-US",\par
+"locales": \{\par
+\tab "es-PR": "src/locale/messages.es.xlf"\par
+\tab\}\par
+\}\par
+\par
+O poner:\par
+ "i18n": \{\par
+        "sourceLocale": "es-CO",\par
+        "locales": \{\par
+          "en-US": "src/locale/messages.en.xlf"\par
+        \}\par
+      \},\par
+\par
+En architect > build > options\par
+"localize": ["es-PR"],\par
+\par
+En el html poner\par
+i18n\par
+\{\{ "la fecha" | date\}\} o | currency\par
+\par
+En la consola:\par
+ng extract-i18n --output-path src/locale\par
+cp src/locale/messages.xlf src/locale/messages.es.xlf\par
+\par
+Abrir el archivo messages.es.xlf\par
+Agregar <target> traducci\'f3n </target>\par
+\par
+////////////////\par
+\par
+\b Crear un dropdown para los idiomas\b0\par
+angular.json\par
+"projects": \{\par
+    "kontrolar-cloud-pwa": \{     \par
+      \b "i18n": \{\par
+        "sourceLocale": "es-CO",\par
+        "locales": \{\par
+          "en-US": "src/locale/messages.en.xlf",\par
+          "pt-PT": "src/locale/messages.pt.xlf"\par
+        \}\par
+      \},\par
+\b0 contin\'faa...\par
+"architect": \{\par
+        "build": \{\par
+          "builder": "@angular-devkit/build-angular:application",\par
+          "options": \{\par
+         \b    "localize": ["es-CO", "en-US", "pt-PT"],\par
+\b0\par
+app.component.ts\par
+import \{ LanguageServiceService \} from '../app/services/language-service.service';\par
+\par
+ constructor(    \par
+    private languageService: LanguageServiceService\par
+  ) \{\}\par
+\par
+setLanguage(event: Event) \{\par
+    const selectElement = event.target as HTMLSelectElement;\par
+    const language = selectElement.value;\par
+    this.languageService.setLanguage(language);\par
+  \}\par
+\par
+app.component.html\par
+<nav class="navbar navbar-expand-lg navbar-light bg-light">\par
+    <div class="container-fluid">\par
+      <a class="navbar-brand" href="#">Mi Aplicaci\'f3n</a>\par
+      <div class="d-flex">\par
+        <select class="form-select" (change)="setLanguage($event)">\par
+          <option value="es-CO">Espa\'f1ol</option>\par
+          <option value="en-US">English</option>\par
+          <option value="pt-PT">Portugu\'eas</option>\par
+        </select>\par
+      </div>\par
+    </div>\par
+</nav>\par
+<div class="container">\par
+    <router-outlet></router-outlet>\par
+  </div>\par
+\par
+language-service.service\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ Location \} from '@angular/common';\par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class LanguageServiceService \{\par
+\par
+  constructor(private translate: TranslateService, private location: Location) \{\par
+    this.translate.setDefaultLang('es-CO');\par
+  \}\par
+\par
+  setLanguage(language: string) \{\par
+    //console.log("language al llegar al servicio ", language);\par
+    this.translate.use(language).subscribe(() => \{\par
+      this.location.replaceState(this.location.path(), '', \{ lang: language \});\par
+    \});\par
+  \}\par
+\}\par
+\par
+login.component.html\par
+<div class="container d-flex justify-content-center align-items-center vh-100">\par
+  <div class="card" style="width: 25rem;">\par
+    <div class="card-body">\par
+      <h5 translate class="card-title text-center">TITLE</h5>\par
+      <form>\par
+        <div class="mb-3 d-flex flex-column align-items-center">\par
+          <label translate for="documentNumber" class="form-label">DOCUMENT_NUMBER</label>\par
+          <div class="input-group">\par
+            <input type="text" class="form-control" id="documentNumber" name="documentNumber"\par
+                   placeholder="Ej. 71789632" [(ngModel)]="documentNumber">\par
+          </div>\par
+          <button translate class="btn btn-primary mt-2" (click)="handleConsultCompanies()">CONSULT_COMPANIES</button>\par
+        </div>\par
+\par
+        <div class="mb-3">\par
+          <label translate for="companyName" class="form-label">COMPANY_NAME</label>\par
+          <select class="form-control" id="companyName" name="companyName"\par
+                  [(ngModel)]="selectedCompany" [disabled]="!companyNames.length"\par
+                  (change)="updateCompanyPassword()">\par
+            <option *ngFor="let companyName of companyNames" [value]="companyName">\{\{ companyName \}\}</option>\par
+          </select>\par
+        </div>\par
+\par
+        <div class="mb-3" *ngIf="isCompanySelected">\par
+          <label translate for="password" class="form-label">COMPANY_PASSWORD</label>\par
+          <input type="password" class="form-control" id="password" name="password"\par
+                 placeholder="Password" [(ngModel)]="password" #passwordInput>\par
+        </div>\par
+\par
+        <button translate type="button" class="btn btn-primary w-100"\par
+                [disabled]="!isCompanySelected" (click)="handleLogin()">LOGIN</button>\par
+      </form>\par
+      \par
+    </div>\par
+  </div>\par
+</div>\par
+\par
+app.module.ts\par
+Despu\'e9s de los imports\par
+export function HttpLoaderFactory(http: HttpClient) \{\par
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');\par
+\}\par
+\par
+En imports\par
+TranslateModule.forRoot(\{\par
+      loader: \{\par
+        provide: TranslateLoader,\par
+        useFactory: HttpLoaderFactory,\par
+        deps: [HttpClient]\par
+      \}\par
+    \}),\par
+\par
+En la carpeta assets se crea la carpet i18n, adentro se ponen los archivos para los idiomas, este es el de espa\'f1ol\par
+\{\par
+    "TITLE": "Inicio de Sesi\'f3n",\par
+    "DOCUMENT_NUMBER": "N\'famero de Documento",\par
+    "CONSULT_COMPANIES": "Consultar Compa\'f1\'edas",\par
+    "COMPANY_NAME": "Nombre de la Compa\'f1\'eda",\par
+    "COMPANY_PASSWORD": "Password de la Compa\'f1\'eda",\par
+    "LOGIN": "Iniciar Sesi\'f3n",\par
+    "ERROR": "Error",\par
+    "CLOSE": "Cerrar"\par
+  \}\par
+\par
+En la consola\par
+npm install @ngx-translate/core @ngx-translate/http-loader\par
+\par
+////////////////\par
+\par
+\b Como crear un helper y usarlo\par
+\b0 export class DateFormatter \{\par
+\par
+    public formatDate(date: Date): string \{\par
+        const year = date.getFullYear();\par
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');\par
+        const day = date.getDate().toString().padStart(2, '0');\par
+    \par
+        return `$\{year\}-$\{month\}-$\{day\}`;\par
+    \}\par
+\}\par
+\par
+En el componente que lo usa:\par
+const date = new Date(response[selectedCompanyIndex]['LicenseValidDate']);\par
+const dateFormatter = new DateFormatter();\par
+this.licenseValidDate = dateFormatter.formatDate(date);\par
+\par
+////////////////\par
+\par
+\b C\'f3mo traducir los mensajes del modal\par
+\b0 <!-- Modal -->\par
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">\par
+  <div class="modal-dialog">\par
+    <div class="modal-content">\par
+      <div class="modal-header">\par
+        <h5 translate class="modal-title" id="errorModalLabel">ERROR</h5>\par
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\par
+      </div>\par
+      <div translate class="modal-body">\par
+        \{\{ modalMessage \}\}\par
+      </div>\par
+      <div class="modal-footer">\par
+        <button translate type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>\par
+      </div>\par
+    </div>\par
+  </div>\par
+</div>\par
+\par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+\par
+En el constructor:\par
+private translate: TranslateService\par
+\par
+private showModal(messageKey: string): void \{\par
+    this.translate.get(messageKey).subscribe((translatedMessage: string) => \{\par
+      this.modalMessage = translatedMessage;\par
+      const modalElement = document.getElementById('errorModal');\par
+      if (modalElement) \{\par
+        const modal = new bootstrap.Modal(modalElement);\par
+        modal.show();\par
+      \} else \{\par
+        console.error('No se encontr\'f3 el elemento modal con id "errorModal".');\par
+      \}\par
+    \});\par
+  \}\par
+\par
+this.showModal('IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY');\par
+\par
+En los archivos q est\'e1n en la ubicaci\'f3n assets > i18n (traducido para cada idioma en el lado derecho)\par
+"IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY":"Identification number cannot be empty"\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+\par
+\par
+}
+ 
