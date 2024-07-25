@@ -5,6 +5,7 @@ import { iModulo } from '../../models/iModulo';
 import { iMenu } from '../../models/iMenu';
 import { LocalStorageService } from '../../helpers/local-storage.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageChangeService } from '../../services/language-change-service';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -23,7 +24,8 @@ export class SidebarMenuComponent implements OnInit {
   constructor(
     private userService: UserService,
     private localStorageService: LocalStorageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private languageChangeService: LanguageChangeService
   ) { }
 
   ngOnInit(): void {
@@ -32,40 +34,59 @@ export class SidebarMenuComponent implements OnInit {
 
     this.userService.GetOptionsByProfile(idUser, idProfile).subscribe(
       (data) => {        
-        this.iobjOpcionMovil = data;        
-        this.translateModulesAndOptions();
+        this.iobjOpcionMovil = data;                
         this.filterOptions();
-        console.log('this.iobjOpcionMovil: ', this.iobjOpcionMovil);
+        //console.log('this.iobjOpcionMovil: ', this.iobjOpcionMovil);
         this.selectedCompany = this.localStorageService.getData('selectedCompany');        
       },
       (error) => {
         console.error('Error fetching options', error);
       }
     );
-  }
-
-  filterOptions(): void {
-    this.iobjOpcionMovil.listaModulos.forEach(modulo => {
-      // Eliminar 'MODULES.' del nombre del módulo
-      modulo.nombreModulo = modulo.nombreModulo.replace('MODULES.', '');
-      this.filteredOptions[modulo.idModulo] = this.iobjOpcionMovil.listaOpcionesMoviles.filter(option => option.idModulo === modulo.idModulo);
-      console.log(`Módulo procesado: ${modulo.nombreModulo}, Icono: ${modulo.iconoModulo}`);
+    //console.log('this.iobjOpcionMovil: ', this.iobjOpcionMovil);
+    // Escucha el cambio de idioma
+    this.languageChangeService.currentLanguage.subscribe(language => {
+      this.translateModulesAndOptions();
     });
   }
 
   translateModulesAndOptions(): void {
-    this.iobjOpcionMovil.listaModulos.forEach(modulo => {
-      this.translate.get(`MODULES.${modulo.nombreModulo.toUpperCase()}`).subscribe((translatedName: string) => {
-        modulo.nombreModulo = translatedName;
+    if (this.iobjOpcionMovil.listaModulos && this.iobjOpcionMovil.listaModulos.length > 0) {
+      this.iobjOpcionMovil.listaModulos.forEach(modulo => {
+        const key = `MODULES.${modulo.nombreModulo.toUpperCase()}`;
+        console.log('key ', key);
+        this.translate.get(key).subscribe((translatedName: string) => {
+          console.log('translatedName ', translatedName);
+          console.log('translatedName !== key ', translatedName !== key);
+          if (translatedName !== key) { // Solo actualizar si se encuentra una traducción
+            modulo.nombreModulo = translatedName;
+          }
+        });
       });
-    });
-  
-    this.iobjOpcionMovil.listaOpcionesMoviles.forEach(opcion => {
-      this.translate.get(`MODULES.${opcion.nombre.toUpperCase()}`).subscribe((translatedName: string) => {
-        opcion.nombre = translatedName;
+    }
+
+    if (this.iobjOpcionMovil.listaOpcionesMoviles && this.iobjOpcionMovil.listaOpcionesMoviles.length > 0) {
+      console.log('this.iobjOpcionMovil.listaOpcionesMoviles ', this.iobjOpcionMovil.listaOpcionesMoviles);
+      this.iobjOpcionMovil.listaOpcionesMoviles.forEach(opcion => {
+        const key = `MODULES.${opcion.nombre.toUpperCase()}`;
+        this.translate.get(key).subscribe((translatedName: string) => {
+          // Solo actualizar si se encuentra una traducción
+          if (translatedName !== key) { 
+            opcion.nombre = translatedName;
+          }
+        });
       });
+    }
+  }
+
+  filterOptions(): void {
+    this.iobjOpcionMovil.listaModulos.forEach(modulo => {      
+      // Eliminar 'MODULES.' del nombre del módulo
+      modulo.nombreModulo = modulo.nombreModulo.replace('MODULES.', '');      
+      this.filteredOptions[modulo.idModulo] = this.iobjOpcionMovil.listaOpcionesMoviles.filter(option => option.idModulo === modulo.idModulo);
+      //console.log(`Módulo procesado: ${modulo.nombreModulo}, Icono: ${modulo.iconoModulo}`);
     });
-  }  
+  }
 
   getFilteredOptions(moduloId: number): iMenu[] {
     return (this.filteredOptions[moduloId] || []).map(option => ({

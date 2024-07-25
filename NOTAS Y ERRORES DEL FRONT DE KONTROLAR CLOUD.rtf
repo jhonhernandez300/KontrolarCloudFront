@@ -671,7 +671,19 @@ En los archivos q est\'e1n en la ubicaci\'f3n assets > i18n (traducido para cada
 \par
 ////////////////\par
 \par
-\par
+\b Determinar desde la bd el color de un bot\'f3n\par
+Determinar en la bd el \'edcono\par
+\b0 <button class="accordion-button collapsed \{\{ modulo.claseModulo \}\}" \par
+          type="button" \par
+          data-bs-toggle="collapse" \par
+          [attr.data-bs-target]="'#collapse' + i" \par
+          aria-expanded="false" \par
+          [attr.aria-controls]="'collapse' + i"\par
+          [ngStyle]="\{'background-color': modulo.colorModule\}"\par
+        >\par
+          <i [class]="modulo.iconoModulo"></i>      \par
+          <span style="margin-left: 30px;">\{\{ modulo.nombreModulo \}\}</span>\par
+</button>\par
 \par
 ////////////////\par
 \par

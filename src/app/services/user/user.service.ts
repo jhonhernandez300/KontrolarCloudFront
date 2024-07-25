@@ -77,8 +77,8 @@ export class UserService {
                         accion: opt.Action.trim()
                     });
                 });
-                console.log("modulosMap: ", Array.from(modulosMap.values()));
-                console.log("opcionesMoviles: ", opcionesMoviles);
+                //console.log("modulosMap: ", Array.from(modulosMap.values()));
+                //console.log("opcionesMoviles: ", opcionesMoviles);
 
                 return {
                     listaModulos: Array.from(modulosMap.values()),

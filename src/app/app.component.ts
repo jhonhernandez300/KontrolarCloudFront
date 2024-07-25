@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
 import { LanguageServiceService } from '../app/services/language-service.service';
 import { UserService } from '../app/services/user/user.service'; 
+import { LanguageChangeService } from '../app/services/language-change-service'; 
 
 @Component({
   selector: 'app-root',
@@ -15,13 +16,16 @@ export class AppComponent {
   constructor(
     private _swUpdate: SwUpdate,    
     private languageService: LanguageServiceService,
-    private userService: UserService
+    private userService: UserService,
+    private languageChangeService: LanguageChangeService 
   ) {}
 
   setLanguage(event: Event) {
+    //console.log('setLanguage en app.component ');
     const selectElement = event.target as HTMLSelectElement;
     const language = selectElement.value;
     this.languageService.setLanguage(language);
+    this.languageChangeService.changeLanguage(language); // Notifica el cambio de idioma
   }
 
   ngOnInit(): void {
