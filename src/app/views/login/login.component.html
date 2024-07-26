@@ -1,34 +1,29 @@
 <div class="container d-flex justify-content-center align-items-center vh-100 bg-white">
   <div class="card bg-dark">
     <div class="card-body">
-      <img src="../../../assets/img/LOGO_FONDO_TRANSPARENTE2.png" alt="Image Description" class="img-fluid mb-3">      
+      <img src="../../../assets/img/LOGO_FONDO_TRANSPARENTE2.png" alt="Image Description" class="img-fluid mb-3">
       <form>
         <div class="mb-3 d-flex flex-column align-items-center">
           <label translate for="identificationNumber" class="form-label text-light">IDENTIFICATION_NUMBER</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="identificationNumber" name="identificationNumber"
-                   placeholder="Ej. 71789632" [(ngModel)]="identificationNumber">
+            <input type="text" class="form-control" id="identificationNumber" name="identificationNumber" placeholder="Ej. 71789632" [(ngModel)]="identificationNumber">
           </div>
           <button translate class="btn btn-primary mt-2 btn-custom" (click)="handleConsultCompanies()">CONSULT_COMPANIES</button>
         </div>
 
         <div class="mb-3 d-flex flex-column align-items-center">
           <label translate for="companyName" class="form-label text-light text-center">COMPANY_NAME</label>
-          <select class="form-control" id="companyName" name="companyName"
-                  [(ngModel)]="selectedCompany" [disabled]="!companyNames.length"
-                  (change)="updateCompanyPassword()">
+          <select class="form-control" id="companyName" name="companyName" [(ngModel)]="selectedCompany" [disabled]="!companyNames.length" (change)="updateCompanyPassword()">
             <option *ngFor="let companyName of companyNames" [value]="companyName">{{ companyName }}</option>
           </select>
         </div>
 
         <div class="mb-3" *ngIf="isCompanySelected">
           <label translate for="password" class="form-label text-light">COMPANY_PASSWORD</label>
-          <input type="password" class="form-control" id="password" name="password"
-                 placeholder="Password" [(ngModel)]="password" #passwordInput>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" [(ngModel)]="password" #passwordInput>
         </div>
 
-        <button translate type="button" class="btn btn-primary w-100 btn-custom"
-                [disabled]="!isCompanySelected" (click)="handleLogin()">LOGIN</button>
+        <button translate type="button" class="btn btn-primary w-100 btn-custom" [disabled]="!isCompanySelected" (click)="handleLogin()">LOGIN</button>
       </form>
     </div>
   </div>

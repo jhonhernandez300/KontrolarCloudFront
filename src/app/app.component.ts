@@ -12,6 +12,7 @@ import { LanguageChangeService } from '../app/services/language-change-service';
 export class AppComponent {
   title = 'kontrolar-cloud-pwa';
   isAuthenticated: boolean = false;
+  isSidebarMenuOpen: boolean = false; // Nuevo estado para controlar la visibilidad del menú
 
   constructor(
     private _swUpdate: SwUpdate,    
@@ -21,7 +22,6 @@ export class AppComponent {
   ) {}
 
   setLanguage(event: Event) {
-    //console.log('setLanguage en app.component ');
     const selectElement = event.target as HTMLSelectElement;
     const language = selectElement.value;
     this.languageService.setLanguage(language);
@@ -51,5 +51,9 @@ export class AppComponent {
         complete: () => console.info('Finalizada verificación de nueva versión')
       });
     }
+  }
+
+  toggleSidebarMenu(): void {
+    this.isSidebarMenuOpen = !this.isSidebarMenuOpen;
   }
 }

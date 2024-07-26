@@ -1,12 +1,21 @@
-<div class="container-fluid">
+<div class="container-fluid" id="global-container">
   <div class="row">
 
-    <div class="col-3 text-white" *ngIf="isAuthenticated == true" id="side-bar">
-      <app-sidebar-menu></app-sidebar-menu>
+    <!-- Sidebar -->
+    <div class="col-12 col-md-3 text-white bg-dark" *ngIf="isAuthenticated" id="side-bar">
+      <button class="btn btn-primary d-md-none" type="button" (click)="toggleSidebarMenu()" [attr.aria-expanded]="isSidebarMenuOpen ? 'true' : 'false'" aria-controls="sidebarMenu" aria-label="Toggle navigation">
+
+        <i class="fas fa-bars"></i> Menu
+      </button>
+      <div class="collapse d-md-block" [ngClass]="{'show': isSidebarMenuOpen}" id="sidebarMenu">
+        <app-sidebar-menu></app-sidebar-menu>
+      </div>
     </div>
 
+    <!-- Main Content -->
     <div class="col" id="right-side">
 
+      <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <div class="ms-auto">
@@ -19,6 +28,7 @@
         </div>
       </nav>
 
+      <!-- Main Content -->
       <main>
         <router-outlet></router-outlet>
       </main>

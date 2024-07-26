@@ -1,13 +1,38 @@
-#side-bar {
-    background-color: black; 
+#global-container {
+  background-color: #ffffff; /* Fondo blanco */
+  min-height: 100vh; /* Asegura que el fondo cubra toda la pantalla */
+}
+
+#sidebarMenu {
+    background-color: black;  
     color: #fff;           
     height: 100vh;         /* Altura completa de la pantalla */
     padding-left: 0.5rem;
     padding-top: 1rem;
     padding-right: 0.5rem;    
-  }
+}
   
-  #right-side .navbar {
+#right-side .navbar {
     background-color: #f8f9fa !important;
-  }
+} 
   
+button {  
+  border-color: #007bff; 
+}
+
+button:hover {
+  background-color: #0056b3; 
+  border-color: #0056b3; 
+}
+
+@media (max-width: 767.98px) {
+  #side-bar {
+    position: absolute;
+    width: 100%;
+    z-index: 1030;
+  }
+  #right-side {
+    padding-top: 56px; /* Ajuste del padding para dejar espacio para el navbar */
+  }
+}
+

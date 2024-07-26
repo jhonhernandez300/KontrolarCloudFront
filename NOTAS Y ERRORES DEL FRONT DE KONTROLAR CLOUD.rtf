@@ -687,7 +687,386 @@ Determinar en la bd el \'edcono\par
 \par
 ////////////////\par
 \par
+\b Como traducir un men\'fa seg\'fan lo q se escoja en el dropdown de otro componente\par
+\b0 angular.json\par
+"projects": \{\par
+    "kontrolar-cloud-pwa": \{     \par
+      "i18n": \{\par
+        "sourceLocale": "es-CO",\par
+        "locales": \{\par
+          "en-US": "src/locale/messages.en.xlf",\par
+          "pt-PT": "src/locale/messages.pt.xlf"\par
+        \}\par
+      \},\par
 \par
+"architect": \{\par
+        "build": \{\par
+          "builder": "@angular-devkit/build-angular:application",\par
+          "options": \{\par
+            "localize": ["es-CO", "en-US", "pt-PT"],\par
+\par
+instalar ngx translate\par
+\par
+En assets crear la carpeta i18n y adentro poner los archivos en-US.json, es-CO.json y pt-PT.json, el primero tiene:\par
+\{\par
+"IDENTIFICATION_NUMBER_MUST_HAVE_ONLY_NUMBERS": "O n\'famero de identifica\'e7\'e3o deve conter apenas n\'fameros",\par
+  "INCORRECT_PASSWORD_VERIFY_YOUR_CREDENTIALS": "Senha incorreta verifique suas credenciais",\par
+  "LOGIN": "Iniciar Sess\'e3o",\par
+  "MODULES": \{\par
+    "COMPRAS": "Compras",\par
+    "PRODUCCION": "Produ\'e7\'e3o",\par
+    "INVENTARIO": "Invent\'e1rio",\par
+    "FACTURACION": "Fatura\'e7\'e3o",\par
+    "TRANSPORTE": "Transporte",\par
+    "CONSULTAS RAPIDAS": "Consultas R\'e1pidas",\par
+    "MAESTROS": "Mestres",\par
+    "CONFIGURACION TECNICA": "Configura\'e7\'e3o T\'e9cnica",\par
+    "MOVIMIENTOS DE COMPRAS": "Movimentos de Compras",\par
+    "CXP": "CXP",\par
+    "CONTROL DE TIEMPOS DE PRODUCCION": "Controle de Tempo de Produ\'e7\'e3o",\par
+    "DEVOLUCION CONTABILIZADO DOCUMENTOS": "Devolu\'e7\'e3o de Documentos Contabilizados",\par
+    "CONFIGURAR PUNTOS REORDEN": "Configurar Pontos de Reordena\'e7\'e3o",\par
+    "ADMINISTRAR PUNTOS RECORDEN": "Gerenciar Pontos de Reordena\'e7\'e3o",\par
+    "DEVOLUCION CONTABILIZADO RECIBOS": "Devolu\'e7\'e3o de Recibos Contabilizados",\par
+    "CANCELAR PEDIDOS": "Cancelar Pedidos",\par
+    "PROGRAMAR TRANSPORTE": "Programar Transporte",\par
+    "SEGUIMIENTO TRANSPORTE": "Acompanhamento de Transporte",\par
+    "CAUSAS": "Causas",\par
+    "CAMPOS ESPECIALES": "Campos Especiais",\par
+    "CONSULTA INVENTARIO": "Consulta de Invent\'e1rio",\par
+    "PURCHASES": "Compras",\par
+    "PRODUCTION": "Produ\'e7\'e3o",\par
+    "INVENTORY": "Invent\'e1rio",\par
+    "BILLING": "Faturamento",\par
+    "TRANSPORT": "Transporte",\par
+    "QUICK QUERIES": "Consultas R\'e1pidas",\par
+    "MASTERS": "Mestres",\par
+    "TECHNICAL CONFIGURATION": "Configura\'e7\'e3o T\'e9cnica",\par
+    "PURCHASE MOVEMENTS": "Movimentos de Compras",    \par
+    "PRODUCTION TIME CONTROL": "Controle de Tempo de Produ\'e7\'e3o",\par
+    "RETURN ACCOUNTED DOCUMENTS": "Devolu\'e7\'e3o de Documentos Contabilizados",\par
+    "SET REORDER POINTS": "Definir Pontos de Reabastecimento",\par
+    "MANAGE REORDER POINTS": "Gerenciar Pontos de Reabastecimento",\par
+    "RETURN ACCOUNTED RECEIPTS": "Devolu\'e7\'e3o de Recibos Contabilizados",\par
+    "CANCEL ORDERS": "Cancelar Pedidos",\par
+    "SCHEDULE TRANSPORT": "Programar Transporte",\par
+    "TRANSPORT TRACKING": "Rastreamento de Transporte",\par
+    "CAUSES": "Causas",\par
+    "SPECIAL FIELDS": "Campos Especiais",\par
+    "INVENTORY QUERY": "Consulta de Invent\'e1rio",\par
+    "PRODU\'c7\'c3O": "Producci\'f3n",\par
+    "INVENT\'c1RIO": "Inventario",\par
+    "FATURA\'c7AO": "Facturaci\'f3n",        \par
+    "MESTRES": "Mestres",\par
+    "CONFIGURA\'c7\'c3O T\'c9CNICA": "Configura\'e7ao T\'e9cnica",\par
+    "MOVIMENTOS DE COMPRAS": "Movimentos de Compras",    \par
+    "CONTROLE DE TEMPO DE PRODU\'c7AO": "Controle de Tempo de Produ\'e7ao",\par
+    "DEVOLU\'c7AO DE DOCUMENTOS CONTABILIZADOS": "Devolu\'e7\'e3o de Documentos Contabilizados",\par
+    "CONFIGURAR PONTOS DE REORDENA\'c7\'c3O": "Configurar Pontos de Reordena\'e7\'e3o",\par
+    "GERENCIAR PONTOS DE REORDENA\'c7\'c3O": "Gerenciar Pontos de Reordena\'e7\'e3o",\par
+    "DEVLOLU\'c7AO DE RECIBOS CONTABILIZADOS": "Devolu\'e7\'e3o de Recibos Contabilizados",        \par
+    "ACOMPANHAMENTO DE TRANSPORTE": "Acompanhamento de Transporte",    \par
+    "CAMPOS ESPECIAIS": "Campos Especiais",\par
+    "CONSULTA DE INVENT\'c1RIO": "Consulta Invent\'e1rio"\par
+  \},  \par
+  "NO_COMPANIES_FOUND_FOR_THE_IDENTIFICATION_NUMBER_PROVIDED": "Nenhuma empresa encontrada para o n\'famero de identifica\'e7\'e3o fornecido",\par
+  "MANAGER_ADMIN":"Administrador admin"\par
+\}\par
+\par
+app.module\par
+import \{ TranslateModule, TranslateLoader \} from '@ngx-translate/core';\par
+import \{ TranslateHttpLoader \} from '@ngx-translate/http-loader';\par
+\par
+export function HttpLoaderFactory(http: HttpClient) \{\par
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');\par
+\}\par
+\par
+En imports:\par
+TranslateModule.forRoot(\{\par
+      loader: \{\par
+        provide: TranslateLoader,\par
+        useFactory: HttpLoaderFactory,\par
+        deps: [HttpClient]\par
+      \}\par
+    \}),\par
+\par
+app.component.ts\par
+import \{ LanguageServiceService \} from '../app/services/language-service.service';\par
+import \{ LanguageChangeService \} from '../app/services/language-change-service'; \par
+\par
+xport class AppComponent \{\par
+  title = 'kontrolar-cloud-pwa';\par
+  isAuthenticated: boolean = false;\par
+\par
+  constructor(\par
+    private _swUpdate: SwUpdate,    \par
+    private languageService: LanguageServiceService,\par
+    private userService: UserService,\par
+    private languageChangeService: LanguageChangeService \par
+  ) \{\}\par
+\par
+  setLanguage(event: Event) \{\par
+    //console.log('setLanguage en app.component ');\par
+    const selectElement = event.target as HTMLSelectElement;\par
+    const language = selectElement.value;\par
+    this.languageService.setLanguage(language);\par
+    this.languageChangeService.changeLanguage(language); // Notifica el cambio de idioma\par
+  \}\par
+\par
+  ngOnInit(): void \{\par
+    this.checkForUpdates();\par
+    this.isAuthenticated = this.userService.IsAuthenticated();\par
+    this.isAuthenticated = true;\par
+  \}\par
+\par
+app.component.html\par
+<div class="container-fluid">\par
+  <div class="row">\par
+\par
+    <div class="col-3 text-white" *ngIf="isAuthenticated == true" id="side-bar">\par
+      <app-sidebar-menu></app-sidebar-menu>\par
+    </div>\par
+\par
+    <div class="col" id="right-side">\par
+\par
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">\par
+        <div class="container-fluid">\par
+          <div class="ms-auto">\par
+            <select class="form-select" (change)="setLanguage($event)">\par
+              <option value="es-CO">Espa\'f1ol</option>\par
+              <option value="en-US">English</option>\par
+              <option value="pt-PT">Portugu\'eas</option>\par
+            </select>\par
+          </div>\par
+        </div>\par
+      </nav>\par
+\par
+      <main>\par
+        <router-outlet></router-outlet>\par
+      </main>\par
+\par
+    </div><!-- right-side -->\par
+\par
+  </div><!-- row -->\par
+</div>\par
+\par
+sidebar-menu.component.ts\par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+import \{ LanguageChangeService \} from '../../services/language-change-service';\par
+\par
+export class SidebarMenuComponent implements OnInit \{\par
+  options: any;\par
+  iobjOpcionMovil: iObjOpcionMovil = \{\par
+    listaOpcionesMoviles: [] as iMenu[],  // Inicializando como array vac\'edo de iMenu\par
+    listaModulos: [] as iModulo[]\par
+  \};\par
+  filteredOptions: \{ [key: number]: iMenu[] \} = \{\};\par
+  selectedCompany: string = '';\par
+\par
+  constructor(\par
+    private userService: UserService,\par
+    private localStorageService: LocalStorageService,\par
+    private translate: TranslateService,\par
+    private languageChangeService: LanguageChangeService\par
+  ) \{ \}\par
+\par
+  ngOnInit(): void \{\par
+    const idUser = 1;\par
+    const idProfile = 1;\par
+\par
+    this.userService.GetOptionsByProfile(idUser, idProfile).subscribe(\par
+      (data) => \{        \par
+        this.iobjOpcionMovil = data;                \par
+        this.filterOptions();\par
+        //console.log('this.iobjOpcionMovil: ', this.iobjOpcionMovil);\par
+        this.selectedCompany = this.localStorageService.getData('selectedCompany');        \par
+      \},\par
+      (error) => \{\par
+        console.error('Error fetching options', error);\par
+      \}\par
+    );\par
+    //console.log('this.iobjOpcionMovil: ', this.iobjOpcionMovil);\par
+    // Escucha el cambio de idioma\par
+    this.languageChangeService.currentLanguage.subscribe(language => \{\par
+      this.translateModulesAndOptions();\par
+    \});\par
+  \}\par
+\par
+  translateModulesAndOptions(): void \{\par
+    if (this.iobjOpcionMovil.listaModulos && this.iobjOpcionMovil.listaModulos.length > 0) \{\par
+      this.iobjOpcionMovil.listaModulos.forEach(modulo => \{\par
+        const key = `MODULES.$\{modulo.nombreModulo.toUpperCase()\}`;\par
+        console.log('key ', key);\par
+        this.translate.get(key).subscribe((translatedName: string) => \{\par
+          console.log('translatedName ', translatedName);\par
+          console.log('translatedName !== key ', translatedName !== key);\par
+          if (translatedName !== key) \{ // Solo actualizar si se encuentra una traducci\'f3n\par
+            modulo.nombreModulo = translatedName;\par
+          \}\par
+        \});\par
+      \});\par
+    \}\par
+\par
+    if (this.iobjOpcionMovil.listaOpcionesMoviles && this.iobjOpcionMovil.listaOpcionesMoviles.length > 0) \{\par
+      console.log('this.iobjOpcionMovil.listaOpcionesMoviles ', this.iobjOpcionMovil.listaOpcionesMoviles);\par
+      this.iobjOpcionMovil.listaOpcionesMoviles.forEach(opcion => \{\par
+        const key = `MODULES.$\{opcion.nombre.toUpperCase()\}`;\par
+        this.translate.get(key).subscribe((translatedName: string) => \{\par
+          // Solo actualizar si se encuentra una traducci\'f3n\par
+          if (translatedName !== key) \{ \par
+            opcion.nombre = translatedName;\par
+          \}\par
+        \});\par
+      \});\par
+    \}\par
+  \}\par
+\par
+  filterOptions(): void \{\par
+    this.iobjOpcionMovil.listaModulos.forEach(modulo => \{      \par
+      // Eliminar 'MODULES.' del nombre del m\'f3dulo\par
+      modulo.nombreModulo = modulo.nombreModulo.replace('MODULES.', '');      \par
+      this.filteredOptions[modulo.idModulo] = this.iobjOpcionMovil.listaOpcionesMoviles.filter(option => option.idModulo === modulo.idModulo);\par
+      //console.log(`M\'f3dulo procesado: $\{modulo.nombreModulo\}, Icono: $\{modulo.iconoModulo\}`);\par
+    \});\par
+  \}\par
+\par
+  getFilteredOptions(moduloId: number): iMenu[] \{\par
+    return (this.filteredOptions[moduloId] || []).map(option => (\{\par
+      ...option,\par
+      nombre: option.nombre.replace('MODULES.', '')\par
+    \}));\par
+  \}\par
+\par
+  getSubMenuOptions(moduloId: number, parentId: number): iMenu[] \{\par
+    return this.iobjOpcionMovil.listaOpcionesMoviles.filter(option => option.idModulo === moduloId && option.idPadre === parentId);\par
+  \}\par
+\}\par
+\par
+sidebar-menu.component.html\par
+<div>\par
+  <img src="../../../assets/img/LOGO_FONDO_TRANSPARENTE2.png" alt="Image Description" class="img-fluid mb-3">   \par
+</div>\par
+\par
+<div *ngIf="iobjOpcionMovil">\par
+\par
+  <div class="dropdown custom-dropdown">    \par
+    <button class="btn btn-secondary dropdown-toggle custom-dropdown-button" \par
+      type="button" \par
+      id="dropdownMenuButton"  \par
+      data-bs-toggle="dropdown" \par
+      aria-expanded="false"\par
+      translate>\par
+      <i class="fa-solid fa-folder"></i>\par
+      MANAGER_ADMIN\par
+    </button>\par
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">\par
+      <li><a class="dropdown-item" href="#" translate><i class="fa-solid fa-city"></i> CHANGE_COMPANY</a></li>\par
+      <li><a class="dropdown-item" href="#" translate><i class="fa-solid fa-key"></i> CHANGE_PASSWORD</a></li>\par
+      <li><hr class="dropdown-divider"></li>\par
+      <li><a class="dropdown-item" href="#" translate><i class="fa-solid fa-circle-xmark"></i> CLOSE_SESSION</a></li>\par
+    </ul>\par
+    <div class="selected-company">\{\{selectedCompany\}\}</div>  \par
+  </div>  \par
+\par
+  <div class="accordion" id="accordionExample" style="margin: 5px;">\par
+    <div *ngFor="let modulo of iobjOpcionMovil.listaModulos; let i = index" class="accordion-item">            \par
+      <h2 class="accordion-header purple-background" id="heading\{\{ i \}\}">\par
+\par
+        <button class="accordion-button collapsed \{\{ modulo.claseModulo \}\}" \par
+          type="button" \par
+          data-bs-toggle="collapse" \par
+          [attr.data-bs-target]="'#collapse' + i" \par
+          aria-expanded="false" \par
+          [attr.aria-controls]="'collapse' + i"\par
+          [ngStyle]="\{'background-color': modulo.colorModule\}"\par
+        >\par
+          <i [class]="modulo.iconoModulo"></i>      \par
+          <span style="margin-left: 30px;">\{\{ modulo.nombreModulo \}\}</span>\par
+        </button>\par
+      </h2>\par
+      \par
+      <div id="collapse\{\{ i \}\}" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#accordionExample">        \par
+        <div class="accordion-body">\par
+          <table class="table table-hover">\par
+            <tbody>\par
+              <ng-container *ngFor="let padre of getFilteredOptions(modulo.idModulo)">\par
+                <tr *ngIf="padre.tieneSubMenu">\par
+                  <td>\par
+\par
+                    <a data-bs-toggle="collapse" [attr.href]="'#item' + i" aria-expanded="false" [attr.aria-controls]="'item' + i">\par
+                      <span class="\{\{ padre.icono \}\}"></span>\par
+                      <span style="margin-left: 10px;">\{\{ padre.nombre \}\}</span>\par
+                    </a>\par
+\par
+                    <div class="collapse" [attr.id]="'item' + i">\par
+                      <div class="card card-body">\par
+                        <ng-container *ngFor="let hijo of getSubMenuOptions(modulo.idModulo, padre.idOpcion)">\par
+                          <div class="ms-3">\par
+                            <br>\par
+                            <span class="\{\{ hijo.icono \}\}"></span>\par
+                            <a [routerLink]="['/', hijo.controlador, hijo.accion, \{ Id: modulo.idModulo, IdOpcion: hijo.idOpcion \}]">&nbsp;\{\{ hijo.nombre \}\}</a>\par
+                          </div>\par
+                        </ng-container>\par
+                      </div>\par
+\par
+                    </div>\par
+                  </td>\par
+                </tr>\par
+\par
+                <tr *ngIf="!padre.tieneSubMenu && padre.idPadre === 0">\par
+                  <td>\par
+                    <span class="\{\{ padre.icono \}\}"></span>\par
+                    <a [routerLink]="['/', padre.controlador, padre.accion, \{ Id: modulo.idModulo, IdOpcion: padre.idOpcion \}]">&nbsp;\{\{ padre.nombre \}\}</a>\par
+                  </td>\par
+                </tr>\par
+                \par
+              </ng-container>\par
+            </tbody>\par
+          </table>\par
+        </div>\par
+      </div>\par
+    </div>\par
+  </div>\par
+</div>\par
+\par
+language-service.service.ts\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ Location \} from '@angular/common';\par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class LanguageServiceService \{\par
+\par
+  constructor(private translate: TranslateService, private location: Location) \{    \par
+  \}\par
+\par
+  setLanguage(language: string) \{\par
+    //console.log("language al llegar al servicio ", language);\par
+    this.translate.use(language).subscribe(() => \{\par
+      this.location.replaceState(this.location.path(), '', \{ lang: language \});\par
+    \});\par
+  \}\par
+\}\par
+\par
+language-change.service.ts\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ BehaviorSubject \} from 'rxjs';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class LanguageChangeService \{\par
+  private languageSource = new BehaviorSubject<string>('es-CO');\par
+  currentLanguage = this.languageSource.asObservable();\par
+\par
+  changeLanguage(language: string) \{\par
+    //console.log('language ', language);\par
+    this.languageSource.next(language);\par
+    //sconsole.log('this.languageSource ', this.languageSource);\par
+  \}\par
+\}\par
 \par
 ////////////////\par
 \par

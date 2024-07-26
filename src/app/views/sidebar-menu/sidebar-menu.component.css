@@ -1,4 +1,29 @@
-.accordion-button {  
+@media (max-width: 480px) {
+  .navbar-collapse {
+    display: none; /* Oculta el contenido del menú en pantallas pequeñas */
+  }
+
+  .navbar-toggler {
+    display: block; /* Muestra el botón de menú en pantallas pequeñas */
+  }
+
+  .sidebar-header {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 481px) {
+  .navbar-collapse {
+    display: block; /* Muestra el contenido del menú en pantallas mayores */
+  }
+
+  .navbar-toggler {
+    display: none; /* Oculta el botón de menú en pantallas mayores */
+  }
+}
+
+.accordion-button {
   color: white; 
   text-transform: uppercase;
   font-weight: bold; 
@@ -8,11 +33,11 @@
   border: none; 
 }
 
-#accordionExample{
+#accordionExample {
   padding-top: 5px;
 }
 
-.accordion-collapse{
+.accordion-collapse {
   font-size: smaller;
 }
 
@@ -34,4 +59,30 @@
 .selected-company {
   margin-top: 10px; 
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .accordion-button {
+    font-size: 0.8rem; 
+    padding: 0.5rem 1rem; 
+  }
+
+  .accordion-collapse {
+    font-size: 0.7rem; 
+  }
+
+  .custom-dropdown {
+    padding-left: 10px;
+    padding-right: 5px;
+  }
+
+  .custom-dropdown-button {
+    font-size: 0.8rem; 
+    padding: 0.3rem 0.5rem; 
+  }
+
+  .selected-company {
+    font-size: 0.8rem; 
+    margin-top: 5px;
+  }
 }

@@ -1,85 +1,86 @@
-<div>
-  <img src="../../../assets/img/LOGO_FONDO_TRANSPARENTE2.png" alt="Image Description" class="img-fluid mb-3">   
-</div>
-
-<div *ngIf="iobjOpcionMovil">
-
-  <div class="dropdown custom-dropdown">    
-    <button class="btn btn-secondary dropdown-toggle custom-dropdown-button" 
-      type="button" 
-      id="dropdownMenuButton"  
-      data-bs-toggle="dropdown" 
-      aria-expanded="false"
-      translate>
-      <i class="fa-solid fa-folder"></i>
-      MANAGER_ADMIN
+<!-- Botón de menú visible en pantallas pequeñas -->
+<nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSidebarMenu" aria-controls="navbarSidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li><a class="dropdown-item" href="#" translate><i class="fa-solid fa-city"></i> CHANGE_COMPANY</a></li>
-      <li><a class="dropdown-item" href="#" translate><i class="fa-solid fa-key"></i> CHANGE_PASSWORD</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#" translate><i class="fa-solid fa-circle-xmark"></i> CLOSE_SESSION</a></li>
-    </ul>
-    <div class="selected-company">{{selectedCompany}}</div>  
-  </div>  
+    <div class="collapse navbar-collapse" id="navbarSidebarMenu">
+      <div *ngIf="iobjOpcionMovil">
 
-  <div class="accordion" id="accordionExample" style="margin: 5px;">
-    <div *ngFor="let modulo of iobjOpcionMovil.listaModulos; let i = index" class="accordion-item">            
-      <h2 class="accordion-header purple-background" id="heading{{ i }}">
+        <div class="dropdown custom-dropdown">
+          <button class="btn btn-secondary dropdown-toggle custom-dropdown-button" 
+            type="button" 
+            id="dropdownMenuButton"  
+            data-bs-toggle="dropdown" 
+            aria-expanded="false"
+            translate>
+            <i class="fa-solid fa-folder"></i>
+            MANAGER_ADMIN
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#" translate><i class="bi bi-building"></i> CHANGE_COMPANY</a></li>
+            <li><a class="dropdown-item" href="#" translate><i class="bi bi-key"></i> CHANGE_PASSWORD</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" translate><i class="bi bi-x-circle"></i> CLOSE_SESSION</a></li>
+          </ul>
+          <div class="selected-company">{{selectedCompany}}</div>
+        </div>
 
-        <button class="accordion-button collapsed {{ modulo.claseModulo }}" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          [attr.data-bs-target]="'#collapse' + i" 
-          aria-expanded="false" 
-          [attr.aria-controls]="'collapse' + i"
-          [ngStyle]="{'background-color': modulo.colorModule}"
-        >
-          <i [class]="modulo.iconoModulo"></i>      
-          <span style="margin-left: 30px;">{{ modulo.nombreModulo }}</span>
-        </button>
-      </h2>
-      
-      <div id="collapse{{ i }}" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#accordionExample">        
-        <div class="accordion-body">
-          <table class="table table-hover">
-            <tbody>
-              <ng-container *ngFor="let padre of getFilteredOptions(modulo.idModulo)">
-                <tr *ngIf="padre.tieneSubMenu">
-                  <td>
-
-                    <a data-bs-toggle="collapse" [attr.href]="'#item' + i" aria-expanded="false" [attr.aria-controls]="'item' + i">
-                      <span class="{{ padre.icono }}"></span>
-                      <span style="margin-left: 10px;">{{ padre.nombre }}</span>
-                    </a>
-
-                    <div class="collapse" [attr.id]="'item' + i">
-                      <div class="card card-body">
-                        <ng-container *ngFor="let hijo of getSubMenuOptions(modulo.idModulo, padre.idOpcion)">
-                          <div class="ms-3">
-                            <br>
-                            <span class="{{ hijo.icono }}"></span>
-                            <a [routerLink]="['/', hijo.controlador, hijo.accion, { Id: modulo.idModulo, IdOpcion: hijo.idOpcion }]">&nbsp;{{ hijo.nombre }}</a>
+        <div class="accordion" id="accordionExample" style="margin: 5px;">
+          <div *ngFor="let modulo of iobjOpcionMovil.listaModulos; let i = index" class="accordion-item">
+            <h2 class="accordion-header purple-background" id="heading{{ i }}">
+              <button class="accordion-button collapsed {{ modulo.claseModulo }}" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                [attr.data-bs-target]="'#collapse' + i" 
+                aria-expanded="false" 
+                [attr.aria-controls]="'collapse' + i"
+                [ngStyle]="{'background-color': modulo.colorModule}">
+                <i [class]="modulo.iconoModulo"></i>
+                <span style="margin-left: 30px;">{{ modulo.nombreModulo }}</span>
+              </button>
+            </h2>
+            
+            <div id="collapse{{ i }}" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <table class="table table-hover">
+                  <tbody>
+                    <ng-container *ngFor="let padre of getFilteredOptions(modulo.idModulo)">
+                      <tr *ngIf="padre.tieneSubMenu">
+                        <td>
+                          <a data-bs-toggle="collapse" [attr.href]="'#item' + i" aria-expanded="false" [attr.aria-controls]="'item' + i">
+                            <span class="{{ padre.icono }}"></span>
+                            <span style="margin-left: 10px;">{{ padre.nombre }}</span>
+                          </a>
+                          <div class="collapse" [attr.id]="'item' + i">
+                            <div class="card card-body">
+                              <ng-container *ngFor="let hijo of getSubMenuOptions(modulo.idModulo, padre.idOpcion)">
+                                <div class="ms-3">
+                                  <br>
+                                  <span class="{{ hijo.icono }}"></span>
+                                  <a [routerLink]="['/', hijo.controlador, hijo.accion, { Id: modulo.idModulo, IdOpcion: hijo.idOpcion }]">&nbsp;{{ hijo.nombre }}</a>
+                                </div>
+                              </ng-container>
+                            </div>
                           </div>
-                        </ng-container>
-                      </div>
+                        </td>
+                      </tr>
 
-                    </div>
-                  </td>
-                </tr>
+                      <tr *ngIf="!padre.tieneSubMenu && padre.idPadre === 0">
+                        <td>
+                          <span class="{{ padre.icono }}"></span>
+                          <a [routerLink]="['/', padre.controlador, padre.accion, { Id: modulo.idModulo, IdOpcion: padre.idOpcion }]">&nbsp;{{ padre.nombre }}</a>
+                        </td>
+                      </tr>
 
-                <tr *ngIf="!padre.tieneSubMenu && padre.idPadre === 0">
-                  <td>
-                    <span class="{{ padre.icono }}"></span>
-                    <a [routerLink]="['/', padre.controlador, padre.accion, { Id: modulo.idModulo, IdOpcion: padre.idOpcion }]">&nbsp;{{ padre.nombre }}</a>
-                  </td>
-                </tr>
-                
-              </ng-container>
-            </tbody>
-          </table>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</nav>

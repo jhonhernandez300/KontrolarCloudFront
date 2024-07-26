@@ -3,18 +3,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff; /* Fondo blanco */
+  background-color: #ffffff; 
 }
 
 .card {
   width: 100%;
   max-width: 25rem;
-  background-color: #000000; /* Fondo negro de la tarjeta */
-  color: #ffffff; /* Texto blanco */
+  background-color: #000000; 
+  color: #ffffff; 
 }
 
 .text-light {
-  color: #ffffff; /* Ajustar a blanco si es necesario */
+  color: #ffffff; 
 }
 
 .img-fluid {
@@ -35,4 +35,10 @@
 
 .text-center {
   text-align: center;
+}
+
+@media (max-width: 767.98px) {
+  .container {
+    padding: 10px;
+  }
 }
