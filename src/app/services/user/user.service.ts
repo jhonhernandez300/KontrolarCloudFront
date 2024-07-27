@@ -8,6 +8,8 @@ import { iModuleOptionDTO } from '../../models/iModuleOptionDTO';
 import { iObjOpcionMovil } from '../../models/iObjetoMovil';
 import { iModulo } from '../../models/iModulo';
 import { iMenu } from '../../models/iMenu';
+import { ModuleDTO } from '../../models/ModuleDTO';
+import { OptionDTO } from '../../models/OptionDTO';
 
 interface Company {
   [x: string]: any;
@@ -31,62 +33,66 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  GetOptionsByProfile(idUser: number, idProfile: number): Observable<iObjOpcionMovil> {
+  GetOptionsByIdUser(idUser: number): Observable<{ listaModulos: ModuleDTO[], listaOpcionesMoviles: OptionDTO[] }> {
     const encryptedIdUser = CryptoHelper.encrypt(idUser.toString());
-    const encryptedIdProfile = CryptoHelper.encrypt(idProfile.toString());
-
+  
     return this.http
-        .get(
-            `${this.apiUrl}/GetOptionsByProfile/${encodeURIComponent(encryptedIdUser)}/${encodeURIComponent(encryptedIdProfile)}`,
-            { responseType: 'text' }
-        )
-        .pipe(
-            map((encryptedData) => {              
-                const decryptedData = CryptoHelper.decrypt(encryptedData);
-                //console.log("decryptedData ", decryptedData);
-                const jsonString = JSON.stringify(decryptedData);
-                const moduleOptions: iModuleOptionDTO[] = JSON.parse(jsonString);
-                //console.log("moduleOptions ", moduleOptions);
-
-                const modulosMap = new Map<number, iModulo>();
-                const opcionesMoviles: iMenu[] = [];
-
-                moduleOptions.forEach(opt => {
-                    if (!modulosMap.has(opt.IdModule)) {
-                        modulosMap.set(opt.IdModule, {
-                            idModulo: opt.IdModule,
-                            nombreModulo: opt.NameModule,
-                            manejaConsecutivo: false,
-                            iconoModulo: opt.IconModule, 
-                            claseModulo: '',
-                            colorModule: opt.colorModule
-                        });
-                    }
-
-                    opcionesMoviles.push({
-                        selec: false,
-                        idOpcion: opt.IdOption,
-                        idModulo: opt.IdModule,
-                        nombre: opt.NameOption,
-                        descripcion: opt.Description,
-                        tieneSubMenu: false,
-                        opcionParametrizable: false,
-                        idPadre: 0,
-                        icono: opt.IconOption, // Update here
-                        controlador: opt.Controler.trim(),
-                        accion: opt.Action.trim()
-                    });
+      .get(
+        `${this.apiUrl}/GetOptionsByIdUser/${encodeURIComponent(encryptedIdUser)}`,
+        { responseType: 'text' }
+      )
+      .pipe(
+        map((encryptedData) => {
+          const decryptedData = CryptoHelper.decrypt(encryptedData);
+          //console.log("decryptedData: ", decryptedData);  // Verifica los datos desencriptados
+  
+          // Asume que decryptedData ya es un objeto, por lo que no es necesario analizarlo como JSON
+          const modules: ModuleDTO[] = decryptedData;
+          //console.log("Parsed modules: ", modules);  // Verifica los datos parseados
+  
+          const modulosMap = new Map<number, ModuleDTO>();
+          const opcionesMoviles: OptionDTO[] = [];
+  
+          modules.forEach(mod => {
+            if (!modulosMap.has(mod.IdModule)) {
+              modulosMap.set(mod.IdModule, {
+                IdModule: mod.IdModule,
+                NameModule: mod.NameModule,
+                Icon: mod.Icon,
+                Color: mod.Color,
+                Options: []
+              });
+            }
+  
+            if (Array.isArray(mod.Options)) {
+              mod.Options.forEach(opt => {
+                opcionesMoviles.push({
+                  IdOption: opt.IdOption,
+                  Icon: opt.Icon,
+                  NameOption: opt.NameOption,
+                  Description: opt.Description,
+                  Controler: opt.Controler.trim(),
+                  Action: opt.Action.trim(),
+                  OrderBy: opt.OrderBy,
+                  UserAssigned: opt.UserAssigned
                 });
-                //console.log("modulosMap: ", Array.from(modulosMap.values()));
-                //console.log("opcionesMoviles: ", opcionesMoviles);
-
-                return {
-                    listaModulos: Array.from(modulosMap.values()),
-                    listaOpcionesMoviles: opcionesMoviles
-                };
-            })
-        );
-}
+              });
+  
+              modulosMap.get(mod.IdModule)!.Options = mod.Options;
+            }
+          });
+  
+          return {
+            listaModulos: Array.from(modulosMap.values()),
+            listaOpcionesMoviles: opcionesMoviles
+          };
+        })
+      );
+  }
+  
+  
+  
+  
 
   IsAuthenticated(): boolean{  
     const lastDate = localStorage.getItem('last date');      

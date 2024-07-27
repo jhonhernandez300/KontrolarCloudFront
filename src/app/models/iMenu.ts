@@ -1,13 +1,13 @@
 export interface iMenu {
-    selec: boolean;
-    idOpcion: number;
-    idModulo: number;
-    nombre: string;
-    descripcion: string;
-    tieneSubMenu: boolean;
-    opcionParametrizable: boolean;
-    idPadre: number;
-    icono: string;
-    controlador: string;
-    accion: string;
+    idOption: number;
+    icon: string;
+    nameOption: string;
+    description: string;
+    controler: string;
+    action: string;
+    orderBy: number;
+    userAssigned: string;
+    tieneSubMenu?: boolean;
+    idPadre?: number;
 }
+

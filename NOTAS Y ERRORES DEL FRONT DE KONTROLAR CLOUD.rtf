@@ -1,5 +1,5 @@
 {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang3082{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
-{\colortbl ;\red255\green255\blue0;}
+{\colortbl ;\red255\green255\blue0;\red0\green255\blue0;\red0\green77\blue187;\red155\green0\blue211;}
 {\*\generator Riched20 10.0.22621}\viewkind4\uc1 
 \pard\sl240\slmult1\qc\f0\fs32\lang10 NOTAS Y ERRORES DEL FRONT DE KONTROLAR CLOUD\fs22\par
 
@@ -106,29 +106,34 @@ En app.component.html:\par
 <app-child></app-child>\par
 <button (click)="callChildMethod()">Call Child Method</button>\par
 \par
-//////////////////////\par
+//////////////////////          1\par
 \par
 \b Activar bot\'f3n\par
-\b0 <button type="submit" class="btn btn-primary w-100" [disabled]="!isCompanySelected">Iniciar Sesi\'f3n</button>\par
+\b0 <button type="submit" class="btn btn-primary w-100" [disabled]="!\ul isCompanySelected\ulnone ">Iniciar Sesi\'f3n</button>\par
 \par
-isCompanySelected: boolean = false;\par
+\ul isCompanySelected\ulnone : boolean = false;\par
 \par
 Cuando el servicio devuelve datos:\par
-this.isCompanySelected = true;\par
+this.\ul isCompanySelected \ulnone = true;\par
 \par
-////////////////////////////\par
+////////////////////////////        1\par
 \par
 \b Convertir a texto\b0\par
 this.documentNumber.toString()\par
 \par
-///////////////////////////\par
+///////////////////////////         1\par
 \par
 \b Mostrar un cuadro de di\'e1logo\b0\par
-<input type="text" class="form-control" id="documentNumber" name="documentNumber"\par
-                            placeholder="Ej. 71789632" [(ngModel)]="documentNumber">\par
+<input type="text" \par
+\tab class="form-control" \par
+\tab id="documentNumber" \par
+\tab name="documentNumber"\par
+              placeholder="Ej. 71789632" \par
+\tab [(ngModel)]="\ul documentNumber\ulnone "\par
+>\par
 \par
 <!-- Modal -->\par
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">\par
+<div class="modal fade" id="\b errorModal\b0 " tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">\par
     <div class="modal-dialog">\par
       <div class="modal-content">\par
         <div class="modal-header">\par
@@ -136,7 +141,7 @@ this.documentNumber.toString()\par
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\par
         </div>\par
         <div class="modal-body">\par
-          \{\{ modalMessage \}\}\par
+          \{\{ \highlight1 modalMessage \highlight0\}\}\par
         </div>\par
         <div class="modal-footer">\par
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>\par
@@ -145,15 +150,15 @@ this.documentNumber.toString()\par
     </div>\par
   </div>\par
 \par
-documentNumber: number = 0;\par
+\ul documentNumber\ulnone : number = 0;\par
 \par
 Evento del bot\'f3n\par
-if (!this.documentNumber) \{\par
+if (!this.\ul documentNumber\ulnone ) \{\par
 this.showModal('N\'famero de documento no puede estar vac\'edo');\par
 \par
-  showModal(message: string): void \{\par
-    this.modalMessage = message;\par
-    const modalElement = document.getElementById('errorModal');\par
+showModal(message: string): void \{\par
+    this.\highlight1 modalMessage \highlight0 = message;\par
+    const modalElement = document.getElementById('\b errorModal\b0 ');\par
 \par
     if (modalElement) \{\par
       const modal = new bootstrap.Modal(modalElement);\par
@@ -163,25 +168,33 @@ this.showModal('N\'famero de documento no puede estar vac\'edo');\par
     \}\par
   \}\par
 \par
-//////////////////////////\par
+//////////////////////////        1\par
 \par
 \b Encriptar y desencriptar\b0\par
 npm install crypto-js\par
 \par
 import * as CryptoJS from 'crypto-js';\par
 \par
-export class CryptoHelper \{\par
+export class \highlight2 CryptoHelper\highlight0  \{\par
   private static readonly Key = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16 bytes\par
   private static readonly Iv = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16 bytes\par
 \par
-  static encrypt(data: any): string \{\par
-    const jsonData = JSON.stringify(data);\par
-    const encryptedData = CryptoJS.AES.encrypt(jsonData, CryptoHelper.Key, \{ iv: CryptoHelper.Iv \}).toString();\par
-    return encryptedData;\par
+  static \cf3\b encrypt\cf0\b0 (data: any): string \{\par
+    const \b jsonData \b0 = JSON.stringify(data);\par
+    const \ul encryptedData \ulnone = CryptoJS.AES.encrypt(\par
+\tab\b jsonData\b0 , \par
+\tab CryptoHelper.Key, \par
+\tab\{ iv: CryptoHelper.Iv \}\par
+    ).toString();\par
+    return \ul encryptedData\ulnone ;\par
   \}\par
 \par
-  static decrypt(encryptedData: string): any \{\par
-    const bytes = CryptoJS.AES.decrypt(encryptedData, CryptoHelper.Key, \{ iv: CryptoHelper.Iv \});\par
+  static \cf4\b decrypt\cf0\b0 (\highlight1 encryptedData\highlight0 : string): any \{\par
+    const bytes = CryptoJS.AES.decrypt(\par
+\tab\highlight1 encryptedData\highlight0 , \par
+\tab CryptoHelper.Key, \par
+\tab\{ iv: CryptoHelper.Iv \}\par
+    );\par
     const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));\par
     return decryptedData;\par
   \}\par
@@ -189,7 +202,7 @@ export class CryptoHelper \{\par
 \par
 En el servicio:\par
 GetCompaniesByDocumentNumber(documentNumber: number): Observable<any> \{\par
-    const encryptedDocumentNumber = CryptoHelper.encrypt(\par
+    const encryptedDocumentNumber = \highlight2 CryptoHelper\highlight0 .\cf3\b encrypt\cf0\b0 (\par
       documentNumber.toString()\par
     );\par
     //console.log("encryptedDocumentNumber ", encryptedDocumentNumber);\par
@@ -203,23 +216,22 @@ GetCompaniesByDocumentNumber(documentNumber: number): Observable<any> \{\par
       .pipe(\par
         map((encryptedData) => \{\par
           //console.log("encryptedData ", encryptedData);\par
-          return CryptoHelper.decrypt(encryptedData);\par
+          return \highlight2 CryptoHelper\highlight0 .\cf4\b decrypt\cf0\b0 (encryptedData);\par
         \})\par
       );\par
   \}\par
 \par
-//////////////////////////\par
+//////////////////////////      1\par
 \par
 \b Como usar un par\'e1metro de salida de la base de datos para mostrar un modal\par
 \b0 En el componente:\par
 handleConsultCompanies(): void \{\par
   const numberPattern = /^\\d+$/;\par
+\par
   if (!this.documentNumber) \{\par
-    console.error('N\'famero de documento no puede estar vac\'edo');\par
     this.showModal('N\'famero de documento no puede estar vac\'edo');\par
     return;\par
-  \} else if (!numberPattern.test(this.documentNumber.toString())) \{\par
-    console.error('N\'famero de documento debe contener solo n\'fameros');\par
+  \} else if (!numberPattern.test(this.documentNumber.toString())) \{   \par
     this.showModal('N\'famero de documento debe contener solo n\'fameros');\par
     return;\par
   \}\par
@@ -237,7 +249,6 @@ handleConsultCompanies(): void \{\par
         \}\par
 \par
         this.userService.setLastResponse(response);         \par
-        console.log("this.companyNames ", this.companyNames);\par
 \par
         if (this.companyNames.length > 0) \{\par
           // Por defecto se usa el primer elemento\par
