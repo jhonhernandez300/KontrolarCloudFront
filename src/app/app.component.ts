@@ -3,6 +3,7 @@ import { SwUpdate, VersionEvent } from '@angular/service-worker';
 import { LanguageServiceService } from '../app/services/language-service.service';
 import { UserService } from '../app/services/user/user.service'; 
 import { LanguageChangeService } from '../app/services/language-change-service'; 
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent {
     private _swUpdate: SwUpdate,    
     private languageService: LanguageServiceService,
     private userService: UserService,
-    private languageChangeService: LanguageChangeService 
+    private languageChangeService: LanguageChangeService,
+    private translate: TranslateService
   ) {}
 
   setLanguage(event: Event) {
@@ -29,9 +31,11 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    this.translate.setDefaultLang('es-CO'); // Establece español como idioma predeterminado
+    this.translate.use('es-CO'); // Asegúrarse de usar el idioma español al iniciar
     this.checkForUpdates();
     this.isAuthenticated = this.userService.IsAuthenticated();
-    this.isAuthenticated = true;
+    //this.isAuthenticated = true;
   }
 
   checkForUpdates(): void {
