@@ -265,40 +265,34 @@ En el componente:\par
 import \{ LocalStorageService \} from '../../helpers/local-storage.service';\par
 \par
 constructor(\par
-\tab private userService: UserService, \par
 \tab private localStorageService: LocalStorageService\par
 ) \{\}\par
 \par
 this.localStorageService.\highlight1 setData\highlight0 ('token', this.token);\par
 \par
-///////////////////////\par
+///////////////////////      1\par
 \par
 \b Implementar el authguard\par
 \b0 En el componente:\par
 handleLogin(): void \{    \par
-    //console.log("this.password ", this.password);\par
-    //console.log("this.companyPassword ", this.companyPassword);\par
     if (!this.password) \{\par
-      console.error('N\'famero de documento no puede estar vac\'edo');\par
       this.showModal('El password de la compa\'f1\'eda no puede estar vac\'edo');\par
       return;\par
     \}else if (this.password === this.companyPassword) \{\par
-      //console.log('Contrase\'f1a correcta ', this.password, this.companyPassword);      \par
       this.getToken();\par
-      console.log("this.token ", this.token);\par
       this.localStorageService.setData('token', this.token);\par
       const currentDate = new Date();\par
       const dateString = currentDate.toISOString();        \par
       localStorage.setItem('last date', dateString);\par
       this.router.navigate(['/bienvenido']);\par
     \} else \{\par
-      //console.log('Contrase\'f1a incorrecta. Verifica tus credenciales.');\par
       this.showModal('Contrase\'f1a incorrecta. Verifica tus credenciales.');\par
     \}    \par
   \}\par
 \par
 El guard se genera as\'ed:\par
 ng generate guard guards/auth\par
+\par
 auth.guard.ts\par
 import \{ CanActivateChildFn, CanActivateFn \} from '@angular/router';\par
 import \{ Injectable, inject \} from '@angular/core';\par
@@ -312,7 +306,7 @@ export const canActivateGuard: CanActivateFn = (  \par
   route: ActivatedRouteSnapshot,\par
   state: RouterStateSnapshot\par
 ) => \{   \par
-  if(inject(UserService).IsAuthenticated())\{\par
+  if(inject(UserService).\ul IsAuthenticated\ulnone ())\{\par
     return true;\par
   \}else \{\par
     inject(Router).navigate(['/login']);\par
@@ -328,7 +322,7 @@ import \{ iCompany \} from '../../models/iCompany';\par
 import \{ map \} from 'rxjs/operators';\par
 import \{ CryptoHelper \} from '../../helpers/CryptoHelper';\par
 \par
-IsAuthenticated(): boolean\{  \par
+\ul IsAuthenticated\ulnone (): boolean\{  \par
     const lastDate = localStorage.getItem('last date');      \par
     console.log("lastDate ", lastDate);\par
 \par
@@ -343,7 +337,7 @@ IsAuthenticated(): boolean\{  \par
        \par
       // Convertir la diferencia de milisegundos a minutos\par
     const diferenciaMinutos = diferenciaMs / (1000 * 60);  \par
-    console.log("(-1 * diferenciaMinutos) ", (-1 * diferenciaMinutos));\par
+\par
       // Comprobar si la diferencia es mayor a 20 minutos\par
     if((-1 * diferenciaMinutos) > 20)  \{\par
       return false;\par
@@ -359,12 +353,12 @@ import \{ HttpClientModule \} from '@angular/common/http';\par
 import \{ FormsModule \} from '@angular/forms';\par
 import \{ HTTP_INTERCEPTORS \} from '@angular/common/http';\par
 \par
-providers: [\{\par
+\cf5\b providers: [\{\par
     provide: HTTP_INTERCEPTORS,\par
     useClass: AuthInterceptor,\par
     multi: true\par
   \}],\par
-\par
+\cf0\b0\par
 authInterceptor.ts\par
 import \{ HttpEvent, HttpHandler, HttpInterceptor, HttpRequest \} from "@angular/common/http";\par
 import \{ Injectable \} from "@angular/core";\par
@@ -377,11 +371,9 @@ export class AuthInterceptor implements HttpInterceptor \{\par
 \par
         if(token)\{\par
             const cloned = req.clone(\{\par
-                //headers: req.headers.set("Authorization", "Bearer" + token)\par
                 //Alt 96\par
                 setHeaders: \{Authorization: `Bearer $\{token\}`\}\par
             \});\par
-\par
             return next.handle(cloned);            \par
         \}\par
         else\par
@@ -397,9 +389,9 @@ import \{ canActivateGuard \} from '../app/helpers/auth.guard';\par
 \par
 const routes: Routes = [\par
   \{ path: 'bienvenido', \par
-    component: BienvenidoComponent, \par
+    component: BienvenidoComponent\cf5\b , \par
     canActivate: [canActivateGuard]\par
-  \},\par
+\cf0\b0   \},\par
 \par
  exports: [RouterModule]\par
 \par
@@ -1044,6 +1036,68 @@ export class LanguageChangeService \{\par
 \par
 ////////////////\par
 \par
+\b Actualizar el estado isAuthenticated en AppComponent despu\'e9s de un inicio de sesi\'f3n exitoso\b0\par
+Crear un Servicio de Autenticaci\'f3n\par
+// auth.service.ts\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ BehaviorSubject \} from 'rxjs';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class AuthService \{\par
+  private authenticatedSubject = new BehaviorSubject<boolean>(false);\par
+  authenticated$ = this.authenticatedSubject.asObservable();\par
+\par
+  setAuthenticated(value: boolean) \{\par
+    this.authenticatedSubject.next(value);\par
+  \}\par
+\par
+  isAuthenticated(): boolean \{\par
+    return this.authenticatedSubject.value;\par
+  \}\par
+\}\par
+\par
+Modificar el LoginComponent\par
+import \{ AuthService \} from '../../services/auth.service'; // Importar AuthService\par
+\par
+En el constructor:  private authService: AuthService \par
+\par
+private handleTokenResponse(response: any): void \{\par
+    this.token = response;\par
+    this.localStorageService.setData('token', this.token);\par
+    localStorage.setItem('last date', new Date().toISOString());\par
+\par
+    this.authService.setAuthenticated(true); // Notificar autenticaci\'f3n\par
+    this.router.navigate(['/bienvenido']);\par
+  \}\par
+\par
+Modificar el AppComponent\par
+import \{ AuthService \} from '../app/services/auth.service';\par
+\par
+En el constructor: private authService: AuthService\par
+\par
+ngOnInit(): void \{\par
+    this.translate.setDefaultLang('es-CO');\par
+    this.translate.use('es-CO');\par
+    this.checkForUpdates();\par
+    this.isAuthenticated = this.userService.IsAuthenticated();\par
+\par
+    // Suscribirse a cambios de autenticaci\'f3n\par
+    this.authService.authenticated$.subscribe(isAuthenticated => \{\par
+      this.isAuthenticated = isAuthenticated;\par
+    \});\par
+  \}\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
 \par
 \par
 ////////////////\par
@@ -1056,6 +1110,24 @@ export class LanguageChangeService \{\par
 \par
 ////////////////\par
 \par
+\par
+\par
+////////////////\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
+\par
+\par
+\par
+////////////////\par
 \par
 \par
 \par

@@ -142,7 +142,8 @@ export class LoginComponent implements OnInit {
 
   private handleTokenResponse(response: any): void {
     this.token = response;
-    this.localStorageService.setData('token', this.token);
+    //console.log("this.token ", this.token);    
+    this.localStorageService.setData('token', this.token);    
     localStorage.setItem('last date', new Date().toISOString());    
 
     this.authService.setAuthenticated(true); // Notificar autenticación

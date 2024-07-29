@@ -5,8 +5,8 @@ export class CryptoHelper {
   private static readonly Iv = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16 bytes
 
   static encrypt(data: any): string {
-    const jsonData = JSON.stringify(data);
-    const encryptedData = CryptoJS.AES.encrypt(jsonData, CryptoHelper.Key, { iv: CryptoHelper.Iv }).toString();
+    const jsonData = JSON.stringify(data);    
+    const encryptedData = CryptoJS.AES.encrypt(jsonData, CryptoHelper.Key, { iv: CryptoHelper.Iv }).toString();    
     return encryptedData;
   }
 
@@ -19,7 +19,7 @@ export class CryptoHelper {
         //console.log("JSON.parse ", JSON.parse(decryptedDataStr));
         return JSON.parse(decryptedDataStr);
     } catch (error) {
-        console.error("Error al desencriptar los datos: ", error);
+        //console.error("Error al desencriptar los datos: ", error);
         throw error;
     }
   }
