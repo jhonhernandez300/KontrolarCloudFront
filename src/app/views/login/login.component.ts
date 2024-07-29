@@ -7,6 +7,7 @@ import * as bootstrap from 'bootstrap';
 import { DateFormatter } from '../../helpers/date-formatter';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { CryptoHelper } from '../../helpers/CryptoHelper';
 
 @Component({
   selector: 'app-login',
@@ -70,6 +71,11 @@ export class LoginComponent implements OnInit {
 
   private handleCompaniesResponse(response: any): void {
     if (Array.isArray(response)) {
+      // const passwordDeBD = response.map((company: any) => company.Password);
+      // console.log(passwordDeBD);
+      // const encryptedPassword = CryptoHelper.encrypt(passwordDeBD[0]);
+      // console.log(passwordDeBD[0]);
+      // console.log(encryptedPassword);
       this.companyNames = response.map((company: any) => company.CompanyName);
     } else {
       console.error("La respuesta no es un array", response);
@@ -168,6 +174,8 @@ export class LoginComponent implements OnInit {
   }
 
   private isPasswordValid(): boolean {
+    //console.log(this.password);
+    //console.log(this.companyPassword);
     if (!this.password) {
       this.showModal('THE_PASSWORD_CANNOT_BE_EMPTY');
       return false;

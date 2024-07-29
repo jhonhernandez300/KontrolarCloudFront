@@ -29,7 +29,8 @@ export class SidebarMenuComponent implements OnInit {
       (data) => {    
         //console.log("data ", data);    
         this.listaModulos = data.listaModulos;
-        this.selectedCompany = this.localStorageService.getData('selectedCompany');        
+        this.selectedCompany = this.localStorageService.getData('selectedCompany');     
+        this.translateModulesAndOptions();    
       },
       (error) => {
         console.error('Error fetching options', error);
@@ -46,19 +47,31 @@ export class SidebarMenuComponent implements OnInit {
       this.listaModulos.forEach(modulo => {
         const key = `${modulo.NameModule.toUpperCase()}`;        
         this.translate.get(key).subscribe((translatedName: string) => {
-          
-          if (translatedName !== key) { // Solo actualizar si se encuentra una traducción
+          if (translatedName !== key) {
             modulo.NameModule = translatedName;
           }
         });
-      });
-    }    
-  }
 
+        if (modulo.Options && modulo.Options.length > 0) {
+          modulo.Options.forEach(option => {
+            const optionKey = `${option.NameOption.toUpperCase()}`;
+            this.translate.get(optionKey).subscribe((translatedOptionName: string) => {
+              if (translatedOptionName !== optionKey) {
+                option.NameOption = translatedOptionName;
+              }
+            });
+          });
+        }
+      });
+    }
+  }
 
   // Función para obtener las opciones filtradas de un módulo
   getFilteredOptions(idModule: number): OptionDTO[] {
+    //console.log(idModule);
+    //console.log(this.listaModulos);
     const module = this.listaModulos.find(m => m.IdModule === idModule);
+    //console.log(module);
     return module ? module.Options : [];
   }
  
