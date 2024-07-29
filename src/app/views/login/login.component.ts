@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as bootstrap from 'bootstrap';
 import { DateFormatter } from '../../helpers/date-formatter';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthServiceService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthServiceService
   ) {}
 
   ngOnInit(): void {}
@@ -141,7 +143,9 @@ export class LoginComponent implements OnInit {
   private handleTokenResponse(response: any): void {
     this.token = response;
     this.localStorageService.setData('token', this.token);
-    localStorage.setItem('last date', new Date().toISOString());
+    localStorage.setItem('last date', new Date().toISOString());    
+
+    this.authService.setAuthenticated(true); // Notificar autenticación
     this.router.navigate(['/bienvenido']);
   }
 

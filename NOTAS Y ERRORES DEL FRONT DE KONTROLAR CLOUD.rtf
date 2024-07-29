@@ -1,5 +1,5 @@
 {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang3082{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
-{\colortbl ;\red255\green255\blue0;\red0\green255\blue0;\red0\green77\blue187;\red155\green0\blue211;}
+{\colortbl ;\red255\green255\blue0;\red0\green255\blue0;\red0\green77\blue187;\red155\green0\blue211;\red255\green0\blue0;}
 {\*\generator Riched20 10.0.22621}\viewkind4\uc1 
 \pard\sl240\slmult1\qc\f0\fs32\lang10 NOTAS Y ERRORES DEL FRONT DE KONTROLAR CLOUD\fs22\par
 
@@ -223,90 +223,53 @@ GetCompaniesByDocumentNumber(documentNumber: number): Observable<any> \{\par
 \par
 //////////////////////////      1\par
 \par
-\b Como usar un par\'e1metro de salida de la base de datos para mostrar un modal\par
+\b Mostrar modal luego de validaci\'f3n\par
 \b0 En el componente:\par
 handleConsultCompanies(): void \{\par
   const numberPattern = /^\\d+$/;\par
 \par
   if (!this.documentNumber) \{\par
-    this.showModal('N\'famero de documento no puede estar vac\'edo');\par
+    this.\cf5\b showModal\cf0\b0 ('N\'famero de documento no puede estar vac\'edo');\par
     return;\par
   \} else if (!numberPattern.test(this.documentNumber.toString())) \{   \par
-    this.showModal('N\'famero de documento debe contener solo n\'fameros');\par
+    this.\cf5\b showModal\cf0\b0 ('N\'famero de documento debe contener solo n\'fameros');\par
     return;\par
   \}\par
 \par
-  this.userService\par
-    .GetCompaniesByDocumentNumber(this.documentNumber)\par
-    .subscribe(\par
-      (response) => \{\par
-        console.log('response of GetCompaniesByDocumentNumber ', response);\par
-        \par
-        if (Array.isArray(response)) \{\par
-          this.companyNames = response.map((company: any) => company.CompanyName);\par
-        \} else \{\par
-          console.error("La respuesta no es un array", response);\par
-        \}\par
-\par
-        this.userService.setLastResponse(response);         \par
-\par
-        if (this.companyNames.length > 0) \{\par
-          // Por defecto se usa el primer elemento\par
-          this.selectedCompany = this.companyNames[0];\par
-          this.updateCompanyPassword();\par
-          this.isCompanySelected = true;\par
-\par
-          setTimeout(() => \{\par
-            if (this.passwordInput) \{\par
-              this.passwordInput.nativeElement.focus();\par
-            \}\par
-          \}, 0);\par
-        \} else \{\par
-          this.isCompanySelected = false;\par
-          this.selectedCompany = '';\par
-          this.companyPassword = '';\par
-        \}\par
-      \},\par
-      (error) => \{\par
-        if (error.status === 404) \{\par
-          this.showModal('No se encontraron compa\'f1\'edas para el n\'famero de documento proporcionado.');\par
-        \} else \{\par
-          console.error('Error fetching company names: ', error);\par
-        \}\par
-      \}\par
-    );\par
-\}\par
-\par
-/////////////////////\par
+/////////////////////            1\par
 \par
 \b Como guardar en el localStorage\par
 \b0 Crear un servicio y ah\'ed poner:\par
- setData(key: string, data: any): void \{\par
-    localStorage.setItem(key, JSON.stringify(data));    \par
+ \highlight1 setData\highlight0 (key: string, data: any): void \{\par
+    \cf5\b localStorage\cf0\b0 .setItem(key, JSON.stringify(data));    \par
   \}\par
   \par
   getData(key: string): any \{\par
-    const data = localStorage.getItem(key);\par
+    const data = \cf5\b localStorage\cf0\b0 .getItem(key);\par
     return data ? JSON.parse(data) : null;    \par
   \}\par
 \par
   removeData(key: string): void \{\par
-    localStorage.removeItem(key);\par
+    \cf5\b localStorage\cf0\b0 .removeItem(key);\par
   \}\par
 \par
   removeAllData(): void \{\par
-    localStorage.clear();\par
+    \cf5\b localStorage\cf0\b0 .clear();\par
   \}\par
 \par
   isEmpty(): boolean \{\par
-    return localStorage.length === 0;\par
+    return \cf5\b localStorage\cf0\b0 .length === 0;\par
   \}\par
 \par
 En el componente:\par
 import \{ LocalStorageService \} from '../../helpers/local-storage.service';\par
-constructor(private userService: UserService, private localStorageService: \par
-LocalStorageService) \{\}\par
-this.localStorageService.setData('token', this.token);\par
+\par
+constructor(\par
+\tab private userService: UserService, \par
+\tab private localStorageService: LocalStorageService\par
+) \{\}\par
+\par
+this.localStorageService.\highlight1 setData\highlight0 ('token', this.token);\par
 \par
 ///////////////////////\par
 \par

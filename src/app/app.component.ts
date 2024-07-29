@@ -4,6 +4,7 @@ import { LanguageServiceService } from '../app/services/language-service.service
 import { UserService } from '../app/services/user/user.service'; 
 import { LanguageChangeService } from '../app/services/language-change-service'; 
 import { TranslateService } from '@ngx-translate/core';
+import { AuthServiceService } from '../app/services/auth-service.service'
 
 @Component({
   selector: 'app-root',
@@ -13,14 +14,15 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   title = 'kontrolar-cloud-pwa';
   isAuthenticated: boolean = false;
-  isSidebarMenuOpen: boolean = false; // Nuevo estado para controlar la visibilidad del menú
+  isSidebarMenuOpen: boolean = false; // Nuevo estado para controlar la visibilidad del menú  
 
   constructor(
     private _swUpdate: SwUpdate,    
     private languageService: LanguageServiceService,
     private userService: UserService,
     private languageChangeService: LanguageChangeService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthServiceService
   ) {}
 
   setLanguage(event: Event) {
@@ -35,7 +37,11 @@ export class AppComponent {
     this.translate.use('es-CO'); // Asegúrarse de usar el idioma español al iniciar
     this.checkForUpdates();
     this.isAuthenticated = this.userService.IsAuthenticated();
-    //this.isAuthenticated = true;
+    
+    // Suscribirse a cambios de autenticación
+    this.authService.authenticated$.subscribe(isAuthenticated => {
+      this.isAuthenticated = isAuthenticated;
+    });
   }
 
   checkForUpdates(): void {
