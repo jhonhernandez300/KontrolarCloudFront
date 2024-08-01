@@ -1,5 +1,5 @@
 {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang3082{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
-{\colortbl ;\red255\green255\blue0;\red0\green255\blue0;\red0\green77\blue187;\red155\green0\blue211;\red255\green0\blue0;}
+{\colortbl ;\red255\green255\blue0;\red0\green255\blue0;\red0\green77\blue187;\red155\green0\blue211;\red255\green0\blue0;\red0\green176\blue80;}
 {\*\generator Riched20 10.0.22621}\viewkind4\uc1 
 \pard\sl240\slmult1\qc\f0\fs32\lang10 NOTAS Y ERRORES DEL FRONT DE KONTROLAR CLOUD\fs22\par
 
@@ -273,8 +273,8 @@ this.localStorageService.\highlight1 setData\highlight0 ('token', this.token);\p
 ///////////////////////      1\par
 \par
 \b Implementar el authguard\par
-\b0 En el componente:\par
-handleLogin(): void \{    \par
+\cf6 En el componente:\par
+\cf0\b0 handleLogin(): void \{    \par
     if (!this.password) \{\par
       this.showModal('El password de la compa\'f1\'eda no puede estar vac\'edo');\par
       return;\par
@@ -293,8 +293,8 @@ handleLogin(): void \{    \par
 El guard se genera as\'ed:\par
 ng generate guard guards/auth\par
 \par
-auth.guard.ts\par
-import \{ CanActivateChildFn, CanActivateFn \} from '@angular/router';\par
+\cf6\b auth.guard.ts\par
+\cf0\b0 import \{ CanActivateChildFn, CanActivateFn \} from '@angular/router';\par
 import \{ Injectable, inject \} from '@angular/core';\par
 import \{ CanActivate, Router \} from '@angular/router';\par
 import \{ UserService \} from '../services/user/user.service';\par
@@ -314,7 +314,7 @@ export const canActivateGuard: CanActivateFn = (  \par
   \}\par
 \}; \par
 \par
-El servicio\par
+\cf6\b El servicio\cf0\b0\par
 import \{ Injectable \} from '@angular/core';\par
 import \{ Observable \} from 'rxjs';\par
 import \{ HttpClient, HttpHeaders \} from '@angular/common/http';\par
@@ -346,12 +346,12 @@ import \{ CryptoHelper \} from '../../helpers/CryptoHelper';\par
     \}    \par
   \}\par
 \par
-app.module\par
+\cf6\b app.module\cf0\b0\par
 import \{ NgModule, isDevMode \} from '@angular/core';\par
 import \{ BrowserModule \} from '@angular/platform-browser';\par
 import \{ HttpClientModule \} from '@angular/common/http';\par
 import \{ FormsModule \} from '@angular/forms';\par
-import \{ HTTP_INTERCEPTORS \} from '@angular/common/http';\par
+\cf5\b import \{ HTTP_INTERCEPTORS \} from '@angular/common/http';\cf0\b0\par
 \par
 \cf5\b providers: [\{\par
     provide: HTTP_INTERCEPTORS,\par
@@ -359,7 +359,7 @@ import \{ HTTP_INTERCEPTORS \} from '@angular/common/http';\par
     multi: true\par
   \}],\par
 \cf0\b0\par
-authInterceptor.ts\par
+\cf6\b authInterceptor.ts\cf0\b0\par
 import \{ HttpEvent, HttpHandler, HttpInterceptor, HttpRequest \} from "@angular/common/http";\par
 import \{ Injectable \} from "@angular/core";\par
 import \{ Observable \} from "rxjs";\par
@@ -383,7 +383,7 @@ export class AuthInterceptor implements HttpInterceptor \{\par
     \}\par
 \}\par
 \par
-app-routing.module\par
+\cf6\b app-routing.module\cf0\b0\par
 import \{ RouterModule, Routes \} from '@angular/router';\par
 import \{ canActivateGuard \} from '../app/helpers/auth.guard';\par
 \par
@@ -395,7 +395,7 @@ const routes: Routes = [\par
 \par
  exports: [RouterModule]\par
 \par
-////////////////////////////////////////\par
+////////////////////////////////////////          1\par
 \par
 \b Como traducir a otro idioma internationalization\b0\par
 ng add @angular/localize\par
@@ -431,6 +431,181 @@ cp src/locale/messages.xlf src/locale/messages.es.xlf\par
 \par
 Abrir el archivo messages.es.xlf\par
 Agregar <target> traducci\'f3n </target>\par
+\par
+//////////////////////////            1\par
+\par
+\b Traducir una aplicaci\'f3n internacionalizaci\'f3n\par
+Usar un dropdown para los idiomas, disparar un evento para la traducci\'f3n\par
+\b0 Instalar ngx-translate\par
+\par
+En Angular json\par
+ "projects": \{\par
+    "kontrolar-cloud-pwa": \{     \par
+      "i18n": \{\par
+        "sourceLocale": "es-CO",\par
+        "locales": \{\par
+          "en-US": "src/locale/messages.en.xlf",\par
+          "pt-PT": "src/locale/messages.pt.xlf"\par
+        \}\par
+      \},\par
+\par
+"architect": \{\par
+        "build": \{\par
+          "builder": "@angular-devkit/build-angular:application",\par
+          "options": \{\par
+            "localize": ["es-CO", "en-US", "pt-PT"],\par
+\par
+En la carpeta assets crear la carpeta i18n y adentro los archivos para los idiomas, por ejemplo en-US.json o es-CO.json\par
+Adentro poner\par
+\{\par
+    "CHANGE_COMPANY": "Change Company",\par
+    "CHANGE_PASSWORD": "Change Password",\par
+    "CLOSE": "Close",\par
+    "CLOSE_SESSION": "Close Session",\par
+    "COMPANY_NAME": "Company Name",\par
+    "COMPANY_PASSWORD": "Company Password",\par
+    "CONSULT_COMPANIES": "Consult Companies",\par
+    "DOCUMENT_NUMBER": "Document Number",\par
+    "ERROR": "Error",\par
+\}\par
+\par
+app.module.ts\par
+import \{ TranslateHttpLoader \} from '@ngx-translate/http-loader';\par
+\par
+export function HttpLoaderFactory(http: HttpClient) \{\par
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');\par
+\}\par
+\par
+En imports\par
+TranslateModule.forRoot(\{\par
+      loader: \{\par
+        provide: TranslateLoader,\par
+        useFactory: HttpLoaderFactory,\par
+        deps: [HttpClient]\par
+      \}\par
+    \}),\par
+\par
+app.component.ts\par
+import \{ LanguageChangeService \} from '../app/services/language-change-service'; \par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+\par
+constructor\par
+private languageService: LanguageServiceService,\par
+private languageChangeService: LanguageChangeService,\par
+private translate: TranslateService\par
+\par
+setLanguage(event: Event) \{\par
+    const selectElement = event.target as HTMLSelectElement;\par
+    const language = selectElement.value;\par
+    this.languageService.setLanguage(language);\par
+    this.languageChangeService.changeLanguage(language); // Notifica el cambio de idioma\par
+  \}\par
+\par
+  ngOnInit(): void \{\par
+    this.translate.setDefaultLang('es-CO'); // Establece espa\'f1ol como idioma predeterminado\par
+    this.translate.use('es-CO'); // Aseg\'fararse de usar el idioma espa\'f1ol al iniciar\par
+    this.checkForUpdates();\par
+    this.isAuthenticated = this.userService.IsAuthenticated();\par
+    \par
+    // Suscribirse a cambios de autenticaci\'f3n\par
+    this.authService.authenticated$.subscribe(isAuthenticated => \{\par
+      this.isAuthenticated = isAuthenticated;\par
+    \});\par
+  \}\par
+\par
+app.component.html\par
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">\par
+        <div class="container-fluid">\par
+          <div class="ms-auto">\par
+            <select class="form-select" (change)="setLanguage($event)">\par
+              <option value="es-CO">Espa\'f1ol</option>\par
+              <option value="en-US">English</option>\par
+              <option value="pt-PT">Portugu\'eas</option>\par
+            </select>\par
+          </div>\par
+        </div>\par
+      </nav>\par
+\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ Location \} from '@angular/common';\par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class LanguageServiceService \{\par
+\par
+  constructor(private translate: TranslateService, private location: Location) \{    \par
+  \}\par
+\par
+  setLanguage(language: string) \{\par
+    //console.log("language al llegar al servicio ", language);\par
+    this.translate.use(language).subscribe(() => \{\par
+      this.location.replaceState(this.location.path(), '', \{ lang: language \});\par
+    \});\par
+  \}\par
+\}\par
+\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ BehaviorSubject \} from 'rxjs';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class LanguageChangeService \{\par
+  private languageSource = new BehaviorSubject<string>('es-CO');\par
+  currentLanguage = this.languageSource.asObservable();\par
+\par
+  changeLanguage(language: string) \{\par
+    //console.log('language ', language);\par
+    this.languageSource.next(language);\par
+    //sconsole.log('this.languageSource ', this.languageSource);\par
+  \}\par
+\}\par
+\par
+En el componente a traducir\par
+<li><a class="dropdown-item" href="#" translate><i class="bi bi-building"></i> CHANGE_COMPANY</a></li>\par
+\par
+<div class="selected-company">\{\{selectedCompany\}\}</div>\par
+\par
+ts\par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+import \{ LanguageChangeService \} from '../../services/language-change-service';\par
+\par
+En el constructor\par
+private translate: TranslateService,\par
+private languageChangeService: LanguageChangeService\par
+\par
+En el ngOnInit\par
+this.translateModulesAndOptions(); \par
+\par
+this.languageChangeService.currentLanguage.subscribe(language => \{      \par
+      this.translateModulesAndOptions();\par
+    \});\par
+\par
+translateModulesAndOptions(): void \{\par
+    if (this.listaModulos && this.listaModulos.length > 0) \{\par
+      this.listaModulos.forEach(modulo => \{\par
+        const key = `$\{modulo.NameModule.toUpperCase()\}`;        \par
+        this.translate.get(key).subscribe((translatedName: string) => \{\par
+          if (translatedName !== key) \{\par
+            modulo.NameModule = translatedName;\par
+          \}\par
+        \});\par
+\par
+        if (modulo.Options && modulo.Options.length > 0) \{\par
+          modulo.Options.forEach(option => \{\par
+            const optionKey = `$\{option.NameOption.toUpperCase()\}`;\par
+            this.translate.get(optionKey).subscribe((translatedOptionName: string) => \{\par
+              if (translatedOptionName !== optionKey) \{\par
+                option.NameOption = translatedOptionName;\par
+              \}\par
+            \});\par
+          \});\par
+        \}\par
+      \});\par
+    \}\par
+  \}\par
 \par
 ////////////////\par
 \par
@@ -1091,11 +1266,24 @@ ngOnInit(): void \{\par
 \par
 ////////////////\par
 \par
+\b Como poner un div al lado del otro\b0\par
+<div class="container">\par
+    <div class="inner"></div>\par
+    <div class="inner"></div>\par
+</div>\par
 \par
+.container \{\par
+    display: flex;\par
+\}\par
+\par
+.inner \{\par
+    flex: 1; /* Para que los divs ocupen el mismo espacio */    \par
+\}\par
 \par
 ////////////////\par
 \par
-\par
+\b Usando Emmet como se hace una lista no ordenada que cada una tiene un enlace y una imagen\b0\par
+ul>li*3>a[href="#"]>img[src="image.jpg"]\par
 \par
 ////////////////\par
 \par

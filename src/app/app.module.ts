@@ -14,6 +14,10 @@ import { LoginComponent } from './views/login/login.component';
 import { AuthInterceptor } from '../app/services/authInterceptor';
 import { BienvenidoComponent } from './views/bienvenido/bienvenido.component';
 import { SidebarMenuComponent } from './views/sidebar-menu/sidebar-menu.component';
+import { UsersComponent } from './views/users/users.component';
+import { UsersAddComponent } from './views/users-add/users-add.component';
+import { ProfilesComponent } from './views/profiles/profiles.component';
+import { ProfilesAddComponent } from './views/profiles-add/profiles-add.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,7 +28,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     LoginComponent,
     BienvenidoComponent,
-    SidebarMenuComponent
+    SidebarMenuComponent,
+    UsersComponent,
+    UsersAddComponent,
+    ProfilesComponent,
+    ProfilesAddComponent
   ],
   imports: [
     BrowserModule,

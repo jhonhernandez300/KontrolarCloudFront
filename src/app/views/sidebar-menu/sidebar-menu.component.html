@@ -49,7 +49,7 @@
                       <tr *ngIf="option">
                         <td>
                           <span [class]="option.Icon"></span>
-                          <a [routerLink]="['/', option.Controler, option.Action, { Id: modulo.IdModule, IdOption: option.IdOption }]">&nbsp;{{ option.NameOption }}</a>
+                          <a [routerLink]="['/', option.Action, { Id: modulo.IdModule, IdOption: option.IdOption }]">&nbsp;{{ option.NameOption }}</a>
                         </td>
                       </tr>
                     </ng-container>

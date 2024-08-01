@@ -1,0 +1,22 @@
+<div class="container" >
+
+    <div class="inner" id="icons">
+        <ul>
+            <li><img src="../../../assets/img/Add.png" alt="Adicionar" (click)="onAddClick()"></li>
+      <li><img src="../../../assets/img/Edit.png" alt="Editar" (click)="onEditClick()"></li>
+      <li><img src="../../../assets/img/DatoBorrado.png" alt="Borrar" (click)="onDeleteClick()"></li>
+      <li><img src="../../../assets/img/Buscar.png" alt="Buscar" (click)="onSearchClick()"></li>       
+      <li *ngIf="showSaveAndCancel"><img src="../../../assets/img/Save.png" alt="Guardar"></li>    
+      <li *ngIf="showSaveAndCancel"><img src="../../../assets/img/Cancel.png" alt="Cancelar"></li>           
+        </ul>
+    </div>
+
+    <div class="inner" id="crud-components">
+        <div *ngIf="showAdd"><app-users-add></app-users-add></div>
+        <div *ngIf="showEdit">Editar</div>
+        <div *ngIf="showDelete">Borrar</div>
+        <div *ngIf="showSearch">Buscar</div>
+    </div>
+
+</div><!-- container -->
+
