@@ -14,8 +14,9 @@ export class ProfileService {
   constructor(private http: HttpClient) {}
 
   saveData(profile: iProfile): Observable<any> {
-    const encryptedData = CryptoHelper.encrypt(profile);
-    return this.http.post<any>(`${this.apiUrl}/AddAsync`, { profile });
+    console.log(profile);
+    //const encryptedData = CryptoHelper.encrypt(profile);
+    return this.http.post<any>(`${this.apiUrl}/AddAsync`, profile);
   }
 
 }

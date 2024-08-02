@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile/profile.service';
+import { iProfile } from '../../models/iProfile';
 
 @Component({
   selector: 'app-profiles-add',
@@ -23,6 +24,15 @@ export class ProfilesAddComponent {
 
   onSubmit() {
     if (this.myForm.valid) {
+      const profile: iProfile = {
+        IdProfile: 0,  // En el backend se consulta el último id y se le suma 1
+        CodProfile: this.myForm.value.CodProfile,
+        NameProfile: this.myForm.value.NameProfile,
+        Description: this.myForm.value.Description,
+        optionsProfiles: [],  
+        usersProfiles: []   
+      };
+
       this.profileService.saveData(this.myForm.value).subscribe(
         response => {
           console.log('Profile saved successfully!', response);

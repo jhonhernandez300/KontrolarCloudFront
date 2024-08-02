@@ -1,7 +1,6 @@
-import { iUsersProfiles } from "./iUsersProfiles";
-import { iOptionsProfiles } from "./iOptionsProfiles";
+import { iUsersProfiles } from "../models/iUsersProfiles";
 
-export interface iProfile {
+export interface iOptionsProfiles {
     IdProfile: number;
     CodProfile: string;
     NameProfile: string;

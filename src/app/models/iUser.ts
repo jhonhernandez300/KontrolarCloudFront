@@ -1,4 +1,4 @@
-import { iUserProfile } from "./IUserProfile";
+import { iUsersProfiles } from "./iUsersProfiles";
 import { iUserCompany } from "./iUserCompany";
 
 export interface iUser {
@@ -8,5 +8,5 @@ export interface iUser {
     Surnames: string;
     UserMaster: boolean;     
     userCompanies?: iUserCompany[];
-    usersProfiles?: iUserProfile[];
+    usersProfiles?: iUsersProfiles[];
   }

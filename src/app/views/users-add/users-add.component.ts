@@ -23,17 +23,16 @@ export class UsersAddComponent {
     });
   }
 
-  onSubmit() {
-    console.log("onSubmit activado");
+  onSubmit() {    
     if (this.myForm.valid) {
       const user: iUser = {
-        IdUser: 0,  // Puedes ajustar esto según tus necesidades
+        IdUser: 0,  // En el backend se consulta el último id y se le suma 1
         IdentificationNumber: this.myForm.value.identificationNumber,
         Names: this.myForm.value.firstName,
         Surnames: this.myForm.value.lastName,
         UserMaster: this.myForm.value.userMaster === 'yes',
-        userCompanies: [],  // Ajusta esto según tus necesidades
-        usersProfiles: []   // Ajusta esto según tus necesidades
+        userCompanies: [],  
+        usersProfiles: []   
       };
       
       this.userService.saveData(user).subscribe(
