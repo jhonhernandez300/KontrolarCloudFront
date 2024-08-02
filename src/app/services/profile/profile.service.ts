@@ -3,7 +3,9 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { CryptoHelper } from '../../helpers/CryptoHelper';
-import { iProfile } from '../../models/iProfile'
+import { iProfile } from '../../models/iProfile';
+import { iProfileDTO } from '../../models/iProfileDTO';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
-  saveData(profile: iProfile): Observable<any> {
+  saveData(profile: iProfileDTO): Observable<any> {
     console.log(profile);
     //const encryptedData = CryptoHelper.encrypt(profile);
     return this.http.post<any>(`${this.apiUrl}/AddAsync`, profile);
