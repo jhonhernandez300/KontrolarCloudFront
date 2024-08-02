@@ -1287,10 +1287,304 @@ ul>li*3>a[href="#"]>img[src="image.jpg"]\par
 \par
 ////////////////\par
 \par
+\b Para evitar la repetici\'f3n de c\'f3digo entre los dos componentes UsersComponent y ProfilesComponent\b0  \par
+puedes utilizar un servicio compartido para manejar la l\'f3gica de visibilidad y mover la funcionalidad com\'fan a un componente base del cual hereden los componentes espec\'edficos. Aqu\'ed tienes una forma de hacerlo:\par
+\par
+1. Crear un Servicio Compartido\par
+Primero, crea un servicio para manejar la l\'f3gica de visibilidad de los \'edconos CRUD.\par
+\par
+typescript\par
+Copiar c\'f3digo\par
+// src/app/services/crud-actions-visibility.service.ts\par
+import \{ Injectable \} from '@angular/core';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class CrudActionsVisibilityService \{\par
+  showAdd = false;\par
+  showEdit = false;\par
+  showDelete = false;\par
+  showSearch = false;\par
+\par
+  setAddVisible(): void \{\par
+    this.resetVisibility();\par
+    this.showAdd = true;\par
+  \}\par
+\par
+  setEditVisible(): void \{\par
+    this.resetVisibility();\par
+    this.showEdit = true;\par
+  \}\par
+\par
+  setDeleteVisible(): void \{\par
+    this.resetVisibility();\par
+    this.showDelete = true;\par
+  \}\par
+\par
+  setSearchVisible(): void \{\par
+    this.resetVisibility();\par
+    this.showSearch = true;\par
+  \}\par
+\par
+  resetVisibility(): void \{\par
+    this.showAdd = false;\par
+    this.showEdit = false;\par
+    this.showDelete = false;\par
+    this.showSearch = false;\par
+  \}\par
+\}\par
+2. Crear un Componente Base\par
+Crea un componente base que maneje la l\'f3gica com\'fan.\par
+\par
+typescript\par
+Copiar c\'f3digo\par
+// src/app/components/crud-base.component.ts\par
+import \{ OnInit \} from '@angular/core';\par
+import \{ CrudActionsVisibilityService \} from '../services/crud-actions-visibility.service';\par
+\par
+export abstract class CrudBaseComponent implements OnInit \{\par
+  showSaveAndCancel = false;\par
+  showAdd = false;\par
+  showEdit = false;\par
+  showDelete = false;\par
+  showSearch = false;\par
+\par
+  constructor(protected crudActionsVisibilityService: CrudActionsVisibilityService) \{\}\par
+\par
+  ngOnInit(): void \{\par
+    this.updateVisibility();\par
+  \}\par
+\par
+  onAddClick(): void \{\par
+    this.crudActionsVisibilityService.setAddVisible();\par
+    this.updateVisibility();\par
+  \}\par
+\par
+  onEditClick(): void \{\par
+    this.crudActionsVisibilityService.setEditVisible();\par
+    this.updateVisibility();\par
+  \}\par
+\par
+  onDeleteClick(): void \{\par
+    this.crudActionsVisibilityService.setDeleteVisible();\par
+    this.updateVisibility();\par
+  \}\par
+\par
+  onSearchClick(): void \{\par
+    this.crudActionsVisibilityService.setSearchVisible();\par
+    this.updateVisibility();\par
+  \}\par
+\par
+  private updateVisibility(): void \{\par
+    this.showAdd = this.crudActionsVisibilityService.showAdd;\par
+    this.showEdit = this.crudActionsVisibilityService.showEdit;\par
+    this.showDelete = this.crudActionsVisibilityService.showDelete;\par
+    this.showSearch = this.crudActionsVisibilityService.showSearch;\par
+  \}\par
+\}\par
+3. Actualizar los Componentes Espec\'edficos\par
+Haz que los componentes espec\'edficos hereden del componente base.\par
+\par
+typescript\par
+Copiar c\'f3digo\par
+// src/app/components/users/users.component.ts\par
+import \{ Component \} from '@angular/core';\par
+import \{ CrudBaseComponent \} from '../crud-base.component';\par
+import \{ CrudActionsVisibilityService \} from '../../services/crud-actions-visibility.service';\par
+\par
+@Component(\{\par
+  selector: 'app-users',\par
+  templateUrl: './users.component.html',\par
+  styleUrls: ['./users.component.css']\par
+\})\par
+export class UsersComponent extends CrudBaseComponent \{\par
+  constructor(crudActionsVisibilityService: CrudActionsVisibilityService) \{\par
+    super(crudActionsVisibilityService);\par
+  \}\par
+\}\par
+typescript\par
+Copiar c\'f3digo\par
+// src/app/components/profiles/profiles.component.ts\par
+import \{ Component \} from '@angular/core';\par
+import \{ CrudBaseComponent \} from '../crud-base.component';\par
+import \{ CrudActionsVisibilityService \} from '../../services/crud-actions-visibility.service';\par
+\par
+@Component(\{\par
+  selector: 'app-profiles',\par
+  templateUrl: './profiles.component.html',\par
+  styleUrls: ['./profiles.component.css']\par
+\})\par
+export class ProfilesComponent extends CrudBaseComponent \{\par
+  constructor(crudActionsVisibilityService: CrudActionsVisibilityService) \{\par
+    super(crudActionsVisibilityService);\par
+  \}\par
+\}\par
+4. Actualizar las Plantillas\par
+Las plantillas HTML pueden mantenerse pr\'e1cticamente sin cambios, ya que ahora se utilizan las propiedades y m\'e9todos heredados del componente base.\par
+\par
+html\par
+Copiar c\'f3digo\par
+<!-- users.component.html -->\par
+<div class="container">\par
+  <div class="inner" id="icons">\par
+    <ul>\par
+      <li><img src="../../../assets/img/Add.png" alt="Adicionar" (click)="onAddClick()"></li>\par
+      <li><img src="../../../assets/img/Edit.png" alt="Editar" (click)="onEditClick()"></li>\par
+      <li><img src="../../../assets/img/DatoBorrado.png" alt="Borrar" (click)="onDeleteClick()"></li>\par
+      <li><img src="../../../assets/img/Buscar.png" alt="Buscar" (click)="onSearchClick()"></li>\par
+      <li *ngIf="showSaveAndCancel"><img src="../../../assets/img/Save.png" alt="Guardar"></li>\par
+      <li *ngIf="showSaveAndCancel"><img src="../../../assets/img/Cancel.png" alt="Cancelar"></li>\par
+    </ul>\par
+  </div>\par
+\par
+  <div class="inner" id="crud-components">\par
+    <div *ngIf="showAdd"><app-users-add></app-users-add></div>\par
+    <div *ngIf="showEdit">Editar</div>\par
+    <div *ngIf="showDelete">Borrar</div>\par
+    <div *ngIf="showSearch">Buscar</div>\par
+  </div>\par
+</div>\par
+html\par
+Copiar c\'f3digo\par
+<!-- profiles.component.html -->\par
+<div class="container">\par
+  <div class="inner" id="icons">\par
+    <ul>\par
+      <li><img src="../../../assets/img/Add.png" alt="Adicionar" (click)="onAddClick()"></li>\par
+      <li><img src="../../../assets/img/Edit.png" alt="Editar" (click)="onEditClick()"></li>\par
+      <li><img src="../../../assets/img/DatoBorrado.png" alt="Borrar" (click)="onDeleteClick()"></li>\par
+      <li><img src="../../../assets/img/Buscar.png" alt="Buscar" (click)="onSearchClick()"></li>\par
+      <li *ngIf="showSaveAndCancel"><img src="../../../assets/img/Save.png" alt="Guardar"></li>\par
+      <li *ngIf="showSaveAndCancel"><img src="../../../assets/img/Cancel.png" alt="Cancelar"></li>\par
+    </ul>\par
+  </div>\par
+\par
+  <div class="inner" id="crud-components">\par
+    <div *ngIf="showAdd"><app-profiles-add></app-profiles-add></div>\par
+    <div *ngIf="showEdit">Editar</div>\par
+    <div *ngIf="showDelete">Borrar</div>\par
+    <div *ngIf="showSearch">Buscar</div>\par
+  </div>\par
+</div>\par
 \par
 ////////////////\par
 \par
+\b Disparar validaci\'f3n desde un componente padre\b0\par
+Tengo una l\'f3gica repartida en varios componentes de angular y tengo un componente padre (users.component) y un componente hijo (users-add), haga los cambios necesarios para que cuando se presione Guardar se dispare la validaci\'f3n del formulario (onSubmit) del componente que se est\'e9 mostrando dentro del div crud-components que puede ser app-users-add, app-user-edit, app-users-delete, app-users-search.\par
 \par
+Para asegurarnos de que al hacer clic en el bot\'f3n "Guardar" se dispare la validaci\'f3n del formulario del componente que se est\'e9 mostrando dentro del div crud-components, haremos algunos ajustes en el c\'f3digo. Vamos a agregar m\'e9todos de referencia y comunicaci\'f3n entre el componente padre (UsersComponent) y los componentes hijos (UsersAddComponent, UsersEditComponent, etc.). Usaremos ViewChild y AfterViewInit para acceder a los m\'e9todos de los componentes hijos.\par
+\par
+Modificaciones en users.component.ts\par
+Agregar referencias a los componentes hijos usando ViewChild.\par
+Agregar un m\'e9todo para manejar el clic en el bot\'f3n "Guardar".\par
+typescript\par
+Copiar c\'f3digo\par
+import \{ Component, OnInit, ViewChild, AfterViewInit \} from '@angular/core';\par
+import \{ CrudActionsVisibility \} from '../../helpers/crud-icons-visibility';\par
+import \{ CrudBaseComponent \} from '../crud-base/crud-base.component';\par
+import \{ CrudActionsVisibilityService \} from '../../services/crud-actions-visibility.service';\par
+import \{ UsersAddComponent \} from '../users-add/users-add.component';\par
+import \{ UsersEditComponent \} from '../users-edit/users-edit.component';\par
+import \{ UsersDeleteComponent \} from '../users-delete/users-delete.component';\par
+import \{ UsersSearchComponent \} from '../users-search/users-search.component';\par
+\par
+@Component(\{\par
+  selector: 'app-users',\par
+  templateUrl: './users.component.html',\par
+  styleUrls: ['./users.component.css', '../../shared-styles.css']\par
+\})\par
+export class UsersComponent extends CrudBaseComponent implements AfterViewInit \{\par
+  @ViewChild(UsersAddComponent) usersAddComponent?: UsersAddComponent;\par
+  @ViewChild(UsersEditComponent) usersEditComponent?: UsersEditComponent;\par
+  @ViewChild(UsersDeleteComponent) usersDeleteComponent?: UsersDeleteComponent;\par
+  @ViewChild(UsersSearchComponent) usersSearchComponent?: UsersSearchComponent;\par
+\par
+  override showSaveAndCancel = false;\par
+  override showAdd = CrudActionsVisibility.showAdd;\par
+  override showEdit = CrudActionsVisibility.showEdit;\par
+  override showDelete = CrudActionsVisibility.showDelete;\par
+  override showSearch = CrudActionsVisibility.showSearch;\par
+\par
+  constructor(crudActionsVisibilityService: CrudActionsVisibilityService) \{\par
+    super(crudActionsVisibilityService);\par
+  \}\par
+\par
+  ngAfterViewInit(): void \{\par
+    this.updateVisibility();\par
+  \}\par
+\par
+  onSaveClick(): void \{\par
+    if (this.showAdd && this.usersAddComponent) \{\par
+      this.usersAddComponent.onSubmit();\par
+    \} else if (this.showEdit && this.usersEditComponent) \{\par
+      this.usersEditComponent.onSubmit();\par
+    \} else if (this.showDelete && this.usersDeleteComponent) \{\par
+      this.usersDeleteComponent.onSubmit();\par
+    \} else if (this.showSearch && this.usersSearchComponent) \{\par
+      this.usersSearchComponent.onSubmit();\par
+    \}\par
+  \}\par
+\}\par
+Modificaciones en users.component.html\par
+Agregar el evento click para el bot\'f3n "Guardar":\par
+\par
+html\par
+Copiar c\'f3digo\par
+<div class="container">\par
+  <div class="inner" id="icons">\par
+    <ul>\par
+      <li><img src="../../../assets/img/Add.png" alt="Adicionar" (click)="onAddClick()"></li>\par
+      <li><img src="../../../assets/img/Edit.png" alt="Editar" (click)="onEditClick()"></li>\par
+      <li><img src="../../../assets/img/DatoBorrado.png" alt="Borrar" (click)="onDeleteClick()"></li>\par
+      <li><img src="../../../assets/img/Buscar.png" alt="Buscar" (click)="onSearchClick()"></li>\par
+      <li *ngIf="showSaveAndCancel"><img src="../../../assets/img/Save.png" alt="Guardar" (click)="onSaveClick()"></li>\par
+      <li *ngIf="showSaveAndCancel"><img src="../../../assets/img/Cancel.png" alt="Cancelar"></li>\par
+    </ul>\par
+  </div>\par
+\par
+  <div class="inner" id="crud-components">\par
+    <div *ngIf="showAdd"><app-users-add></app-users-add></div>\par
+    <div *ngIf="showEdit"><app-users-edit></app-users-edit></div>\par
+    <div *ngIf="showDelete"><app-users-delete></app-users-delete></div>\par
+    <div *ngIf="showSearch"><app-users-search></app-users-search></div>\par
+  </div>\par
+</div>\par
+Asegurarse de que los componentes hijos tengan el m\'e9todo onSubmit\par
+Verifique que cada componente hijo tenga un m\'e9todo onSubmit para que pueda ser llamado desde el componente padre.\par
+\par
+Por ejemplo, users-add.component.ts ya tiene el m\'e9todo onSubmit:\par
+\par
+typescript\par
+Copiar c\'f3digo\par
+import \{ Component \} from '@angular/core';\par
+import \{ FormBuilder, FormGroup, Validators \} from '@angular/forms';\par
+\par
+@Component(\{\par
+  selector: 'app-users-add',\par
+  templateUrl: './users-add.component.html',\par
+  styleUrls: ['./users-add.component.css']\par
+\})\par
+export class UsersAddComponent \{\par
+  myForm: FormGroup;\par
+\par
+  constructor(private fb: FormBuilder) \{\par
+    this.myForm = this.fb.group(\{\par
+      identificationNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(25)]],\par
+      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), Validators.maxLength(100)]],\par
+      lastName: ['', [Validators.required, Validators.maxLength(100)]],\par
+      userMaster: ['no', Validators.required]\par
+    \});\par
+  \}\par
+\par
+  onSubmit() \{\par
+    if (this.myForm.valid) \{\par
+      console.log('Form Submitted!', this.myForm.value);\par
+    \} else \{\par
+      console.log('Form is invalid');\par
+    \}\par
+  \}\par
+\}\par
 \par
 ////////////////\par
 \par

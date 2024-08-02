@@ -1,0 +1,76 @@
+/* Estilos comunes para todos los componentes */
+.container {
+    display: flex;
+    height: 650px;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#icons {
+    flex: 1 1 20%; /* 20% del contenedor */
+}
+
+#crud-components {
+    flex: 3 1 80%; /* 80% del contenedor */
+}
+
+#crud-components > div {
+    width: 100%; /* Ocupa el 100% del ancho */
+}
+
+.inner ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner ul li {
+    margin-bottom: 10px;
+}
+
+.inner ul li img {
+    width: 100px;
+    height: auto;
+}
+
+.users-add, .profiles-add {
+    background-color: black;
+    color: white;    
+    width: 100%; 
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 1rem; /* Añade un poco de relleno para el contenido */
+}
+
+.section {
+    border: 2px solid darkblue;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.section-header {
+    background-color: rgb(26, 163, 208);
+    color: white;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    border-bottom: 2px solid darkblue;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.section-header h3 {
+    margin: 0;
+}
+
+

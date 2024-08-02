@@ -1,48 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CrudActionsVisibility } from '../../helpers/crud-icons-visibility';
+import { CrudBaseComponent } from '../crud-base/crud-base.component';
+import { CrudActionsVisibilityService } from '../../services/crud-actions-visibility.service';
+import { ProfilesAddComponent } from '../profiles-add/profiles-add.component';
+import { ProfilesEditComponent } from '../profiles-edit/profiles-edit.component';
+import { ProfilesDeleteComponent } from '../profiles-delete/profiles-delete.component';
+import { ProfilesSearchComponent } from '../profiles-search/profiles-search.component';
 
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
-  styleUrl: './profiles.component.css'
+  styleUrls: ['./profiles.component.css', '../../shared-styles.css']
 })
-export class ProfilesComponent implements OnInit {
-  showSaveAndCancel = false;
-  showAdd = CrudActionsVisibility.showAdd;
-  showEdit = CrudActionsVisibility.showEdit;
-  showDelete = CrudActionsVisibility.showDelete;
-  showSearch = CrudActionsVisibility.showSearch;
 
-  constructor() {}
+export class ProfilesComponent extends CrudBaseComponent implements AfterViewInit {
+  @ViewChild(ProfilesAddComponent) profilesAddComponent?: ProfilesAddComponent;
+  @ViewChild(ProfilesEditComponent) profilesEditComponent?: ProfilesEditComponent;
+  @ViewChild(ProfilesDeleteComponent) profilesDeleteComponent?: ProfilesDeleteComponent;
+  @ViewChild(ProfilesSearchComponent) profilesSearchComponent?: ProfilesSearchComponent;
 
-  ngOnInit(): void {
+  override showSaveAndCancel = false;
+  override showAdd = CrudActionsVisibility.showAdd;
+  override showEdit = CrudActionsVisibility.showEdit;
+  override showDelete = CrudActionsVisibility.showDelete;
+  override showSearch = CrudActionsVisibility.showSearch;
+
+  constructor(crudActionsVisibilityService: CrudActionsVisibilityService) {
+    super(crudActionsVisibilityService);
+  }
+
+  ngAfterViewInit(): void {
     this.updateVisibility();
   }
 
-  onAddClick(): void {
-    CrudActionsVisibility.setAddVisible();
-    this.updateVisibility();
+  onSaveClick(): void {
+    if (this.showAdd && this.profilesAddComponent) {
+      this.profilesAddComponent.onSubmit();
+    // } else if (this.showEdit && this.profilesEditComponent) {
+    //   this.profilesEditComponent.onSubmit();
+    // } else if (this.showDelete && this.profilesDeleteComponent) {
+    //   this.profilesDeleteComponent.onSubmit();
+    // } else if (this.showSearch && this.profilesSearchComponent) {
+    //   this.profilesSearchComponent.onSubmit();
+     }
   }
 
-  onEditClick(): void {
-    CrudActionsVisibility.setEditVisible();
-    this.updateVisibility();
-  }
-
-  onDeleteClick(): void {
-    CrudActionsVisibility.setDeleteVisible();
-    this.updateVisibility();
-  }
-
-  onSearchClick(): void {
-    CrudActionsVisibility.setSearchVisible();
-    this.updateVisibility();
-  }
-
-  private updateVisibility(): void {
-    this.showAdd = CrudActionsVisibility.showAdd;
-    this.showEdit = CrudActionsVisibility.showEdit;
-    this.showDelete = CrudActionsVisibility.showDelete;
-    this.showSearch = CrudActionsVisibility.showSearch;
-  }
 }

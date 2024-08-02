@@ -10,6 +10,7 @@ import { iModulo } from '../../models/iModulo';
 import { iMenu } from '../../models/iMenu';
 import { ModuleDTO } from '../../models/ModuleDTO';
 import { OptionDTO } from '../../models/OptionDTO';
+import { iUser } from '../../models/iUser'
 
 interface Company {
   [x: string]: any;
@@ -32,6 +33,12 @@ export class UserService {
   fechaHoraActual: Date = new Date();  
 
   constructor(private http: HttpClient) {}
+
+  saveData(user: iUser): Observable<any> {
+    console.log(user);
+    //const encryptedData = CryptoHelper.encrypt(user);
+    return this.http.post<any>(`${this.apiUrl}/AddAsync`, user);
+  }
 
   IsAuthenticated(): boolean{  
     const lastDate = localStorage.getItem('last date');      
@@ -131,12 +138,7 @@ export class UserService {
         }
       })
     );
-  }
-
-  saveData(data: any): Observable<any> {
-    const encryptedData = CryptoHelper.encrypt(data);
-    return this.http.post<any>(`${this.apiUrl}/SaveData`, { encryptedData });
-  }
+  }  
 
   GetCompaniesByIdentificationNumber(identificationNumber: number): Observable<any> {
     const encryptedDocumentNumber = CryptoHelper.encrypt(

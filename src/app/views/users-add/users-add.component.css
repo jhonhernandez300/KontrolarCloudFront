@@ -1,19 +1,19 @@
 .users-add {
     background-color: black;
-    color: white;    
-    width: 100%; 
+    color: white;
+    width: 100%;
     margin: 0 auto; /* Centra el contenedor horizontalmente */
     padding: 1rem; /* Añade un poco de relleno para el contenido */
-}
-
-.section {
+  }
+  
+  .section {
     border: 2px solid darkblue;
     border-radius: 5px;
     margin-bottom: 1.5rem;
     width: 100%;
-}
-
-.section-header {
+  }
+  
+  .section-header {
     background-color: rgb(26, 163, 208);
     color: white;
     text-transform: uppercase;
@@ -21,34 +21,52 @@
     border-bottom: 2px solid darkblue;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-}
-
-.section-header h3 {
-    margin: 0;
-}
-
-.section-body {
+  }
+  
+  .section-body {
     padding: 1rem;
-    background-color: #333; 
-}
-
-.form-label {
-    color: lightgray; 
+    background-color: #333;
+  }
+  
+  .form-label {
+    color: lightgray;
     margin-right: 1rem; /* Añade espacio entre el label y el input */
     flex: 0 0 40%; /* Alinea el label a la izquierda */
     text-align: left; /* Alinea el texto del label a la izquierda */
-}
-
-.form-group {
+  }
+  
+  .form-group {
     display: flex;
     align-items: center;
     justify-content: center; /* Centra el contenido horizontalmente */
-}
-
-.form-control {
+  }
+  
+  .form-control {
     background-color: #777; /* Fondo más claro */
     color: white;
     flex: 0 0 50%; /* Reduce el ancho del input */
     max-width: 400px; /* Fija un ancho máximo para los inputs */
     text-align: center; /* Centra el texto dentro del input */
-}
+  }
+  
+  .form-check-group {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    flex: 0 0 50%; /* Ajusta el ancho del grupo de radio buttons */
+    max-width: 400px; /* Fija un ancho máximo para los radio buttons */
+  }
+  
+  .form-check {
+    margin-left: 1rem;
+  }
+  
+  .form-check-label {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+  
+  .form-check-input {
+    margin-right: 0.5rem;
+  }
+  

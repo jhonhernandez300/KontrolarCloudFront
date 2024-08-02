@@ -6,6 +6,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,13 @@ import { UsersComponent } from './views/users/users.component';
 import { UsersAddComponent } from './views/users-add/users-add.component';
 import { ProfilesComponent } from './views/profiles/profiles.component';
 import { ProfilesAddComponent } from './views/profiles-add/profiles-add.component';
+import { CrudBaseComponent } from './views/crud-base/crud-base.component';
+import { UsersEditComponent } from './views/users-edit/users-edit.component';
+import { UsersDeleteComponent } from './views/users-delete/users-delete.component';
+import { UsersSearchComponent } from './views/users-search/users-search.component';
+import { ProfilesEditComponent } from './views/profiles-edit/profiles-edit.component';
+import { ProfilesDeleteComponent } from './views/profiles-delete/profiles-delete.component';
+import { ProfilesSearchComponent } from './views/profiles-search/profiles-search.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,13 +40,21 @@ export function HttpLoaderFactory(http: HttpClient) {
     UsersComponent,
     UsersAddComponent,
     ProfilesComponent,
-    ProfilesAddComponent
+    ProfilesAddComponent,
+    CrudBaseComponent,
+    UsersEditComponent,
+    UsersDeleteComponent,
+    UsersSearchComponent,
+    ProfilesEditComponent,
+    ProfilesDeleteComponent,
+    ProfilesSearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,    
+    ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

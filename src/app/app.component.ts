@@ -8,8 +8,8 @@ import { AuthServiceService } from '../app/services/auth-service.service'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html',  
+  styleUrls: ['./app.component.css', '../app/shared-styles.css']
 })
 export class AppComponent {
   title = 'kontrolar-cloud-pwa';
