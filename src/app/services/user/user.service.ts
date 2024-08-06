@@ -10,7 +10,7 @@ import { iModulo } from '../../models/iModulo';
 import { iMenu } from '../../models/iMenu';
 import { ModuleDTO } from '../../models/ModuleDTO';
 import { OptionDTO } from '../../models/OptionDTO';
-import { iUser } from '../../models/iUser'
+import { iUserDTO } from '../../models/iUserDTO'
 
 interface Company {
   [x: string]: any;
@@ -34,10 +34,34 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  saveData(user: iUser): Observable<any> {
+  getUserById(parametro: string): Observable<iUserDTO> {
+    const headers = new HttpHeaders({
+      'Accept': 'application/json'
+    });
+    return this.http.get<iUserDTO>(`${this.apiUrl}/GetUserById/${parametro}`, { headers: headers }).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
+  saveData(user: iUserDTO): Observable<any> {
     console.log(user);
-    //const encryptedData = CryptoHelper.encrypt(user);
-    return this.http.post<any>(`${this.apiUrl}/AddAsync`, user);
+    const encryptedData = CryptoHelper.encrypt(user);
+    const json = JSON.stringify(encryptedData);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    return this.http.post<any>(`${this.apiUrl}/AddAsync`, json, {
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      map(response => {        
+        return response;
+      })
+    );
   }
 
   IsAuthenticated(): boolean{  

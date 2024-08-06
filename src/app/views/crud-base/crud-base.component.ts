@@ -20,6 +20,11 @@ export class CrudBaseComponent implements OnInit {
     this.updateVisibility();
   }
 
+  onCancelClick(): void {
+    this.crudActionsVisibilityService.resetVisibility();
+    this.updateVisibility();
+  }
+
   onAddClick(): void {
     this.crudActionsVisibilityService.setAddVisible();
     this.updateVisibility();

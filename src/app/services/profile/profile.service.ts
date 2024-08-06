@@ -15,10 +15,26 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
-  saveData(profile: iProfileDTO): Observable<any> {
-    console.log(profile);
-    //const encryptedData = CryptoHelper.encrypt(profile);
-    return this.http.post<any>(`${this.apiUrl}/AddAsync`, profile);
+  saveData(profile: iProfile): Observable<any> {
+    //console.log(profile);
+    const encryptedData = CryptoHelper.encrypt(profile);
+    const json = JSON.stringify(encryptedData);     
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+  
+    return this.http.post<any>(`${this.apiUrl}/AddAsync`, json, {
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      map(response => {        
+        return response;
+      })
+    );
   }
+  
+  
 
 }

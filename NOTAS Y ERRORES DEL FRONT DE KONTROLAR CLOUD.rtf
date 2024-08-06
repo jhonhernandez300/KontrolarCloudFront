@@ -150,6 +150,11 @@ this.documentNumber.toString()\par
     </div>\par
   </div>\par
 \par
+En el ts\par
+import * as bootstrap from 'bootstrap';\par
+\par
+modalMessage: string = '';\par
+\par
 \ul documentNumber\ulnone : number = 0;\par
 \par
 Evento del bot\'f3n\par
@@ -609,7 +614,8 @@ translateModulesAndOptions(): void \{\par
 \par
 ////////////////\par
 \par
-\b Crear un dropdown para los idiomas\b0\par
+\b Crear un dropdown para los idiomas\par
+\b0 Traducir\par
 angular.json\par
 "projects": \{\par
     "kontrolar-cloud-pwa": \{     \par
@@ -746,6 +752,36 @@ En la carpeta assets se crea la carpet i18n, adentro se ponen los archivos para 
 \par
 En la consola\par
 npm install @ngx-translate/core @ngx-translate/http-loader\par
+\par
+/////////////////////\par
+\par
+\b Traducir un componente con la infraestructura de traducci\'f3n ya lista\par
+\b0 En el html\par
+<h4>\{\{ 'USER_CODE' | translate \}\}</h4>\par
+\par
+En el ts\par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+import \{ LanguageChangeService \} from '../../services/language-change-service';\par
+\par
+Constructor\par
+    private translate: TranslateService,\par
+    private languageChangeService: LanguageChangeService\par
+\par
+  ngOnInit(): void \{\par
+    // Suscribirse a cambios de idioma\par
+    this.languageChangeService.currentLanguage.subscribe(language => \{\par
+      this.translate.use(language);\par
+    \});\par
+  \}\par
+\par
+En en-US.json\par
+"CODIGO DEL USUARIO": "USER CODE",\par
+"C\'d3DIGO DE USU\'c1RIO": "USER CODE",\par
+"USER_CODE": "USER CODE",\par
+\par
+En es-CO.json\par
+"C\'d3DIGO DE USU\'c1RIO": "CODIGO DEL USUARIO",\par
+"USER_CODE": "CODIGO DEL USUARIO",\par
 \par
 ////////////////\par
 \par

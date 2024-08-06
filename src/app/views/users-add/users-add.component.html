@@ -1,52 +1,89 @@
+<!-- users-add.component.html -->
 <div class="container users-add">
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <div class="section">
       <div class="section-header">
-        <h4>CODIGO DEL USUARIO</h4>
+        <h4>{{ 'USER_CODE' | translate }}</h4>
       </div>
       <div class="section-body">
         <div class="mb-3 form-group">
-          <label for="identificationNumber" class="form-label">Número de Identificación</label>
-          <input type="text" id="identificationNumber" formControlName="identificationNumber" class="form-control" [ngClass]="{'is-invalid': myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched}">
-          <div class="invalid-feedback" *ngIf="myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched">
-            Número de Identificación es requerido y solo puede contener números (máximo 25 caracteres).
+          <div class="label-menu-item">
+            <label for="identificationNumber" class="form-label">{{ 'IDENTIFICATION_NUMBER' | translate }}</label>
           </div>
+          <div class="textbox-item textbox-identification"> 
+            <input type="text" id="identificationNumber" formControlName="identificationNumber" class="form-control"
+            [ngClass]="{'is-invalid': myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched}">
+          </div>          
+        </div>
+        <div class="invalid-feedback" *ngIf="myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched">
+          {{ 'IDENTIFICACION_NUMBER_IS_REQUIRED_AND_IT_CAN_ONLY_HAVE_NUMBERS(MAX_25_CHARACTERS)' | translate}}          
+        </div>
+        <div id="service-error" *ngIf="showServiceError">
+          {{ serviceError }}
         </div>
       </div>
     </div>
     <div class="section mt-4">
       <div class="section-header">
-        <h4>DATOS DEL USUARIO</h4>
+        <h4>{{ 'USER_DATA' | translate }}</h4>
       </div>
       <div class="section-body">
         <div class="mb-3 form-group">
-          <label for="firstName" class="form-label">Nombres</label>
-          <input type="text" id="firstName" formControlName="firstName" class="form-control" [ngClass]="{'is-invalid': myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched}">
-          <div class="invalid-feedback" *ngIf="myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched">
-            Nombres es requerido y solo puede contener letras y espacios (máximo 100 caracteres).
-          </div>
+          <div  class="label-menu-item">
+            <label for="firstName" class="form-label">{{ 'NAME' | translate }}</label>
+          </div>          
+          <div class="textbox-item textbox-names"> 
+            <input type="text" id="firstName" formControlName="firstName" class="form-control" [ngClass]="{'is-invalid': myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched}">
+          </div>          
+        </div>
+        <div class="invalid-feedback" *ngIf="myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched">
+          {{ 'NAMES_ARE_REQUIRED_AND_CAN_ONLY_CONTAIN_LETTERS_AND_SPACES_(MAXIMUM_100_CHARACTERS)' | translate}}
         </div>
         <div class="mb-3 form-group">
-          <label for="lastName" class="form-label">Sobrenombres</label>
-          <input type="text" id="lastName" formControlName="lastName" class="form-control" [ngClass]="{'is-invalid': myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched}">
-          <div class="invalid-feedback" *ngIf="myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched">
-            Sobrenombres es requerido (máximo 100 caracteres).
+          <div  class="label-menu-item">
+            <label for="lastName" class="form-label">{{ 'SURNAMES' | translate }}</label>
           </div>
+          <div class="textbox-item textbox-surnames"> 
+            <input type="text" id="lastName" formControlName="lastName" class="form-control" [ngClass]="{'is-invalid': myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched}">
+          </div>          
+        </div>
+        <div class="invalid-feedback" *ngIf="myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched">
+          {{ 'SURNAMES_IS_REQUIRED_(MAX_100_CHARACTERS)' | translate}}          
         </div>
         <div class="mb-3 form-group">
-          <label class="form-label">Es UserMaster</label>
+          <div  class="label-menu-item">
+            <label class="form-label">{{ 'IS_USER_MASTER' | translate }}</label>
+          </div>          
           <div class="form-check-group">
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" formControlName="userMaster" id="userMasterYes" value="yes">
-              <label class="form-check-label" for="userMasterYes">Sí</label>
+              <label class="form-check-label" for="userMasterYes">{{ 'YES' | translate}}</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" formControlName="userMaster" id="userMasterNo" value="no" checked>
-              <label class="form-check-label" for="userMasterNo">No</label>
+              <label class="form-check-label" for="userMasterNo"> {{'NO' | translate }}</label>
             </div>
           </div>
         </div>
       </div>
     </div>
   </form>
+</div>
+
+<!-- Modal -->
+<div #errorModal class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 translate class="modal-title" id="errorModalLabel">{{ modalHeader }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div translate class="modal-body">
+        {{ modalMessage }}
+      </div>
+      <div class="modal-footer">
+        <button translate type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">CLOSE</button>
+      </div>
+    </div>
+  </div>
 </div>

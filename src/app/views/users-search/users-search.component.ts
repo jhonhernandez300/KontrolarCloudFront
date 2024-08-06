@@ -1,28 +1,38 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/user/user.service';
+import { iUserDTO } from '../../models/iUserDTO';
 
 @Component({
   selector: 'app-users-search',
   templateUrl: './users-search.component.html',
-  styleUrl: './users-search.component.css'
+  styleUrls: ['./users-search.component.css']
 })
 export class UsersSearchComponent {
   myForm: FormGroup;
+  user: iUserDTO | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
     this.myForm = this.fb.group({
-      identificationNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(25)]],
-      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), Validators.maxLength(100)]],
-      lastName: ['', [Validators.required, Validators.maxLength(100)]],
-      userMaster: ['no', Validators.required]
+      parametro: ['', Validators.required]
     });
   }
 
   onSubmit() {
     if (this.myForm.valid) {
-      console.log('Form Submitted!', this.myForm.value);
+      const parametro = this.myForm.get('parametro')?.value;
+      this.userService.getUserById(parametro).subscribe(
+        (response) => {
+          this.user = response;
+          console.log('User found:', this.user);
+        },
+        (error) => {
+          console.error('Error fetching user:', error);
+          this.user = null; // Clear previous user data if error occurs
+        }
+      );
     } else {
-      console.log('Form is invalid');
+      this.myForm.markAllAsTouched();
     }
   }
 }

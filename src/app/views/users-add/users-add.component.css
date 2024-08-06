@@ -1,72 +1,137 @@
 .users-add {
-    background-color: black;
-    color: white;
-    width: 100%;
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-    padding: 1rem; /* Añade un poco de relleno para el contenido */
-  }
-  
-  .section {
-    border: 2px solid darkblue;
-    border-radius: 5px;
-    margin-bottom: 1.5rem;
-    width: 100%;
-  }
-  
-  .section-header {
-    background-color: rgb(26, 163, 208);
-    color: white;
-    text-transform: uppercase;
-    padding: 0.5rem;
-    border-bottom: 2px solid darkblue;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  
-  .section-body {
-    padding: 1rem;
-    background-color: #333;
-  }
-  
-  .form-label {
-    color: lightgray;
-    margin-right: 1rem; /* Añade espacio entre el label y el input */
-    flex: 0 0 40%; /* Alinea el label a la izquierda */
-    text-align: left; /* Alinea el texto del label a la izquierda */
-  }
-  
+  background-color: black;
+  color: white;
+  width: 100%;
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  padding: 1rem; 
+}
+
+.section {
+  border: 2px solid darkblue;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.section-header {
+  background-color: rgb(26, 163, 208);
+  color: white;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  border-bottom: 2px solid darkblue;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.section-body {
+  padding: 1rem;
+  background-color: #333;
+}
+
+.form-group-wrapper {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente el contenido del contenedor */
+  margin-bottom: 1rem; 
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column; /* Cambiar a columna para pantallas pequeñas */
+  align-items: flex-start; /* Alinea verticalmente el label y el input */
+  width: 100%;
+}
+
+.form-label {
+  color: lightgray;
+  margin-bottom: 0.5rem; 
+}
+
+.form-control {
+  background-color: #777; /* Fondo más claro */
+  color: white;
+  width: 100%; /* Ajusta el ancho para que ocupe todo el espacio disponible */
+  max-width: 400px; 
+  text-align: center; 
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 576px) {
   .form-group {
-    display: flex;
+    flex-direction: row; /* Alinea en fila para pantallas grandes */
     align-items: center;
-    justify-content: center; /* Centra el contenido horizontalmente */
   }
-  
+
+  .form-label {
+    margin-right: 1rem; 
+    margin-bottom: 0; 
+  }
+
   .form-control {
-    background-color: #777; /* Fondo más claro */
-    color: white;
-    flex: 0 0 50%; /* Reduce el ancho del input */
-    max-width: 400px; /* Fija un ancho máximo para los inputs */
-    text-align: center; /* Centra el texto dentro del input */
+    width: auto; 
+  }
+
+  .textbox-item {
+    width: 20rem;
+    align-items: right;      
+   
   }
   
+  .textbox-identification{
+    padding-left: 5.5rem;
+  }
+  
+  .textbox-names{
+    padding-left: 6rem;
+  }
+  
+  .textbox-surnames{
+    padding-left: 6rem;
+  }
+
   .form-check-group {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centra el contenido horizontalmente */
-    flex: 0 0 50%; /* Ajusta el ancho del grupo de radio buttons */
-    max-width: 400px; /* Fija un ancho máximo para los radio buttons */
+    padding-left: 7rem;
   }
-  
-  .form-check {
-    margin-left: 1rem;
+
+  .label-menu-item{
+    width: 15rem;
   }
-  
-  .form-check-label {
-    color: lightgray;
-    margin-right: 0.5rem;
+
+  #service-error{
+    width: 15rem;
   }
-  
-  .form-check-input {
-    margin-right: 0.5rem;
-  }
-  
+}
+
+.form-check-group {
+  display: flex;
+  flex-direction: row; /* Alinea los radio buttons horizontalmente */
+  align-items: center;
+  justify-content: center; 
+  flex-wrap: wrap; /* Permite que los radio buttons se envuelvan en varias líneas si es necesario */    
+}
+
+.form-check {
+  margin-left: 1rem;
+}
+
+.form-check-label {
+  color: lightgray;
+  margin-right: 0.5rem;
+}
+
+.form-check-input {
+  margin-right: 0.5rem;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 0.875rem; /* Ajusta el tamaño del texto del error */
+  margin-top: 0.25rem; /* Espacio entre el input y el mensaje de error */
+}
+
+#service-error{
+  color: red;
+  font-size: 0.875rem; /* Ajusta el tamaño del texto del error */
+  margin-top: 0.25rem; /* Espacio entre el input y el mensaje de error */
+  background-color: white;
+  align-items: center;
+}

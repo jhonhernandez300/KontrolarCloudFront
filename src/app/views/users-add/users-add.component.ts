@@ -1,19 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
-import { iUser } from '../../models/iUser';
+import { iUserDTO } from '../../models/iUserDTO';
+import * as bootstrap from 'bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageChangeService } from '../../services/language-change-service';
 
 @Component({
   selector: 'app-users-add',
   templateUrl: './users-add.component.html',
   styleUrls: ['./users-add.component.css']
 })
-export class UsersAddComponent {
+export class UsersAddComponent implements AfterViewInit, OnInit {
   myForm: FormGroup;
+  modalMessage: string = '';
+  modalHeader: string = '';
+  identificationNumber = 0;
+  names = '';
+  surnames = '';
+  isUserMaster = '';
+  modalVisible: boolean = false;
+  private modal: bootstrap.Modal | null = null;
+  serviceError: string = '';
+  showServiceError: boolean = false;
+  messageHeader: string = '';
+  responseMessage: string = '';
+  messageStatus: string = '';
+
+  @ViewChild('errorModal') modalElementRef!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private translate: TranslateService,
+    private languageChangeService: LanguageChangeService
   ) {
     this.myForm = this.fb.group({
       identificationNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(25)]],
@@ -23,28 +46,108 @@ export class UsersAddComponent {
     });
   }
 
-  onSubmit() {    
+  ngOnInit(): void {
+    // Suscribirse a cambios de idioma
+    this.languageChangeService.currentLanguage.subscribe(language => {
+      this.translate.use(language);
+    });
+  }
+
+  ngAfterViewInit() {
+    this.modal = new bootstrap.Modal(this.modalElementRef.nativeElement);
+  }
+
+  private showModal(message: string, header: string): void {
+    this.modalMessage = message;
+    this.modalHeader = header;
+    this.modalVisible = true;
+
+    if (this.modal) {
+      this.modal.show();
+      this.modalElementRef.nativeElement.addEventListener('hidden.bs.modal', this.onModalHidden.bind(this), { once: true });
+    } else {
+      console.error('No se encontró el elemento modal con id "errorModal".');
+    }
+  }
+
+  private onModalHidden(): void {
+    this.modalVisible = false;
+    if (this.modalHeader === 'Éxito') {
+      this.resetForm();
+    }
+  }
+
+  private resetForm(): void {
+    const userMasterValue = this.myForm.get('userMaster')?.value;
+    this.myForm.reset({
+      identificationNumber: '',
+      firstName: '',
+      lastName: '',
+      userMaster: userMasterValue
+    });
+  }
+
+  onSubmit() {
+    this.resetVariables(); // En caso de que tenga algo de una interacción anterior
+  
     if (this.myForm.valid) {
-      const user: iUser = {
-        IdUser: 0,  // En el backend se consulta el último id y se le suma 1
+      const user: iUserDTO = {
+        IdUser: 0,
         IdentificationNumber: this.myForm.value.identificationNumber,
         Names: this.myForm.value.firstName,
         Surnames: this.myForm.value.lastName,
-        UserMaster: this.myForm.value.userMaster === 'yes',
-        userCompanies: [],  
-        usersProfiles: []   
+        UserMaster: this.myForm.value.userMaster === 'yes'
       };
-      
+  
       this.userService.saveData(user).subscribe(
         response => {
-          console.log('User saved successfully!', response);
+          this.responseMessage = response.message;
+          this.messageStatus = 'success';
+  
+          // Suscribirse a cambios de idioma
+          this.languageChangeService.currentLanguage.subscribe(language => {
+            this.translate.use(language).subscribe(() => {
+              this.translate.get(this.responseMessage).subscribe((translatedMessage: string) => {
+                this.responseMessage = translatedMessage;
+                this.translate.get('Exito').subscribe((translatedHeader: string) => {
+                  this.messageHeader = translatedHeader;
+                  this.showModal(this.responseMessage, this.messageHeader);
+                });
+              });
+            });
+          });
         },
         error => {
-          console.error('Error saving user:', error);
+          this.serviceError = error.error?.message || 'Error desconocido';
+          this.translateServiceError(this.serviceError);
+          this.showServiceError = true;
         }
       );
     } else {
-      console.log('Form is invalid');
+      this.translateServiceError('Formulario invalido');
+      this.showServiceError = true;
+    }
+  }  
+
+  translateServiceError(message: string): void{
+    this.translate.get(message).subscribe((translatedName: string) => {            
+      this.serviceError = translatedName;
+    });
+  }
+
+  resetVariables(): void{
+    this.serviceError = '';
+    this.showServiceError = false;
+    this.messageHeader = '';
+    this.responseMessage = '';
+  }
+
+  closeModal(): void {
+    this.resetVariables();
+    this.resetForm();
+
+    if (this.modal) {
+      this.modal.hide();
     }
   }
 }

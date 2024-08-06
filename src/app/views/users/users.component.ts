@@ -43,4 +43,10 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
       this.usersSearchComponent.onSubmit();
     }
   }
+
+  override onCancelClick(): void {
+    this.crudActionsVisibilityService.resetVisibility();
+    this.updateVisibility();
+  }
+  
 }
