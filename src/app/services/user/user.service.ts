@@ -46,7 +46,7 @@ export class UserService {
   }
 
   saveData(user: iUserDTO): Observable<any> {
-    console.log(user);
+    //console.log(user);
     const encryptedData = CryptoHelper.encrypt(user);
     const json = JSON.stringify(encryptedData);
 

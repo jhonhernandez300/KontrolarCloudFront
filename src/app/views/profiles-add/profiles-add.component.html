@@ -1,39 +1,76 @@
+<!-- profiles-add.component.html -->
 <div class="container profiles-add">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div class="section">
             <div class="section-header">
-                <h4>CODIGO DEL PERFIL</h4>
+                <h4>{{ 'PROFILE_CODE' | translate }}</h4>
             </div>
             <div class="section-body">
                 <div class="mb-3 form-group">
-                    <label for="profileCode" class="form-label">Código del Perfil</label>
-                    <input type="text" id="profileCode" formControlName="CodProfile" class="form-control" [ngClass]="{'is-invalid': myForm.get('CodProfile')?.invalid && myForm.get('CodProfile')?.touched}">
-                    <div class="invalid-feedback" *ngIf="myForm.get('CodProfile')?.invalid && myForm.get('CodProfile')?.touched">
-                        Código del Perfil es requerido y solo puede contener números.
+                    <div class="label-menu-item">
+                        <label for="profileCode" class="form-label">{{ 'CODE' | translate }}</label>
+                    </div>
+                    <div class="textbox-item textbox-code">
+                        <input type="text" id="profileCode" formControlName="CodProfile" class="form-control"
+                            [ngClass]="{'is-invalid': myForm.get('CodProfile')?.invalid && myForm.get('CodProfile')?.touched}">
                     </div>
                 </div>
+                <div class="invalid-feedback" *ngIf="myForm.get('CodProfile')?.invalid && myForm.get('CodProfile')?.touched">
+                    {{ 'IT_IS_REQUIRED_AND_CAN_ONLY_HAVE_NUMBERS' | translate }}
+                </div>
+                <div id="service-error" *ngIf="showServiceError">
+                    {{ serviceError }}
+                  </div>
             </div>
         </div>
         <div class="section mt-4">
             <div class="section-header">
-                <h4>DATOS DEL PERFIL</h4>
+                <h4>{{ 'PROFILE_DATA' | translate }}</h4>
             </div>
             <div class="section-body">
                 <div class="mb-3 form-group">
-                    <label for="profileName" class="form-label">Nombre del Perfil</label>
-                    <input type="text" id="profileName" formControlName="NameProfile" class="form-control" [ngClass]="{'is-invalid': myForm.get('NameProfile')?.invalid && myForm.get('NameProfile')?.touched}">
-                    <div class="invalid-feedback" *ngIf="myForm.get('NameProfile')?.invalid && myForm.get('NameProfile')?.touched">
-                        Nombre del Perfil es requerido y solo puede contener letras y espacios.
+                    <div class="label-menu-item">
+                        <label for="profileName" class="form-label">{{ 'PROFILE_NAME' | translate }}</label>
                     </div>
+                    <div class="textbox-item textbox-name">
+                        <input type="text" id="profileName" formControlName="NameProfile" class="form-control"
+                            [ngClass]="{'is-invalid': myForm.get('NameProfile')?.invalid && myForm.get('NameProfile')?.touched}">
+                    </div>
+                </div>
+                <div class="invalid-feedback" *ngIf="myForm.get('NameProfile')?.invalid && myForm.get('NameProfile')?.touched">
+                    {{ 'IT_IS_REQUIRED_AND_CAN_ONLY_HAVE_LETTERS_AND_SPACES' | translate }}
                 </div>
                 <div class="mb-3 form-group">
-                    <label for="profileDescription" class="form-label">Descripción</label>
-                    <input type="text" id="profileDescription" formControlName="Description" class="form-control" [ngClass]="{'is-invalid': myForm.get('Description')?.invalid && myForm.get('Description')?.touched}">
-                    <div class="invalid-feedback" *ngIf="myForm.get('Description')?.invalid && myForm.get('Description')?.touched">
-                        Descripción es requerida.
+                    <div class="label-menu-item">
+                        <label for="profileDescription" class="form-label">{{ 'DESCRIPTION' | translate }}</label>
+                    </div>
+                    <div class="textbox-item textbox-description">
+                        <input type="text" id="profileDescription" formControlName="Description" class="form-control"
+                            [ngClass]="{'is-invalid': myForm.get('Description')?.invalid && myForm.get('Description')?.touched}">
                     </div>
                 </div>
+                <div class="invalid-feedback" *ngIf="myForm.get('Description')?.invalid && myForm.get('Description')?.touched">
+                    {{ 'IT_IS_REQUIRED' | translate }}
+                </div>
             </div>
-        </div>        
+        </div>
     </form>
+</div>
+
+<!-- Modal -->
+<div #errorModal class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 translate class="modal-title" id="errorModalLabel">{{ modalHeader }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div translate class="modal-body">
+                {{ modalMessage }}
+            </div>
+            <div class="modal-footer">
+                <button translate type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">{{ 'CLOSE' | translate }}</button>
+            </div>
+        </div>
+    </div>
 </div>

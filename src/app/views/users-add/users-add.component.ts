@@ -101,6 +101,7 @@ export class UsersAddComponent implements AfterViewInit, OnInit {
   
       this.userService.saveData(user).subscribe(
         response => {
+          console.log(response);
           this.responseMessage = response.message;
           this.messageStatus = 'success';
   
@@ -123,14 +124,14 @@ export class UsersAddComponent implements AfterViewInit, OnInit {
           this.showServiceError = true;
         }
       );
-    } else {
-      this.translateServiceError('Formulario invalido');
+    } else {      
+      this.translateServiceError('FORM_IS_INVALID');
       this.showServiceError = true;
     }
   }  
 
   translateServiceError(message: string): void{
-    this.translate.get(message).subscribe((translatedName: string) => {            
+    this.translate.get(message).subscribe((translatedName: string) => {               
       this.serviceError = translatedName;
     });
   }

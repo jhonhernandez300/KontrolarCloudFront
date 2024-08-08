@@ -1245,6 +1245,65 @@ export class LanguageChangeService \{\par
   \}\par
 \}\par
 \par
+///////////////////\par
+\par
+\b C\'f3mo traducir lo que viene de la base de datos\par
+\b0 Con la infraestructura de traducci\'f3n ya montada\par
+\par
+<div id="service-error" *ngIf="showServiceError">\par
+          \{\{ serviceError \}\}\par
+</div>\par
+\par
+import \{ TranslateService \} from '@ngx-translate/core';\par
+import \{ LanguageChangeService \} from '../../services/language-change-service';\par
+\par
+ponerlos en el constructor\par
+\par
+  ngOnInit(): void \{\par
+    // Suscribirse a cambios de idioma\par
+    this.languageChangeService.currentLanguage.subscribe(language => \{\par
+      this.translate.use(language);\par
+    \});\par
+  \}\par
+\par
+ onSubmit() \{\par
+...\par
+this.userService.saveData(user).subscribe(\par
+        response => \{\par
+          this.responseMessage = response.message;\par
+          this.messageStatus = 'success';\par
+  \par
+          // Suscribirse a cambios de idioma\par
+          this.languageChangeService.currentLanguage.subscribe(language => \{\par
+            this.translate.use(language).subscribe(() => \{\par
+              this.translate.get(this.responseMessage).subscribe((translatedMessage: string) => \{\par
+                this.responseMessage = translatedMessage;\par
+                this.translate.get('Exito').subscribe((translatedHeader: string) => \{\par
+                  this.messageHeader = translatedHeader;\par
+                  this.showModal(this.responseMessage, this.messageHeader);\par
+                \});\par
+              \});\par
+            \});\par
+          \});\par
+        \},\par
+        error => \{\par
+          this.serviceError = error.error?.message || 'Error desconocido';\par
+          this.translateServiceError(this.serviceError);\par
+          this.showServiceError = true;\par
+        \}\par
+      );\par
+    \} else \{\par
+      this.translateServiceError('Formulario invalido');\par
+      this.showServiceError = true;\par
+    \}\par
+  \}  \par
+\par
+ translateServiceError(message: string): void\{\par
+    this.translate.get(message).subscribe((translatedName: string) => \{            \par
+      this.serviceError = translatedName;\par
+    \});\par
+  \}\par
+\par
 ////////////////\par
 \par
 \b Actualizar el estado isAuthenticated en AppComponent despu\'e9s de un inicio de sesi\'f3n exitoso\b0\par

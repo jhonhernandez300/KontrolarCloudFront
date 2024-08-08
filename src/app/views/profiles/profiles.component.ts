@@ -45,4 +45,9 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
      }
   }
 
+  override onCancelClick(): void {
+    this.crudActionsVisibilityService.resetVisibility();
+    this.updateVisibility();
+  }
+
 }

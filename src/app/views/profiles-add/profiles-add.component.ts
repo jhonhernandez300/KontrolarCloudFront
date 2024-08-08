@@ -1,54 +1,130 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile/profile.service';
-import { iProfile } from '../../models/iProfile';
 import { iProfileDTO } from '../../models/iProfileDTO';
+import * as bootstrap from 'bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageChangeService } from '../../services/language-change-service';
 
 @Component({
   selector: 'app-profiles-add',
   templateUrl: './profiles-add.component.html',
   styleUrls: ['./profiles-add.component.css']
 })
-export class ProfilesAddComponent {
+export class ProfilesAddComponent implements AfterViewInit, OnInit {
   myForm: FormGroup;
-
+  modalMessage: string = '';
+  modalHeader: string = '';
   profile: iProfileDTO = {
     IdProfile: 0,
     CodProfile: '',
     NameProfile: '',
     Description: ''
   };
+  private modal: bootstrap.Modal | null = null;
+  serviceError: string = '';
+  showServiceError: boolean = false;
+
+  @ViewChild('errorModal') modalElementRef!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private translate: TranslateService,
+    private languageChangeService: LanguageChangeService
   ) {
     this.myForm = this.fb.group({
-      CodProfile: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      NameProfile: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+      CodProfile: ['', ],
+      NameProfile: ['', ],
       Description: ['', [Validators.required]]
     });
   }
 
-  onSubmit() {
-    if (this.myForm.valid) {
-      this.profile.IdProfile = 0;
-      this.profile.CodProfile = this.myForm.value.CodProfile;
-      this.profile.NameProfile = this.myForm.value.NameProfile;
-      this.profile.Description = this.myForm.value.Description;      
+  ngOnInit(): void {
+    // Suscribirse a cambios de idioma
+    this.languageChangeService.currentLanguage.subscribe(language => {
+      this.translate.use(language);
+    });
+  }
 
-      this.profileService.saveData(this.profile).subscribe(
+  ngAfterViewInit() {
+    this.modal = new bootstrap.Modal(this.modalElementRef.nativeElement);
+  }
+
+  private showModal(message: string, header: string): void {
+    this.modalMessage = message;
+    this.modalHeader = header;
+    if (this.modal) {
+      this.modal.show();
+      this.modalElementRef.nativeElement.addEventListener('hidden.bs.modal', this.onModalHidden.bind(this), { once: true });
+    }
+  }
+
+  private onModalHidden(): void {
+    if (this.modalHeader === 'SUCCESS') {
+      this.resetForm();
+    }
+  }
+
+  private resetForm(): void {
+    this.myForm.reset({
+      CodProfile: '',
+      NameProfile: '',
+      Description: ''
+    });
+  }
+
+  onSubmit() {
+    this.resetVariables();    
+
+    if (this.myForm.valid) {
+      
+      const profile: iProfileDTO = {
+        IdProfile: 0,
+        CodProfile: this.myForm.value.CodProfile,
+        NameProfile: this.myForm.value.NameProfile,
+        Description: this.myForm.value.Description       
+      };          
+
+      this.profileService.saveData(profile).subscribe(
         response => {
-          console.log('Profile saved successfully!', response);
-          
+          console.log(response);
+          this.translate.get('SAVED_SUCCESSFULLY').subscribe((translatedMessage: string) => {
+            this.modalMessage = translatedMessage;
+            this.translate.get('SUCCESS').subscribe((translatedHeader: string) => {
+              this.modalHeader = translatedHeader;
+              this.showModal(this.modalMessage, this.modalHeader);
+            });
+          });
+          this.resetForm();
         },
         error => {
-          console.error('Error saving profile:', error);
-          
+          this.serviceError = error.error?.message || 'UNKNOWN_ERROR';
+          this.translateServiceError(this.serviceError);
+          this.showServiceError = true;
         }
       );
-    } else {
-      console.log('Form is invalid');
+    } else {      
+      this.translateServiceError('FORM_IS_INVALID');
+      this.showServiceError = true;
+    }
+  }
+
+  translateServiceError(message: string): void {
+    this.translate.get(message).subscribe((translatedMessage: string) => {      
+      this.serviceError = translatedMessage;
+      this.showServiceError = true;
+    });
+  }
+
+  private resetVariables(): void {
+    this.serviceError = '';
+    this.showServiceError = false;
+  }
+
+  closeModal(): void {
+    if (this.modal) {
+      this.modal.hide();
     }
   }
 }

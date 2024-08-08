@@ -1,9 +1,10 @@
-.users-add {
+/* profiles-add.component.css */
+.profiles-add {
     background-color: black;
-    color: white;    
-    width: 100%; 
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-    padding: 1rem; /* Añade un poco de relleno para el contenido */
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
 }
 
 .section {
@@ -25,26 +26,82 @@
 
 .section-body {
     padding: 1rem;
-    background-color: #333; 
+    background-color: #333;
 }
 
-.form-label {
-    color: lightgray; 
-    margin-right: 1rem; /* Añade espacio entre el label y el input */
-    flex: 0 0 40%; /* Alinea el label a la izquierda */
-    text-align: left; /* Alinea el texto del label a la izquierda */
+.form-group-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
 .form-group {
     display: flex;
-    align-items: center;
-    justify-content: center; /* Centra el contenido horizontalmente */
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.form-label {
+    color: lightgray;
+    margin-bottom: 0.5rem;
 }
 
 .form-control {
-    background-color: #777; /* Fondo más claro */
+    background-color: #777;
     color: white;
-    flex: 0 0 50%; /* Reduce el ancho del input */
-    max-width: 400px; /* Fija un ancho máximo para los inputs */
-    text-align: center; /* Centra el texto dentro del input */
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+@media (min-width: 576px) {
+    .form-group {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .form-label {
+        margin-right: 1rem;
+        margin-bottom: 0;
+    }
+
+    .label-menu-item{
+        padding-left: 8rem;
+    }
+
+    .form-control {
+        width: auto;
+    }
+
+    .textbox-item {
+        width: 20rem;
+        align-items: right;
+    }
+
+    .textbox-code{
+        padding-left: 10rem;
+    }
+
+    .textbox-name{
+        padding-left: 5.5rem;
+    }
+
+    .textbox-description{
+        padding-left: 8rem;
+    }
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+#service-error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    background-color: white;
+    align-items: center;
 }
