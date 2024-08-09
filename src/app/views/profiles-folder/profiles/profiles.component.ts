@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { CrudActionsVisibility } from '../../helpers/crud-icons-visibility';
-import { CrudBaseComponent } from '../crud-base/crud-base.component';
-import { CrudActionsVisibilityService } from '../../services/crud-actions-visibility.service';
+import { CrudActionsVisibility } from '../../../helpers/crud-icons-visibility';
+import { CrudBaseComponent } from '../../crud-base/crud-base.component';
+import { CrudActionsVisibilityService } from '../../../services/crud-actions-visibility.service';
 import { ProfilesAddComponent } from '../profiles-add/profiles-add.component';
 import { ProfilesEditComponent } from '../profiles-edit/profiles-edit.component';
 import { ProfilesDeleteComponent } from '../profiles-delete/profiles-delete.component';
@@ -10,7 +10,7 @@ import { ProfilesSearchComponent } from '../profiles-search/profiles-search.comp
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
-  styleUrls: ['./profiles.component.css', '../../shared-styles.css']
+  styleUrls: ['./profiles.component.css', '../../../shared-styles.css']
 })
 
 export class ProfilesComponent extends CrudBaseComponent implements AfterViewInit {

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsersDeleteComponent } from './users-delete.component';
+import { UsersGetDataComponent } from './users-get-data.component';
 
-describe('UsersDeleteComponent', () => {
-  let component: UsersDeleteComponent;
-  let fixture: ComponentFixture<UsersDeleteComponent>;
+describe('UsersGetDataComponent', () => {
+  let component: UsersGetDataComponent;
+  let fixture: ComponentFixture<UsersGetDataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UsersDeleteComponent]
+      declarations: [UsersGetDataComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UsersDeleteComponent);
+    fixture = TestBed.createComponent(UsersGetDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

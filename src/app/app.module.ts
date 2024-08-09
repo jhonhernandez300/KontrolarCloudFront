@@ -15,17 +15,18 @@ import { LoginComponent } from './views/login/login.component';
 import { AuthInterceptor } from '../app/services/authInterceptor';
 import { BienvenidoComponent } from './views/bienvenido/bienvenido.component';
 import { SidebarMenuComponent } from './views/sidebar-menu/sidebar-menu.component';
-import { UsersComponent } from './views/users/users.component';
-import { UsersAddComponent } from './views/users-add/users-add.component';
-import { ProfilesComponent } from './views/profiles/profiles.component';
-import { ProfilesAddComponent } from './views/profiles-add/profiles-add.component';
+import { UsersComponent } from './views/users-folder/users/users.component';
+import { UsersAddComponent } from './views/users-folder/users-add/users-add.component';
+import { ProfilesComponent } from './views/profiles-folder/profiles/profiles.component';
+import { ProfilesAddComponent } from './views/profiles-folder/profiles-add/profiles-add.component';
 import { CrudBaseComponent } from './views/crud-base/crud-base.component';
-import { UsersEditComponent } from './views/users-edit/users-edit.component';
-import { UsersDeleteComponent } from './views/users-delete/users-delete.component';
-import { UsersSearchComponent } from './views/users-search/users-search.component';
-import { ProfilesEditComponent } from './views/profiles-edit/profiles-edit.component';
-import { ProfilesDeleteComponent } from './views/profiles-delete/profiles-delete.component';
-import { ProfilesSearchComponent } from './views/profiles-search/profiles-search.component';
+import { UsersEditComponent } from './views/users-folder/users-edit/users-edit.component';
+import { UsersSearchComponent } from './views/users-folder/users-search/users-search.component';
+import { ProfilesEditComponent } from './views/profiles-folder/profiles-edit/profiles-edit.component';
+import { ProfilesDeleteComponent } from './views/profiles-folder/profiles-delete/profiles-delete.component';
+import { ProfilesSearchComponent } from './views/profiles-folder/profiles-search/profiles-search.component';
+import { UsersGetDataComponent } from './views/users-folder/users-get-data/users-get-data.component';
+import { UsersShowTableComponent } from './views/users-folder/users-show-table/users-show-table.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -42,12 +43,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfilesComponent,
     ProfilesAddComponent,
     CrudBaseComponent,
-    UsersEditComponent,
-    UsersDeleteComponent,
+    UsersEditComponent,    
     UsersSearchComponent,
     ProfilesEditComponent,
     ProfilesDeleteComponent,
-    ProfilesSearchComponent
+    ProfilesSearchComponent,
+    UsersGetDataComponent,
+    UsersShowTableComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<!-- get-data.component.html -->
+<div class="global-container">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="section">
+      <div class="section-header">
+        <h4>{{ 'SEARCH_USER' | translate }}</h4>
+      </div>
+      <div class="section-body">
+        <div class="mb-3 form-group">
+          <div class="form-group-inline">
+            <label for="parametro" class="form-label">{{ 'SEARCH_PARAMETER' | translate }}</label>
+            <input type="text" 
+                   id="parametro" 
+                   formControlName="parametro" 
+                   class="form-control" 
+                   [ngClass]="{'is-invalid': myForm.get('parametro')?.invalid && myForm.get('parametro')?.touched}">
+          </div>
+          <div class="invalid-feedback error-message" *ngIf="myForm.get('parametro')?.invalid && myForm.get('parametro')?.touched">
+            {{ 'YOU_SHOULD_ENTER_A_USER_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER' | translate }}
+          </div>
+          <div id="service-error" *ngIf="showServiceError">
+            {{ serviceError }}
+          </div>
+        </div>
+        <div class="mb-3 form-group">
+          <div id="button-section">
+            <button type="submit" class="btn btn-primary">{{ 'SEARCH' | translate }}</button>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </form>
+</div>

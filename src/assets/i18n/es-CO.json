@@ -90,6 +90,9 @@
   "RETURN ACCOUNTED RECEIPTS": "Devolución Contabilizado Recibos",
   "SAVED_SUCCESSFULLY": "Guardado Exitosamente",
   "SCHEDULE TRANSPORT": "Programar Transporte",
+  "SEARCH": "Buscar",
+  "SEARCH_PARAMETER": "Parametro de Busqueda",
+  "SEARCH_USER": "BUSCAR USUARIO",
   "SEGUIMIENTO TRANSPORTE": "Seguimiento Transporte",
   "SET REORDER POINTS": "Configurar Puntos Reorden",
   "Sim": "Sí",
@@ -111,5 +114,6 @@
   "USERS": "Usuarios",
   "USUARIOS": "Usuarios",
   "USUÁRIOS": "Usuarios",
-  "YES": "Sí"
+  "YES": "Sí",
+  "YOU_SHOULD_ENTER_A_USER_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "Debe ingresar un codigo de usuario, un nombre o un apellido; o un parametro de busqueda"
 }

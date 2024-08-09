@@ -98,6 +98,9 @@
   "Registro agregado con exito": "Registro adicionado com sucesso",
   "SAVED_SUCCESSFULLY": "Salvo com Sucesso",
   "SCHEDULE TRANSPORT": "Programar Transporte",
+  "SEARCH": "Pesquisar",
+  "SEARCH_PARAMETER": "Parâmetro de Pesquisa",
+  "SEARCH_USER": "PESQUISAR USUÁRIO",
   "SEGUIMIENTO TRANSPORTE": "Acompanhamento de Transporte",
   "SET REORDER POINTS": "Definir Pontos de Reabastecimento",
   "SUCCESS": "Sucesso",
@@ -121,5 +124,6 @@
   "USUARIOS": "Usuários",
   "USUÁRIOS": "Usuários",
   "Ya existe ese número de identificación": "Esse número de identificação já existe",
-  "YES": "Sim"
+  "YES": "Sim",
+  "YOU_SHOULD_ENTER_A_USER_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "Você deve inserir um código de usuário, um nome ou sobrenome; ou um parâmetro de pesquisa"
 }

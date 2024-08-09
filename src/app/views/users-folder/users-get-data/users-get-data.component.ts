@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../services/user/user.service';
-import { iUserDTO } from '../../models/iUserDTO';
+import { UserService } from '../../../services/user/user.service';
+import { iUserDTO } from '../../../models/iUserDTO';
 
 @Component({
-  selector: 'app-users-search',
-  templateUrl: './users-search.component.html',
-  styleUrls: ['./users-search.component.css']
+  selector: 'app-users-get-data',
+  templateUrl: './users-get-data.component.html',
+  styleUrl: './users-get-data.component.css'
 })
-export class UsersSearchComponent {
+export class UsersGetDataComponent {
   myForm: FormGroup;
   user: iUserDTO | null = null;
+  serviceError: string = '';
+  showServiceError: boolean = true;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.myForm = this.fb.group({
