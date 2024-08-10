@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../../services/user/user.service';
 import { iUserDTO } from '../../../models/iUserDTO';
 
 @Component({
@@ -9,5 +7,9 @@ import { iUserDTO } from '../../../models/iUserDTO';
   styleUrls: ['./users-search.component.css']
 })
 export class UsersSearchComponent {
-  
+  users: iUserDTO[] | null = null;
+
+  onUsersFetched(users: iUserDTO[] | null) {
+    this.users = users;
+  }
 }

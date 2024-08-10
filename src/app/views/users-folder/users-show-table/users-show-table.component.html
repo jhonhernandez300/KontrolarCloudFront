@@ -1,12 +1,32 @@
-<!-- <div *ngIf="user">
-    <h5>Usuario Encontrado:</h5>
-    <p><strong>ID:</strong> {{ user.IdUser }}</p>
-    <p><strong>Número de identificación:</strong> {{ user.IdentificationNumber }}</p>
-    <p><strong>Nombres:</strong> {{ user.Names }}</p>
-    <p><strong>Sobrenombre:</strong> {{ user.Surnames }}</p>
-    <p><strong>Es UserMaster:</strong> {{ user.UserMaster }}</p>
+<div class="global-container" *ngIf="users && users.length > 0">
+  <div class="section">
+    <div class="section-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>{{ 'IDENTIFICATION_NUMBER' | translate }}</th>
+            <th>{{ 'NAME' | translate }}</th>
+            <th>{{ 'SURNAMES' | translate }}</th>
+            <th>{{ 'MASTER' | translate }}</th>
+            <th>{{ 'ACTIONS' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.identificationNumber }}</td>
+            <td>{{ user.names }}</td>
+            <td>{{ user.surnames }}</td>
+            <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
 
-  <div *ngIf="user === null && myForm.touched && myForm.valid">
-    <p>No se encontró el usuario.</p>
-  </div> -->
+<div *ngIf="(!users || users.length === 0)">
+  <p>{{ 'NO_USERS_FOUND' | translate }}</p>
+</div>

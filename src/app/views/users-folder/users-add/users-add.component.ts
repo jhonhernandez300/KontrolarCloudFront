@@ -92,11 +92,11 @@ export class UsersAddComponent implements AfterViewInit, OnInit {
   
     if (this.myForm.valid) {
       const user: iUserDTO = {
-        IdUser: 0,
-        IdentificationNumber: this.myForm.value.identificationNumber,
-        Names: this.myForm.value.firstName,
-        Surnames: this.myForm.value.lastName,
-        UserMaster: this.myForm.value.userMaster === 'yes'
+        idUser: 0,
+        identificationNumber: this.myForm.value.identificationNumber,
+        names: this.myForm.value.firstName,
+        surnames: this.myForm.value.lastName,
+        userMaster: this.myForm.value.userMaster === 'yes'
       };
   
       this.userService.saveData(user).subscribe(

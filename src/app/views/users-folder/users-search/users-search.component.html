@@ -1,9 +1,7 @@
-<div>
-  <div class="full-width">
-    <app-users-get-data></app-users-get-data>
-  </div>
-  
-  <div class="full-width">
-    <app-users-show-table></app-users-show-table>
-  </div>  
+<div class="full-width">
+  <app-users-get-data (usersFetched)="onUsersFetched($event)"></app-users-get-data>
+</div>
+
+<div class="full-width">
+  <app-users-show-table [users]="users"></app-users-show-table>
 </div>

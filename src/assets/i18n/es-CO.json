@@ -1,5 +1,6 @@
 {
   "ACOMPANHAMENTO DE TRANSPORTE": "Seguimiento Transporte",
+  "ACTIONS": "Acciones",
   "ADMINISTRAR PUNTOS RECORDEN": "Administrar Puntos Reorden",
   "BILLING": "Facturación",
   "CAMPOS ESPECIAIS": "Campos Especiales",
@@ -98,7 +99,7 @@
   "Sim": "Sí",
   "SPECIAL FIELDS": "Campos Especiales",
   "SUCCESS": "Exito",
-  "SURNAMES": "Sobrenombres",
+  "SURNAMES": "Apellido",
   "SURNAMES_IS_REQUIRED_(MAX_100_CHARACTERS)": "Sobrenombres es requerido (Max 100 caracteres)",
   "TECHNICAL CONFIGURATION": "Configuracion Tecnica",
   "THE_LICENCE_HAS_EXPIRED": "La licencia ha caducado",

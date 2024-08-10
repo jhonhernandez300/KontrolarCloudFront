@@ -34,11 +34,18 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUserById(parametro: string): Observable<iUserDTO> {
+  getUserByParam(parametro: string): Observable<iUserDTO[]> {
+    const encryptedData = CryptoHelper.encrypt(parametro);
+    const json = JSON.stringify(encryptedData);
+
     const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-    return this.http.get<iUserDTO>(`${this.apiUrl}/GetUserById/${parametro}`, { headers: headers }).pipe(
+    return this.http.get<iUserDTO[]>(`${this.apiUrl}/getUserByParam/${encryptedData}`, { 
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
       map(response => {
         return response;
       })

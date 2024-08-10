@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
 import { iUserDTO } from '../../../models/iUserDTO';
@@ -6,11 +6,11 @@ import { iUserDTO } from '../../../models/iUserDTO';
 @Component({
   selector: 'app-users-get-data',
   templateUrl: './users-get-data.component.html',
-  styleUrl: './users-get-data.component.css'
+  styleUrls: ['./users-get-data.component.css']
 })
 export class UsersGetDataComponent {
   myForm: FormGroup;
-  user: iUserDTO | null = null;
+  @Output() usersFetched = new EventEmitter<iUserDTO[] | null>();
   serviceError: string = '';
   showServiceError: boolean = true;
 
@@ -23,14 +23,14 @@ export class UsersGetDataComponent {
   onSubmit() {
     if (this.myForm.valid) {
       const parametro = this.myForm.get('parametro')?.value;
-      this.userService.getUserById(parametro).subscribe(
+
+      this.userService.getUserByParam(parametro).subscribe(
         (response) => {
-          this.user = response;
-          console.log('User found:', this.user);
+          this.usersFetched.emit(response);
         },
         (error) => {
-          console.error('Error fetching user:', error);
-          this.user = null; // Clear previous user data if error occurs
+          console.error('Error fetching users:', error);
+          this.usersFetched.emit(null);
         }
       );
     } else {

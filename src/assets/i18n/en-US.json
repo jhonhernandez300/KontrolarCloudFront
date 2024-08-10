@@ -1,5 +1,6 @@
 {
     "ACOMPANHAMENTO DE TRANSPORTE": "Schedule Transport",
+    "ACTIONS": "Actions",
     "ADMINISTRAR PUNTOS RECORDEN": "Manage Reorder Points",
     "Apelidos": "Surnames",
     "BILLING": "Billing",
@@ -85,6 +86,7 @@
     "MAESTROS": "Masters",
     "MANAGE REORDER POINTS": "Manage Reorder Points",
     "MANAGER_ADMIN": "Manager admin",
+    "MASTER": "Master",
     "MASTERS": "Masters",
     "MESTRES": "Masters",
     "MOVIMENTOS DE COMPRAS": "Purchase Movements",
