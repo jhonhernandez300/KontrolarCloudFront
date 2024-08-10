@@ -1,7 +1,12 @@
+<!-- users-search.component.html -->
 <div class="full-width">
-  <app-users-get-data (usersFetched)="onUsersFetched($event)"></app-users-get-data>
+  <app-users-get-data
+   (usersFetched)="onUsersFetched($event)"
+   (submitPressed)="handleSubmitPressed($event)"
+  >
+  </app-users-get-data>
 </div>
 
 <div class="full-width">
-  <app-users-show-table [users]="users"></app-users-show-table>
+  <app-users-show-table [users]="users" [submitted]="submitted"></app-users-show-table>
 </div>

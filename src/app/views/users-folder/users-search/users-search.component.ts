@@ -8,8 +8,14 @@ import { iUserDTO } from '../../../models/iUserDTO';
 })
 export class UsersSearchComponent {
   users: iUserDTO[] | null = null;
+  submitted: boolean = false;
 
   onUsersFetched(users: iUserDTO[] | null) {
     this.users = users;
+  }
+
+  handleSubmitPressed(submitted: boolean) {
+    console.log(submitted);
+    this.submitted = submitted;
   }
 }

@@ -12,7 +12,10 @@ export class UsersGetDataComponent {
   myForm: FormGroup;
   @Output() usersFetched = new EventEmitter<iUserDTO[] | null>();
   serviceError: string = '';
-  showServiceError: boolean = true;
+  showServiceError: boolean = true;  
+
+ // Nuevo: Indicador de si se hizo submit
+ @Output() submitPressed = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.myForm = this.fb.group({
@@ -20,13 +23,16 @@ export class UsersGetDataComponent {
     });
   }
 
-  onSubmit() {
+  onSubmit() {    
+    this.submitPressed.emit(true);
+
     if (this.myForm.valid) {
       const parametro = this.myForm.get('parametro')?.value;
 
       this.userService.getUserByParam(parametro).subscribe(
         (response) => {
-          this.usersFetched.emit(response);
+          console.log(response);
+          this.usersFetched.emit(response);          
         },
         (error) => {
           console.error('Error fetching users:', error);

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { iUserDTO } from '../../../models/iUserDTO';
 
 @Component({
@@ -8,10 +8,18 @@ import { iUserDTO } from '../../../models/iUserDTO';
 })
 export class UsersShowTableComponent {
   @Input() users: iUserDTO[] | null = null;
+  @Input() submitted: boolean = false;
 
-  ngOnChanges()
+  ngOnChanges(changes: SimpleChanges)
   {
-    console.log(this.users);
+    if (changes['submitted']) {
+      console.log('Submitted:', this.submitted); // Asegúrate de que esto es true cuando el formulario se envía
+    }
+
+    // Verifica si 'users' ha cambiado
+    if (changes['users']) {
+      console.log('Users:', this.users);
+    }
   }
 
   editUser(user: iUserDTO) {
