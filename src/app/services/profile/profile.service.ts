@@ -15,6 +15,25 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
+  getProfilesByParam(parametro: string): Observable<iProfileDTO[]> {
+    const encryptedData = CryptoHelper.encrypt(parametro);
+    const json = JSON.stringify(encryptedData);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    return this.http.get<iProfileDTO[]>(`${this.apiUrl}/getProfilesByParam/${parametro}`, { 
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
+
   saveData(profile: iProfile): Observable<any> {
     //console.log(profile);
     const encryptedData = CryptoHelper.encrypt(profile);

@@ -612,7 +612,7 @@ translateModulesAndOptions(): void \{\par
     \}\par
   \}\par
 \par
-////////////////\par
+////////////////                 1\par
 \par
 \b Crear un dropdown para los idiomas\par
 \b0 Traducir\par
@@ -633,7 +633,7 @@ angular.json\par
           "options": \{\par
          \b    "localize": ["es-CO", "en-US", "pt-PT"],\par
 \b0\par
-app.component.ts\par
+\cf6\b app.component.ts\cf0\b0\par
 import \{ LanguageServiceService \} from '../app/services/language-service.service';\par
 \par
  constructor(    \par
@@ -646,10 +646,11 @@ setLanguage(event: Event) \{\par
     this.languageService.setLanguage(language);\par
   \}\par
 \par
-app.component.html\par
+\cf6\b app.component.html\cf0\b0\par
 <nav class="navbar navbar-expand-lg navbar-light bg-light">\par
     <div class="container-fluid">\par
       <a class="navbar-brand" href="#">Mi Aplicaci\'f3n</a>\par
+\par
       <div class="d-flex">\par
         <select class="form-select" (change)="setLanguage($event)">\par
           <option value="es-CO">Espa\'f1ol</option>\par
@@ -657,13 +658,14 @@ app.component.html\par
           <option value="pt-PT">Portugu\'eas</option>\par
         </select>\par
       </div>\par
+\par
     </div>\par
 </nav>\par
 <div class="container">\par
     <router-outlet></router-outlet>\par
-  </div>\par
+</div>\par
 \par
-language-service.service\par
+\cf6\b language-service.service\cf0\b0\par
 import \{ Injectable \} from '@angular/core';\par
 import \{ Location \} from '@angular/common';\par
 import \{ TranslateService \} from '@ngx-translate/core';\par
@@ -677,15 +679,14 @@ export class LanguageServiceService \{\par
     this.translate.setDefaultLang('es-CO');\par
   \}\par
 \par
-  setLanguage(language: string) \{\par
-    //console.log("language al llegar al servicio ", language);\par
+  setLanguage(language: string) \{    \par
     this.translate.use(language).subscribe(() => \{\par
       this.location.replaceState(this.location.path(), '', \{ lang: language \});\par
     \});\par
   \}\par
 \}\par
 \par
-login.component.html\par
+\cf6\b login.component.html\cf0\b0\par
 <div class="container d-flex justify-content-center align-items-center vh-100">\par
   <div class="card" style="width: 25rem;">\par
     <div class="card-body">\par
@@ -723,7 +724,7 @@ login.component.html\par
   </div>\par
 </div>\par
 \par
-app.module.ts\par
+\cf6\b app.module.ts\cf0\b0\par
 Despu\'e9s de los imports\par
 export function HttpLoaderFactory(http: HttpClient) \{\par
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');\par
@@ -753,7 +754,7 @@ En la carpeta assets se crea la carpet i18n, adentro se ponen los archivos para 
 En la consola\par
 npm install @ngx-translate/core @ngx-translate/http-loader\par
 \par
-/////////////////////\par
+/////////////////////             1\par
 \par
 \b Traducir un componente con la infraestructura de traducci\'f3n ya lista\par
 \b0 En el html\par
@@ -783,12 +784,14 @@ En es-CO.json\par
 "C\'d3DIGO DE USU\'c1RIO": "CODIGO DEL USUARIO",\par
 "USER_CODE": "CODIGO DEL USUARIO",\par
 \par
-////////////////\par
+En el html poner \{\{ 'TEXT_TO_TRANSLATE' | translate \}\}\par
+\par
+////////////////         1\par
 \par
 \b Como crear un helper y usarlo\par
-\b0 export class DateFormatter \{\par
+\b0 export class \ul DateFormatter \ulnone\{\par
 \par
-    public formatDate(date: Date): string \{\par
+    public \highlight1 formatDate\highlight0 (date: Date): string \{\par
         const year = date.getFullYear();\par
         const month = (date.getMonth() + 1).toString().padStart(2, '0');\par
         const day = date.getDate().toString().padStart(2, '0');\par
@@ -799,10 +802,10 @@ En es-CO.json\par
 \par
 En el componente que lo usa:\par
 const date = new Date(response[selectedCompanyIndex]['LicenseValidDate']);\par
-const dateFormatter = new DateFormatter();\par
-this.licenseValidDate = dateFormatter.formatDate(date);\par
+const dateFormatter = new \ul DateFormatter\ulnone ();\par
+this.licenseValidDate = dateFormatter.\highlight1 formatDate\highlight0 (date);\par
 \par
-////////////////\par
+////////////////         1\par
 \par
 \b C\'f3mo traducir los mensajes del modal\par
 \b0 <!-- Modal -->\par
@@ -814,7 +817,7 @@ this.licenseValidDate = dateFormatter.formatDate(date);\par
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\par
       </div>\par
       <div translate class="modal-body">\par
-        \{\{ modalMessage \}\}\par
+        \{\{ \ul modalMessage \ulnone\}\}\par
       </div>\par
       <div class="modal-footer">\par
         <button translate type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>\par
@@ -828,10 +831,11 @@ import \{ TranslateService \} from '@ngx-translate/core';\par
 En el constructor:\par
 private translate: TranslateService\par
 \par
-private showModal(messageKey: string): void \{\par
+private \highlight1 showModal\highlight0 (messageKey: string): void \{\par
     this.translate.get(messageKey).subscribe((translatedMessage: string) => \{\par
-      this.modalMessage = translatedMessage;\par
+      this.\ul modalMessage \ulnone = translatedMessage;\par
       const modalElement = document.getElementById('errorModal');\par
+\par
       if (modalElement) \{\par
         const modal = new bootstrap.Modal(modalElement);\par
         modal.show();\par
@@ -839,9 +843,9 @@ private showModal(messageKey: string): void \{\par
         console.error('No se encontr\'f3 el elemento modal con id "errorModal".');\par
       \}\par
     \});\par
-  \}\par
+ \}\par
 \par
-this.showModal('IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY');\par
+this.\highlight1 showModal\highlight0 ('IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY');\par
 \par
 En los archivos q est\'e1n en la ubicaci\'f3n assets > i18n (traducido para cada idioma en el lado derecho)\par
 "IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY":"Identification number cannot be empty"\par

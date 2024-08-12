@@ -14,7 +14,7 @@ export class UsersGetDataComponent {
   serviceError: string = '';
   showServiceError: boolean = true;  
 
- // Nuevo: Indicador de si se hizo submit
+ // Indicador de si se hizo submit
  @Output() submitPressed = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder, private userService: UserService) {

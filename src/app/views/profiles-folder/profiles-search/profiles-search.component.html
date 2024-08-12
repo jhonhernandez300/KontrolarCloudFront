@@ -1,1 +1,12 @@
-<p>profiles-search works!</p>
+<div class="full-width">
+    <app-profiles-get-data 
+      (profilesFetched)="onProfilesFetched($event)"
+      (submitPressed)="handleSubmitPressed($event)"
+      >
+    </app-profiles-get-data>
+  </div>
+  
+  <div class="full-width">
+    <app-profiles-show-table [profiles]="profiles" [submitted]="submitted"></app-profiles-show-table>    
+  </div>
+  

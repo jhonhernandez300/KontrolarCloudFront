@@ -5,6 +5,7 @@ import { UserService } from '../app/services/user/user.service';
 import { LanguageChangeService } from '../app/services/language-change-service'; 
 import { TranslateService } from '@ngx-translate/core';
 import { AuthServiceService } from '../app/services/auth-service.service'
+import { ProfileService } from './services/profile/profile.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,8 @@ export class AppComponent {
     private userService: UserService,
     private languageChangeService: LanguageChangeService,
     private translate: TranslateService,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private profileService: ProfileService,
   ) {}
 
   setLanguage(event: Event) {

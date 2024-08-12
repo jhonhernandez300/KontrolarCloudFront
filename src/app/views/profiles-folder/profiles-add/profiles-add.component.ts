@@ -16,10 +16,10 @@ export class ProfilesAddComponent implements AfterViewInit, OnInit {
   modalMessage: string = '';
   modalHeader: string = '';
   profile: iProfileDTO = {
-    IdProfile: 0,
-    CodProfile: '',
-    NameProfile: '',
-    Description: ''
+    idProfile: 0,
+    codProfile: '',
+    nameProfile: '',
+    description: ''
   };
   private modal: bootstrap.Modal | null = null;
   serviceError: string = '';
@@ -80,10 +80,10 @@ export class ProfilesAddComponent implements AfterViewInit, OnInit {
     if (this.myForm.valid) {
       
       const profile: iProfileDTO = {
-        IdProfile: 0,
-        CodProfile: this.myForm.value.CodProfile,
-        NameProfile: this.myForm.value.NameProfile,
-        Description: this.myForm.value.Description       
+        idProfile: 0,
+        codProfile: this.myForm.value.CodProfile,
+        nameProfile: this.myForm.value.NameProfile,
+        description: this.myForm.value.Description       
       };          
 
       this.profileService.saveData(profile).subscribe(

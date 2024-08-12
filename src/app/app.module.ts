@@ -27,6 +27,8 @@ import { ProfilesDeleteComponent } from './views/profiles-folder/profiles-delete
 import { ProfilesSearchComponent } from './views/profiles-folder/profiles-search/profiles-search.component';
 import { UsersGetDataComponent } from './views/users-folder/users-get-data/users-get-data.component';
 import { UsersShowTableComponent } from './views/users-folder/users-show-table/users-show-table.component';
+import { ProfilesGetDataComponent } from './views/profiles-folder/profiles-get-data/profiles-get-data.component';
+import { ProfilesShowTableComponent } from './views/profiles-folder/profiles-show-table/profiles-show-table.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -49,7 +51,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfilesDeleteComponent,
     ProfilesSearchComponent,
     UsersGetDataComponent,
-    UsersShowTableComponent
+    UsersShowTableComponent,
+    ProfilesGetDataComponent,
+    ProfilesShowTableComponent
   ],
   imports: [
     BrowserModule,
