@@ -3,28 +3,30 @@
 <div class="global-container" *ngIf="users && users.length > 0">
   <div class="section">
     <div class="section-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>{{ 'IDENTIFICATION_NUMBER' | translate }}</th>
-            <th>{{ 'NAME' | translate }}</th>
-            <th>{{ 'SURNAMES' | translate }}</th>
-            <th>{{ 'MASTER' | translate }}</th>
-            <th>{{ 'ACTIONS' | translate }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.identificationNumber }}</td>
-            <td>{{ user.names }}</td>
-            <td>{{ user.surnames }}</td>
-            <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
-            <td>
-              <button class="btn btn-warning btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{{ 'IDENTIFICATION_NUMBER' | translate }}</th>
+              <th>{{ 'NAME' | translate }}</th>
+              <th>{{ 'SURNAMES' | translate }}</th>
+              <th>{{ 'MASTER' | translate }}</th>
+              <th>{{ 'ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.identificationNumber }}</td>
+              <td>{{ user.names }}</td>
+              <td>{{ user.surnames }}</td>
+              <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
+              <td>
+                <button class="btn btn-warning btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>      
     </div>
   </div>
 </div>

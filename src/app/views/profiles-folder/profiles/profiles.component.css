@@ -1,0 +1,6 @@
+/* profiles.component.css */
+.container{
+    padding-bottom: 20px; 
+    /* Asegura que el padding no se incluya en el tamaño total del contenedor */
+    box-sizing: content-box; 
+}
