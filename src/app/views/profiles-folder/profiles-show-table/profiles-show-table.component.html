@@ -1,31 +1,34 @@
+<!-- profiles-show-table.component.html -->
 <div class="global-container" *ngIf="submitted">
-<div class="global-container" *ngIf="profiles && profiles.length > 0">
+  <div class="global-container" *ngIf="profiles && profiles.length > 0">
     <div class="section">
       <div class="section-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>{{ 'PROFILE_CODE' | translate }}</th>
-              <th>{{ 'PROFILE_NAME' | translate }}</th>
-              <th>{{ 'DESCRIPTION' | translate }}</th>
-              <th>{{ 'ACTIONS' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let profile of profiles">
-              <td>{{ profile.codProfile }}</td>
-              <td>{{ profile.nameProfile }}</td>
-              <td>{{ profile.description }}</td>
-              <td>
-                <button class="btn btn-warning btn-sm" (click)="editProfile(profile)">{{ 'EDIT' | translate }}</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-wrapper">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>{{ 'PROFILE_CODE' | translate }}</th>
+                <th>{{ 'PROFILE_NAME' | translate }}</th>
+                <th>{{ 'DESCRIPTION' | translate }}</th>
+                <th>{{ 'ACTIONS' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let profile of profiles">
+                <td>{{ profile.codProfile }}</td>
+                <td>{{ profile.nameProfile }}</td>
+                <td>{{ profile.description }}</td>
+                <td>
+                  <button class="btn btn-warning btn-sm" (click)="editProfile(profile)">{{ 'EDIT' | translate }}</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>        
       </div>
     </div>
   </div>
-  
+
   <div *ngIf="(!profiles || profiles.length === 0)">
     <p>{{ 'NO_PROFILES_FOUND' | translate }}</p>
   </div>

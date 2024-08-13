@@ -1687,7 +1687,44 @@ export class UsersAddComponent \{\par
 \par
 ////////////////\par
 \par
+\b Poner una barra de scrolling en un tabla y controlar el tama\'f1o m\'e1ximo\par
+\b0 en Angular con Bootstrap 5, es posible agregar una barra de desplazamiento (scrollbar) a una tabla. Para lograrlo, puedes envolver la tabla en un contenedor con las clases de Bootstrap que permiten el desplazamiento horizontal o vertical.\par
 \par
+Aqu\'ed tienes un ejemplo b\'e1sico de c\'f3mo hacerlo:\par
+\par
+HTML\par
+html\par
+Copiar c\'f3digo\par
+<div class="table-responsive">\par
+  <table class="table table-striped table-bordered">\par
+    <thead>\par
+      <tr>\par
+        <th>Columna 1</th>\par
+        <th>Columna 2</th>\par
+        <th>Columna 3</th>\par
+        <!-- Agrega m\'e1s columnas seg\'fan sea necesario -->\par
+      </tr>\par
+    </thead>\par
+    <tbody>\par
+      <tr>\par
+        <td>Dato 1</td>\par
+        <td>Dato 2</td>\par
+        <td>Dato 3</td>\par
+        <!-- Agrega m\'e1s datos seg\'fan sea necesario -->\par
+      </tr>\par
+      <!-- Agrega m\'e1s filas seg\'fan sea necesario -->\par
+    </tbody>\par
+  </table>\par
+</div>\par
+CSS (Opcional)\par
+Si necesitas un desplazamiento vertical o quieres controlar la altura de la tabla, puedes agregar un estilo adicional:\par
+\par
+css\par
+Copiar c\'f3digo\par
+.table-responsive \{\par
+  max-height: 400px; /* Ajusta la altura m\'e1xima seg\'fan sea necesario */\par
+  overflow-y: auto; /* Permite el desplazamiento vertical */\par
+\}\par
 \par
 ////////////////\par
 \par

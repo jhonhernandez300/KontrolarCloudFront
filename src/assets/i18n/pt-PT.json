@@ -126,6 +126,6 @@
   "USUÁRIOS": "Usuários",
   "Ya existe ese número de identificación": "Esse número de identificação já existe",
   "YES": "Sim",
-  "YOU_SHOULD_ENTER_A_PROFILE_CODE_A_NAME_OR_A_SEARCH_PARAMETER": "Você deve inserir um código de perfil, um nome ou um parâmetro de pesquisa",
+  "YOU_SHOULD_ENTER_A_PROFILE_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "Você deve inserir um código de perfil, um nome ou um parâmetro de pesquisa",
   "YOU_SHOULD_ENTER_A_USER_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "Você deve inserir um código de usuário, um nome ou sobrenome; ou um parâmetro de pesquisa"
 }

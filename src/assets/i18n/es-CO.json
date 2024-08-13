@@ -117,6 +117,6 @@
   "USUARIOS": "Usuarios",
   "USUÁRIOS": "Usuarios",
   "YES": "Sí",
-  "YOU_SHOULD_ENTER_A_PROFILE_CODE_A_NAME_OR_A_SEARCH_PARAMETER": "Debe ingresar un código de perfil, un nombre, o un parametro de busqueda",
+  "YOU_SHOULD_ENTER_A_PROFILE_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "Debe ingresar un código de perfil, un nombre, o un parametro de busqueda",
   "YOU_SHOULD_ENTER_A_USER_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "Debe ingresar un codigo de usuario, un nombre o un apellido; o un parametro de busqueda"
 }

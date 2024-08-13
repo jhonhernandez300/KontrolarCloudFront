@@ -171,6 +171,6 @@
     "Você deve inserir um código de perfil, um nome ou um parâmetro de pesquisa": "You should enter a profile code, a name or a search parameter",
     "Ya existe ese número de identificación": "That identification number already exists",
     "YES": "Yes",
-    "YOU_SHOULD_ENTER_A_PROFILE_CODE_A_NAME_OR_A_SEARCH_PARAMETER": "You should enter a profile code, a name or a search parameter",
-    "YOU_SHOULD_ENTER_A_USER_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "You should enter a user code, a name or last name or a search parameter"
+    "YOU_SHOULD_ENTER_A_PROFILE_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "You should enter a profile code, a name or a search parameter",
+    "YOU_SHOULD_ENTER_A_USER_CODE_A_NAME_OR_LASTNAME_OR_A_SEARCH_PARAMETER": "You should enter a user code, a name or last name or a search parameter"    
 }

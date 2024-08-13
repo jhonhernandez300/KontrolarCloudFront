@@ -23,10 +23,10 @@ export class UsersGetDataComponent {
     });
   }
 
-  onSubmit() {    
-    this.submitPressed.emit(true);
-
-    if (this.myForm.valid) {
+  onSubmit() {        
+    this.submitPressed.emit(true);    
+    
+    if (this.myForm.valid) {      
       const parametro = this.myForm.get('parametro')?.value;
 
       this.userService.getUserByParam(parametro).subscribe(
