@@ -11,7 +11,7 @@
               <th>{{ 'NAME' | translate }}</th>
               <th>{{ 'SURNAMES' | translate }}</th>
               <th>{{ 'MASTER' | translate }}</th>
-              <th>{{ 'ACTIONS' | translate }}</th>
+              <th *ngIf="action === 'edit' || action === 'delete'">{{ 'ACTIONS' | translate }}</th>
             </tr>
           </thead>
           <tbody>
@@ -20,9 +20,12 @@
               <td>{{ user.names }}</td>
               <td>{{ user.surnames }}</td>
               <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
-              <td>
+              <td *ngIf="action === 'edit'">
                 <button class="btn btn-warning btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
               </td>
+              <td *ngIf="action === 'delete'">
+                <button class="btn btn-warning btn-sm" (click)="deleteUser(user)">{{ 'DELETE' | translate }}</button>
+              </td>  
             </tr>
           </tbody>
         </table>

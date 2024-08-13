@@ -5,6 +5,7 @@ import { CrudActionsVisibilityService } from '../../../services/crud-actions-vis
 import { UsersAddComponent } from '../users-add/users-add.component';
 import { UsersEditComponent } from '../users-edit/users-edit.component';
 import { UsersSearchComponent } from '../users-search/users-search.component';
+import { LocalStorageService } from '../../../helpers/local-storage.service';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +23,10 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   override showDelete = CrudActionsVisibility.showDelete;
   override showSearch = CrudActionsVisibility.showSearch;
 
-  constructor(crudActionsVisibilityService: CrudActionsVisibilityService) {
+  constructor(
+    crudActionsVisibilityService: CrudActionsVisibilityService,
+    private localStorageService: LocalStorageService
+    ) {
     super(crudActionsVisibilityService);
   }
 
@@ -43,6 +47,13 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   override onCancelClick(): void {
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();
+  }
+
+  override onSearchClick(): void {    
+    this.crudActionsVisibilityService.setSearchVisible();
+    this.updateVisibility();    
+    this.localStorageService.removeData('action');
+    this.localStorageService.setData('action', 'search');     
   }
   
 }

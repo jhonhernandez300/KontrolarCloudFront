@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { CrudActionsVisibilityService } from '../../services/crud-actions-visibility.service';
 
+
 @Component({
   selector: 'app-crud-base',
   templateUrl: './crud-base.component.html',
@@ -43,6 +44,7 @@ export class CrudBaseComponent implements OnInit {
   onSearchClick(): void {
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();
+
   }
 
   public updateVisibility(): void {

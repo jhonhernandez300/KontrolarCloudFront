@@ -10,7 +10,7 @@
                 <th>{{ 'PROFILE_CODE' | translate }}</th>
                 <th>{{ 'PROFILE_NAME' | translate }}</th>
                 <th>{{ 'DESCRIPTION' | translate }}</th>
-                <th>{{ 'ACTIONS' | translate }}</th>
+                <th *ngIf="action === 'edit' || action === 'delete'">{{ 'ACTIONS' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -18,9 +18,12 @@
                 <td>{{ profile.codProfile }}</td>
                 <td>{{ profile.nameProfile }}</td>
                 <td>{{ profile.description }}</td>
-                <td>
+                <td *ngIf="action === 'edit'">
                   <button class="btn btn-warning btn-sm" (click)="editProfile(profile)">{{ 'EDIT' | translate }}</button>
                 </td>
+                <td *ngIf="action === 'delete'">
+                  <button class="btn btn-warning btn-sm" (click)="deleteProfile(profile)">{{ 'DELETE' | translate }}</button>
+                </td>                
               </tr>
             </tbody>
           </table>

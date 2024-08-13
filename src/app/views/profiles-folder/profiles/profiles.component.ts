@@ -6,6 +6,7 @@ import { ProfilesAddComponent } from '../profiles-add/profiles-add.component';
 import { ProfilesEditComponent } from '../profiles-edit/profiles-edit.component';
 import { ProfilesDeleteComponent } from '../profiles-delete/profiles-delete.component';
 import { ProfilesSearchComponent } from '../profiles-search/profiles-search.component';
+import { LocalStorageService } from '../../../helpers/local-storage.service';
 
 @Component({
   selector: 'app-profiles',
@@ -25,7 +26,8 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   override showDelete = CrudActionsVisibility.showDelete;
   override showSearch = CrudActionsVisibility.showSearch;
 
-  constructor(crudActionsVisibilityService: CrudActionsVisibilityService) {
+  constructor(crudActionsVisibilityService: CrudActionsVisibilityService,
+    private localStorageService: LocalStorageService) {
     super(crudActionsVisibilityService);
   }
 
@@ -47,7 +49,14 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
 
   override onCancelClick(): void {
     this.crudActionsVisibilityService.resetVisibility();
-    this.updateVisibility();
+    this.updateVisibility();    
+  }
+
+  override onSearchClick(): void {    
+    this.crudActionsVisibilityService.setSearchVisible();
+    this.updateVisibility();    
+    this.localStorageService.removeData('action');
+    this.localStorageService.setData('action', 'search');     
   }
 
 }
