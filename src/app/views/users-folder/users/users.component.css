@@ -1,6 +1,8 @@
 /* users.component.css */
 .container{
     padding-bottom: 20px; 
+    padding-top: 20px;
+    padding-right: 30px;
     /* Asegura que el padding no se incluya en el tamaño total del contenedor */
     box-sizing: content-box; 
 }
