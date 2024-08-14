@@ -14,8 +14,7 @@ export class UsersSearchComponent {
     this.users = users;
   }
 
-  handleSubmitPressed(submitted: boolean) {
-    console.log(submitted);
+  handleSubmitPressed(submitted: boolean) {    
     this.submitted = submitted;
   }
 }

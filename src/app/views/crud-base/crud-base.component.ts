@@ -36,7 +36,7 @@ export class CrudBaseComponent implements OnInit {
     this.updateVisibility();
   }
 
-  onDeleteClick(): void {
+  onDeleteClick(): void {    
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();
   }

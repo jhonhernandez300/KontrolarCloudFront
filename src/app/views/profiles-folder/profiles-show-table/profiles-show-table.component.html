@@ -1,5 +1,5 @@
 <!-- profiles-show-table.component.html -->
-<div class="global-container" *ngIf="submitted">
+<div class="global-container" *ngIf="submitted && !showDeleteAlert">
   <div class="global-container" *ngIf="profiles && profiles.length > 0">
     <div class="section">
       <div class="section-body">
@@ -22,7 +22,7 @@
                   <button class="btn btn-warning btn-sm" (click)="editProfile(profile)">{{ 'EDIT' | translate }}</button>
                 </td>
                 <td *ngIf="action === 'delete'">
-                  <button class="btn btn-warning btn-sm" (click)="deleteProfile(profile)">{{ 'DELETE' | translate }}</button>
+                  <button class="btn btn-warning btn-sm" (click)="confirmDeleteProfile(profile)">{{ 'DELETE' | translate }}</button> 
                 </td>                
               </tr>
             </tbody>
@@ -35,4 +35,11 @@
   <div *ngIf="(!profiles || profiles.length === 0)">
     <p>{{ 'NO_PROFILES_FOUND' | translate }}</p>
   </div>
+</div>
+
+<div *ngIf="showDeleteAlert" class="alert alert-danger alert-dismissible">
+  <strong>{{ 'CONFIRM_DELETE' | translate }}</strong>
+  <p>{{ 'ARE_YOU_SURE' | translate }}</p>
+  <button type="button" class="btn btn-secondary" (click)="cancelDelete()">{{ 'NO' | translate }}</button>
+  <button type="button" class="btn btn-danger" (click)="deleteProfile(profileToDelete)">{{ 'YES' | translate }}</button>
 </div>

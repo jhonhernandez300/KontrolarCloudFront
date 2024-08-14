@@ -4,5 +4,14 @@
     padding-top: 20px;
     padding-right: 30px;
     /* Asegura que el padding no se incluya en el tamaño total del contenedor */
-    box-sizing: content-box; 
+    box-sizing: content-box;    
+}
+
+@media (max-width: 480px) {
+    .container{
+        width: 500px;
+    }
+    .global-container{
+        width: 600px;
+    }
 }

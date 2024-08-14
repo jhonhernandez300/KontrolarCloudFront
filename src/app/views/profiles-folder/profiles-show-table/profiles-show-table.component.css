@@ -54,3 +54,18 @@
     max-height: 300px; 
     overflow-y: auto;
   }
+
+  @media (max-width: 480px) {
+    .global-container{
+      width: 400px;
+    }
+    .section-body {
+      padding: 0;
+
+    }
+    .global-container {      
+      padding: 0;
+      border-radius: 0;
+      border: none;       
+    }
+  } 

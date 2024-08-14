@@ -1728,7 +1728,46 @@ Copiar c\'f3digo\par
 \par
 ////////////////\par
 \par
+\b Poner un div alerta para confirmaci\'f3n\par
+\b0 Ocultar el div que tiene el bot\'f3n que llama al div alert\par
 \par
+<div class="global-container" *ngIf="submitted && !showDeleteAlert">\par
+\par
+<td *ngIf="action === 'delete'">\par
+                  <button class="btn btn-warning btn-sm" (click)="confirmDeleteProfile(profile)">\tab\{\{ 'DELETE' | translate \}\}</button> \par
+</td>  \par
+\par
+<div *ngIf="showDeleteAlert" class="alert alert-danger alert-dismissible">\par
+  <strong>\{\{ 'CONFIRM_DELETE' | translate \}\}</strong>\par
+  <p>\{\{ 'ARE_YOU_SURE' | translate \}\}</p>\par
+  <button type="button" class="btn btn-secondary" (click)="cancelDelete()">\{\{ 'NO' | translate \}\}</button>\par
+  <button type="button" class="btn btn-danger" (click)="deleteProfile(profileToDelete)">\{\{ 'YES' | translate \}\}</button>\par
+</div>\par
+\par
+ts:\par
+showDeleteAlert: boolean = false;\par
+profileToDelete: iProfileDTO | null = null;\par
+\par
+confirmDeleteProfile(profile: iProfileDTO) \{\par
+    this.profileToDelete = profile;\par
+    this.showDeleteAlert = true; // cambio: mostrar alerta y ocultar global-container\par
+  \}\par
+\par
+  // nuevo\par
+  cancelDelete() \{\par
+    this.showDeleteAlert = false; // cambio: ocultar alerta y mostrar global-container\par
+    this.profileToDelete = null;\par
+  \}\par
+\par
+  // cambio\par
+  deleteProfile(profile: iProfileDTO | null) \{\par
+    if (profile) \{\par
+      console.log('Deleting profile:', profile);\par
+      this.showDeleteAlert = false; // cambio: ocultar alerta y mostrar global-container\par
+      this.profileToDelete = null;\par
+      // Aqu\'ed puedes agregar la l\'f3gica para eliminar el usuario\par
+    \}\par
+  \}\par
 \par
 ////////////////\par
 \par

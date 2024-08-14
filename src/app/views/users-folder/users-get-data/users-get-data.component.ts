@@ -31,7 +31,7 @@ export class UsersGetDataComponent {
 
       this.userService.getUserByParam(parametro).subscribe(
         (response) => {
-          console.log(response);
+          //console.log(response);
           this.usersFetched.emit(response);          
         },
         (error) => {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { iCompany } from '../../models/iCompany';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { CryptoHelper } from '../../helpers/CryptoHelper';
 import { iModuleOptionDTO } from '../../models/iModuleOptionDTO';
 import { iObjOpcionMovil } from '../../models/iObjetoMovil';
@@ -33,6 +33,30 @@ export class UserService {
   fechaHoraActual: Date = new Date();  
 
   constructor(private http: HttpClient) {}
+
+  disableUser(user: iUserDTO): Observable<any> {
+    console.log(user);
+    const encryptedData = CryptoHelper.encrypt(user);
+    const json = JSON.stringify(encryptedData);
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+  
+    return this.http.put<any>(`${this.apiUrl}/DisableUser`, json, {
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('An error occurred:', error.message);
+    return throwError('Something bad happened; please try again later.');
+  }
+  
 
   getUserByParam(parametro: string): Observable<iUserDTO[]> {
     const encryptedData = CryptoHelper.encrypt(parametro);

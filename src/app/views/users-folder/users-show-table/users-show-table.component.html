@@ -1,40 +1,65 @@
 <!-- users-show-table.component.html -->
-<div class="global-container" *ngIf="submitted">
-<div class="global-container" *ngIf="users && users.length > 0">
-  <div class="section">
-    <div class="section-body">
-      <div class="table-wrapper">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>{{ 'IDENTIFICATION_NUMBER' | translate }}</th>
-              <th>{{ 'NAME' | translate }}</th>
-              <th>{{ 'SURNAMES' | translate }}</th>
-              <th>{{ 'MASTER' | translate }}</th>
-              <th *ngIf="action === 'edit' || action === 'delete'">{{ 'ACTIONS' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of users">
-              <td>{{ user.identificationNumber }}</td>
-              <td>{{ user.names }}</td>
-              <td>{{ user.surnames }}</td>
-              <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
-              <td *ngIf="action === 'edit'">
-                <button class="btn btn-warning btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
-              </td>
-              <td *ngIf="action === 'delete'">
-                <button class="btn btn-warning btn-sm" (click)="deleteUser(user)">{{ 'DELETE' | translate }}</button>
-              </td>  
-            </tr>
-          </tbody>
-        </table>
-      </div>      
+<div class="global-container" *ngIf="submitted && !showDeleteAlert">
+  <div class="global-container" *ngIf="users && users.length > 0">
+    <div class="section">
+      <div class="section-body">
+        <div class="table-wrapper">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>{{ 'IDENTIFICATION_NUMBER' | translate }}</th>
+                <th>{{ 'NAME' | translate }}</th>
+                <th>{{ 'SURNAMES' | translate }}</th>
+                <th>{{ 'MASTER' | translate }}</th>
+                <th *ngIf="action === 'edit' || action === 'delete'">{{ 'ACTIONS' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{ user.identificationNumber }}</td>
+                <td>{{ user.names }}</td>
+                <td>{{ user.surnames }}</td>
+                <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
+                <td *ngIf="action === 'edit'">
+                  <button class="btn btn-warning btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
+                </td>
+                <td *ngIf="action === 'delete'">
+                  <button class="btn btn-warning btn-sm" (click)="confirmDeleteUser(user)">{{ 'DELETE' | translate }}</button> 
+                </td>  
+              </tr>
+            </tbody>
+          </table>
+        </div>      
+      </div>
     </div>
   </div>
-</div>
 
   <div *ngIf="(!users || users.length === 0)">
     <p>{{ 'NO_USERS_FOUND' | translate }}</p>
+  </div>
+</div>
+
+<div *ngIf="showDeleteAlert" class="alert alert-danger alert-dismissible">
+  <strong>{{ 'CONFIRM_DELETE' | translate }}</strong>
+  <p>{{ 'ARE_YOU_SURE' | translate }}</p>
+  <button type="button" class="btn btn-secondary" (click)="cancelDelete()">{{ 'NO' | translate }}</button>
+  <button type="button" class="btn btn-danger" (click)="deleteUser(userToDelete)">{{ 'YES' | translate }}</button>
+</div>
+
+<!-- Modal -->
+<div #errorModal class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 translate class="modal-title" id="errorModalLabel">{{ modalHeader }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div translate class="modal-body">
+        {{ modalMessage }}
+      </div>
+      <div class="modal-footer">
+        <button translate type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">CLOSE</button>
+      </div>
+    </div>
   </div>
 </div>

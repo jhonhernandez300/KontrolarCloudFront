@@ -13,6 +13,9 @@ export class ProfilesShowTableComponent implements OnInit{
   @Input() profiles: iProfileDTO[] | null = null;
   @Input() submitted: boolean = false;
 
+  showDeleteAlert: boolean = false;
+  profileToDelete: iProfileDTO | null = null;
+
   constructor(private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
@@ -21,21 +24,38 @@ export class ProfilesShowTableComponent implements OnInit{
 
   ngOnChanges(changes: SimpleChanges)
   {
-    if (changes['submitted']) {
-      console.log('Submitted:', this.submitted); // Asegúrate de que esto es true cuando el formulario se envía
-    }
+    // if (changes['submitted']) {
+    //   console.log('Submitted:', this.submitted); // Asegúrate de que esto es true cuando el formulario se envía
+    // }
 
-    // Verifica si 'profiles' ha cambiado
-    if (changes['profiles']) {
-      console.log('Profiles:', this.profiles);
-    }
+    // // Verifica si 'profiles' ha cambiado
+    // if (changes['profiles']) {
+    //   console.log('Profiles:', this.profiles);
+    // }
   }
 
   editProfile(profile: iProfileDTO) {
     console.log('Editing profile:', profile);
   }
 
-  deleteProfile(profile: iProfileDTO) {
-    
+  confirmDeleteProfile(profile: iProfileDTO) {
+    this.profileToDelete = profile;
+    this.showDeleteAlert = true; 
+  }
+
+  // nuevo
+  cancelDelete() {
+    this.showDeleteAlert = false; 
+    this.profileToDelete = null;
+  }
+
+  // cambio
+  deleteProfile(profile: iProfileDTO | null) {
+    if (profile) {
+      console.log('Deleting profile:', profile);
+      this.showDeleteAlert = false; 
+      this.profileToDelete = null;
+      
+    }
   }
 }

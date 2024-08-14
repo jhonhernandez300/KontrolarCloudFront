@@ -56,4 +56,10 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     this.localStorageService.setData('action', 'search');     
   }
   
+  override onDeleteClick(): void {    
+    this.crudActionsVisibilityService.setSearchVisible();
+    this.updateVisibility();    
+    this.localStorageService.removeData('action');
+    this.localStorageService.setData('action', 'delete');     
+  }
 }
