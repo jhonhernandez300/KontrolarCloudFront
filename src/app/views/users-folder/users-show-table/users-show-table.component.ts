@@ -29,7 +29,6 @@ export class UsersShowTableComponent implements OnInit {
   @Input() users: iUserDTO[] | null = null;
   @Input() submitted: boolean = false;
 
-  // nuevo
   showDeleteAlert: boolean = false;
   userToDelete: iUserDTO | null = null;
 
@@ -62,20 +61,17 @@ export class UsersShowTableComponent implements OnInit {
   editUser(user: iUserDTO) {
     console.log('Editing user:', user);
   }
-
-  // nuevo
+  
   confirmDeleteUser(user: iUserDTO) {
     this.userToDelete = user;
     this.showDeleteAlert = true; 
   }
-
-  // nuevo
+  
   cancelDelete() {
     this.showDeleteAlert = false;
     this.userToDelete = null;
   }
-
-  // cambio
+  
   deleteUser(user: iUserDTO | null) {
     if (user) {      
       this.showDeleteAlert = false; 

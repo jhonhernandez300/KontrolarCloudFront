@@ -1771,6 +1771,19 @@ confirmDeleteProfile(profile: iProfileDTO) \{\par
 \par
 ////////////////\par
 \par
+\b Centrar el contenido y agregar espacio entre los botones \par
+\b0 <div *ngIf="showDeleteAlert" class="alert alert-danger alert-dismissible \ul text-center\ulnone " id="confirmation">\par
+  <strong>\{\{ 'CONFIRM_DELETE' | translate \}\}</strong>\par
+  <p>\{\{ 'ARE_YOU_SURE?' | translate \}\}</p>\par
+  <div class="\highlight1 d-flex \cf3\highlight0\b justify-content-center\cf0\b0  \highlight2 gap-3\highlight0 ">\par
+    <button type="button" class="btn btn-secondary" (click)="cancelDelete()">\{\{ 'NO' | translate \}\}</button>\par
+    <button type="button" class="btn btn-danger" (click)="deleteProfile(profileToDelete)">\{\{ 'YES' | translate \}\}</button>\par
+  </div>\par
+</div>\par
+\par
+\ul text-center: \ulnone Esta clase de Bootstrap centra el texto dentro del div.\par
+\highlight1 d-flex \highlight0 y \cf3\b justify-content-center\cf0\b0 : Utiliza el sistema de flexbox de Bootstrap para centrar horizontalmente los botones.\par
+\highlight2 gap-3\highlight0 : A\'f1ade un espacio entre los botones\par
 \par
 ////////////////\par
 \par

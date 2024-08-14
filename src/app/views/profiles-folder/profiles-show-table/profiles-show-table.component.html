@@ -7,7 +7,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>{{ 'PROFILE_CODE' | translate }}</th>
+                <th>{{ 'CODE' | translate }}</th>
                 <th>{{ 'PROFILE_NAME' | translate }}</th>
                 <th>{{ 'DESCRIPTION' | translate }}</th>
                 <th *ngIf="action === 'edit' || action === 'delete'">{{ 'ACTIONS' | translate }}</th>
@@ -33,13 +33,33 @@
   </div>
 
   <div *ngIf="(!profiles || profiles.length === 0)">
-    <p>{{ 'NO_PROFILES_FOUND' | translate }}</p>
+    <p>{{ 'NO_RECORDS_FOUND' | translate }}</p>
   </div>
 </div>
 
-<div *ngIf="showDeleteAlert" class="alert alert-danger alert-dismissible">
+<div *ngIf="showDeleteAlert" class="alert alert-danger alert-dismissible text-center" id="confirmation">
   <strong>{{ 'CONFIRM_DELETE' | translate }}</strong>
-  <p>{{ 'ARE_YOU_SURE' | translate }}</p>
-  <button type="button" class="btn btn-secondary" (click)="cancelDelete()">{{ 'NO' | translate }}</button>
-  <button type="button" class="btn btn-danger" (click)="deleteProfile(profileToDelete)">{{ 'YES' | translate }}</button>
+  <p>{{ 'ARE_YOU_SURE?' | translate }}</p>
+  <div class="d-flex justify-content-center gap-3">
+    <button type="button" class="btn btn-secondary" (click)="cancelDelete()">{{ 'NO' | translate }}</button>
+    <button type="button" class="btn btn-danger" (click)="deleteProfile(profileToDelete)">{{ 'YES' | translate }}</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div #errorModal class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 translate class="modal-title" id="errorModalLabel">{{ modalHeader }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div translate class="modal-body">
+        {{ modalMessage }}
+      </div>
+      <div class="modal-footer">
+        <button translate type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">CLOSE</button>
+      </div>
+    </div>
+  </div>
 </div>

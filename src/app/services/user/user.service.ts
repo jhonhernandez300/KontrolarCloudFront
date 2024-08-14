@@ -34,8 +34,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  disableUser(user: iUserDTO): Observable<any> {
-    console.log(user);
+  disableUser(user: iUserDTO): Observable<any> {    
     const encryptedData = CryptoHelper.encrypt(user);
     const json = JSON.stringify(encryptedData);
   

@@ -35,15 +35,17 @@
   </div>
 
   <div *ngIf="(!users || users.length === 0)">
-    <p>{{ 'NO_USERS_FOUND' | translate }}</p>
+    <p>{{ 'NO_RECORDS_FOUND' | translate }}</p>
   </div>
 </div>
 
-<div *ngIf="showDeleteAlert" class="alert alert-danger alert-dismissible">
+<div *ngIf="showDeleteAlert" class="alert alert-danger alert-dismissible text-center" id="confirmation">
   <strong>{{ 'CONFIRM_DELETE' | translate }}</strong>
-  <p>{{ 'ARE_YOU_SURE' | translate }}</p>
-  <button type="button" class="btn btn-secondary" (click)="cancelDelete()">{{ 'NO' | translate }}</button>
-  <button type="button" class="btn btn-danger" (click)="deleteUser(userToDelete)">{{ 'YES' | translate }}</button>
+  <p>{{ 'ARE_YOU_SURE?' | translate }}</p>
+  <div class="d-flex justify-content-center gap-3">
+    <button type="button" class="btn btn-secondary" (click)="cancelDelete()">{{ 'NO' | translate }}</button>
+    <button type="button" class="btn btn-danger" (click)="deleteUser(userToDelete)">{{ 'YES' | translate }}</button>
+  </div>
 </div>
 
 <!-- Modal -->
