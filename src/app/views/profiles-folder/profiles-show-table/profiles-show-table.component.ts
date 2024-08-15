@@ -5,6 +5,7 @@ import { ProfileService } from '../../../services/profile/profile.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageChangeService } from '../../../services/language-change-service';
 import * as bootstrap from 'bootstrap';
+import { ProfileTransferService } from '../../../services/profile/profile-transfer.service';
 
 @Component({
   selector: 'app-profiles-show-table',
@@ -35,7 +36,8 @@ export class ProfilesShowTableComponent implements OnInit{
     private localStorageService: LocalStorageService,
     private profileService: ProfileService,
     private translate: TranslateService,
-    private languageChangeService: LanguageChangeService
+    private languageChangeService: LanguageChangeService,
+    private profileTransferService: ProfileTransferService
     ) { }
 
   ngOnInit(): void {
@@ -60,6 +62,7 @@ export class ProfilesShowTableComponent implements OnInit{
 
   editProfile(profile: iProfileDTO) {
     console.log('Editing profile:', profile);
+    this.profileTransferService.changeProfile(profile); // Cambio
   }
 
   confirmDeleteProfile(profile: iProfileDTO) {

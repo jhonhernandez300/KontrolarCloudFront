@@ -46,7 +46,7 @@ export class ProfileService {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-    return this.http.get<iProfileDTO[]>(`${this.apiUrl}/getProfilesByParam/${parametro}`, { 
+    return this.http.get<iProfileDTO[]>(`${this.apiUrl}/getProfilesByParam/${encryptedData}`, { 
       headers: headers,
       responseType: 'json'
     }).pipe(

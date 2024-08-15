@@ -21,10 +21,10 @@
                 <td>{{ user.surnames }}</td>
                 <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
                 <td *ngIf="action === 'edit'">
-                  <button class="btn btn-warning btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
+                  <button class="btn btn-success btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
                 </td>
                 <td *ngIf="action === 'delete'">
-                  <button class="btn btn-warning btn-sm" (click)="confirmDeleteUser(user)">{{ 'DELETE' | translate }}</button> 
+                  <button class="btn btn-danger btn-sm" (click)="confirmDeleteUser(user)">{{ 'DELETE' | translate }}</button> 
                 </td>  
               </tr>
             </tbody>
@@ -56,11 +56,11 @@
         <h5 translate class="modal-title" id="errorModalLabel">{{ modalHeader }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div translate class="modal-body">
-        {{ modalMessage }}
+      <div class="modal-body">
+        <p>{{ modalMessage }}</p>
       </div>
       <div class="modal-footer">
-        <button translate type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">CLOSE</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'CLOSE' | translate }}</button>
       </div>
     </div>
   </div>

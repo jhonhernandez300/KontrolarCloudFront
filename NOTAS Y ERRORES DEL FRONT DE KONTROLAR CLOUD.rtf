@@ -1787,7 +1787,27 @@ confirmDeleteProfile(profile: iProfileDTO) \{\par
 \par
 ////////////////\par
 \par
+\b Como hacer que aparezca el bot\'f3n editar\b0\par
+profiles.component.ts\par
+ override onEditClick(): void \{    \par
+    this.crudActionsVisibilityService.setSearchVisible();\par
+    this.updateVisibility();    \par
+    this.localStorageService.removeData('action');\par
+    this.localStorageService.setData('action', 'edit');     \par
+  \}\par
 \par
+profiles-show-table.component.html\par
+<td *ngIf="action === 'edit'">\par
+                  <button class="btn btn-warning btn-sm" \par
+\tab\tab (click)="editProfile(profile)">\par
+\tab\tab\tab\{\{ 'EDIT' | translate \}\}\par
+\tab </button>\par
+</td>\par
+\par
+profiles-show-table.component.ts\par
+ ngOnInit(): void \{\par
+    this.action = this.localStorageService.getData('action');\par
+  \}\par
 \par
 ////////////////\par
 \par

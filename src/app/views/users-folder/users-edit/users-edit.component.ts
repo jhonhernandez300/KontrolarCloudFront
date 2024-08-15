@@ -1,28 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { iUserDTO } from '../../../models/iUserDTO';
+import { EditCommunicationService } from '../../../services/user/edit-communication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-edit',
   templateUrl: './users-edit.component.html',
   styleUrl: './users-edit.component.css'
 })
-export class UsersEditComponent {
-  myForm: FormGroup;
+export class UsersEditComponent implements OnInit {  
+  users: iUserDTO[] | null = null;
+  submitted: boolean = false;     
 
-  constructor(private fb: FormBuilder) {
-    this.myForm = this.fb.group({
-      identificationNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(25)]],
-      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), Validators.maxLength(100)]],
-      lastName: ['', [Validators.required, Validators.maxLength(100)]],
-      userMaster: ['no', Validators.required]
-    });
+  constructor(
+    private editCommunicationService: EditCommunicationService   
+  )
+  { 
   }
 
-  onSubmit() {
-    if (this.myForm.valid) {
-      console.log('Form Submitted!', this.myForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
+  ngOnInit() {
+    console.log('ngOnInit ejecutado en UsersEditComponent');    
+    
   }
+
+  
+
+  onUsersFetched(users: iUserDTO[] | null) {
+    this.users = users;
+  }
+
+  handleSubmitPressed(submitted: boolean) {    
+    this.submitted = submitted;
+  }  
+
 }

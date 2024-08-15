@@ -1,11 +1,12 @@
 // users-show-table.component.ts
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { iUserDTO } from '../../../models/iUserDTO';
 import { LocalStorageService } from '../../../helpers/local-storage.service';
 import { UserService } from '../../../services/user/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageChangeService } from '../../../services/language-change-service';
 import * as bootstrap from 'bootstrap';
+import { EditCommunicationService } from '../../../services/user/edit-communication.service';
 
 @Component({
   selector: 'app-users-show-table',
@@ -27,7 +28,7 @@ export class UsersShowTableComponent implements OnInit {
   @ViewChild('errorModal') modalElementRef!: ElementRef;
 
   @Input() users: iUserDTO[] | null = null;
-  @Input() submitted: boolean = false;
+  @Input() submitted: boolean = false; 
 
   showDeleteAlert: boolean = false;
   userToDelete: iUserDTO | null = null;
@@ -36,8 +37,12 @@ export class UsersShowTableComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private userService: UserService,
     private translate: TranslateService,
-    private languageChangeService: LanguageChangeService
-    ) { }
+    private languageChangeService: LanguageChangeService,
+    private editCommunicationService: EditCommunicationService
+    ) 
+    { 
+      console.log('UsersShowTableComponent instanciado');
+    }
 
   ngOnInit(): void {
     this.action = this.localStorageService.getData('action');
@@ -59,7 +64,8 @@ export class UsersShowTableComponent implements OnInit {
   }
 
   editUser(user: iUserDTO) {
-    console.log('Editing user:', user);
+    console.log('Editing user:', user);  //This shows some data  
+    
   }
   
   confirmDeleteUser(user: iUserDTO) {

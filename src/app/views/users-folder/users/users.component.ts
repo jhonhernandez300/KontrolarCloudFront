@@ -37,8 +37,8 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   onSaveClick(): void {
     if (this.showAdd && this.usersAddComponent) {
       this.usersAddComponent.onSubmit();
-    } else if (this.showEdit && this.usersEditComponent) {
-      this.usersEditComponent.onSubmit();     
+    // } else if (this.showEdit && this.usersEditComponent) {
+    //   this.usersEditComponent.onSubmit();     
     // } else if (this.showSearch && this.usersSearchComponent) {
     //   this.usersSearchComponent.onSubmit();
     }
@@ -61,5 +61,12 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     this.updateVisibility();    
     this.localStorageService.removeData('action');
     this.localStorageService.setData('action', 'delete');     
+  }
+
+  override onEditClick(): void {    
+    this.crudActionsVisibilityService.setSearchVisible();
+    this.updateVisibility();    
+    this.localStorageService.removeData('action');
+    this.localStorageService.setData('action', 'edit');     
   }
 }

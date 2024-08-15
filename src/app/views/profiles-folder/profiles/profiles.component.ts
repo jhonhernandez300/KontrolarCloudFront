@@ -66,4 +66,11 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
     this.localStorageService.setData('action', 'delete');     
   }
 
+  override onEditClick(): void {    
+    this.crudActionsVisibilityService.setSearchVisible();
+    this.updateVisibility();    
+    this.localStorageService.removeData('action');
+    this.localStorageService.setData('action', 'edit');     
+  }
+
 }

@@ -1,54 +1,17 @@
 <!-- users-edit.component.html -->
-<div class="container users-add">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-      <div class="section">
-        <div class="section-header">
-          <h4>CODIGO DEL USUARIO</h4>
-        </div>
-        <div class="section-body">
-          <div class="mb-3 form-group">
-            <label for="identificationNumber" class="form-label">Número de Identificación</label>
-            <input type="text" id="identificationNumber" formControlName="identificationNumber" class="form-control" [ngClass]="{'is-invalid': myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched}">
-            <div class="invalid-feedback" *ngIf="myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched">
-              Número de Identificación es requerido y solo puede contener números (máximo 25 caracteres).
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section mt-4">
-        <div class="section-header">
-          <h4>DATOS DEL USUARIO</h4>
-        </div>
-        <div class="section-body">
-          <div class="mb-3 form-group">
-            <label for="firstName" class="form-label">Nombres</label>
-            <input type="text" id="firstName" formControlName="firstName" class="form-control" [ngClass]="{'is-invalid': myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched}">
-            <div class="invalid-feedback" *ngIf="myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched">
-              Nombres es requerido y solo puede contener letras y espacios (máximo 100 caracteres).
-            </div>
-          </div>
-          <div class="mb-3 form-group">
-            <label for="lastName" class="form-label">Sobrenombres</label>
-            <input type="text" id="lastName" formControlName="lastName" class="form-control" [ngClass]="{'is-invalid': myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched}">
-            <div class="invalid-feedback" *ngIf="myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched">
-              Sobrenombres es requerido (máximo 100 caracteres).
-            </div>
-          </div>
-          <div class="mb-3 form-group">
-            <label class="form-label">Es UserMaster</label>
-            <div class="form-check-group">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="userMaster" id="userMasterYes" value="yes">
-                <label class="form-check-label" for="userMasterYes">Sí</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="userMaster" id="userMasterNo" value="no" checked>
-                <label class="form-check-label" for="userMasterNo">No</label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>      
-    </form>
-  </div>
-  
+<div class="full-width" >
+  <app-users-get-data
+   (usersFetched)="onUsersFetched($event)"
+   (submitPressed)="handleSubmitPressed($event)"
+  >
+  </app-users-get-data>
+</div>
+
+<div class="full-width" id="table"> 
+  <app-users-show-table 
+    [users]="users" 
+    [submitted]="submitted"
+  > 
+</app-users-show-table>
+</div>
+
