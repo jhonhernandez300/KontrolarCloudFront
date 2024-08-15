@@ -1,5 +1,5 @@
 <!-- users-edit.component.html -->
-<div class="full-width" *ngIf="!editMode">
+<div class="full-width">
   <app-users-get-data
    (usersFetched)="onUsersFetched($event)"
    (submitPressed)="handleSubmitPressed($event)"
@@ -7,11 +7,10 @@
   </app-users-get-data>
 </div>
 
-<div class="full-width" id="table" *ngIf="!editMode">
+<div class="full-width" id="table">
   <app-users-show-table 
     [users]="users" 
-    [submitted]="submitted"
-    (editUser)="handleEditUser($event)" 
+    [submitted]="submitted"    
   > 
 </app-users-show-table>
 </div>

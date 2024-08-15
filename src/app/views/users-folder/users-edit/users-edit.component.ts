@@ -24,12 +24,7 @@ export class UsersEditComponent implements OnInit {
   ngOnInit() {
     console.log('ngOnInit ejecutado en UsersEditComponent');    
     
-  }
-
-  handleEditUser(user: iUserDTO) { 
-    this.editMode = true;
-    this.cdr.detectChanges(); 
-  }
+  }  
 
   onUsersFetched(users: iUserDTO[] | null) {
     this.users = users;

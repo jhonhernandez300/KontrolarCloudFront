@@ -31,8 +31,7 @@ export class UsersShowTableComponent implements OnInit {
   @Input() users: iUserDTO[] | null = null;
   @Input() submitted: boolean = false; 
 
-  @Output() editUser = new EventEmitter<iUserDTO>();
-
+ 
   showDeleteAlert: boolean = false;
   userToDelete: iUserDTO | null = null;
 
@@ -56,8 +55,8 @@ export class UsersShowTableComponent implements OnInit {
   }  
 
   onEditUser(user: iUserDTO) {
-    console.log('Editing user:', user);  //This shows some data  
-    this.editUser.emit(user);
+    console.log('Editing user:', user);   
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
