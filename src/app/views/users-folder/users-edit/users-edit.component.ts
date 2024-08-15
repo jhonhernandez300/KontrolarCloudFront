@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { iUserDTO } from '../../../models/iUserDTO';
 import { EditCommunicationService } from '../../../services/user/edit-communication.service';
@@ -22,9 +22,14 @@ export class UsersEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit ejecutado en UsersEditComponent');    
+    console.log('ngOnInit of users-edit');    
     
-  }  
+    this.editCommunicationService.editModeChanged.subscribe((editMode: boolean) => {
+      console.log('editMode ', editMode);
+      this.editMode = editMode;
+      this.cdr.detectChanges(); 
+    });
+  }    
 
   onUsersFetched(users: iUserDTO[] | null) {
     this.users = users;
@@ -33,5 +38,4 @@ export class UsersEditComponent implements OnInit {
   handleSubmitPressed(submitted: boolean) {    
     this.submitted = submitted;
   }  
-
 }

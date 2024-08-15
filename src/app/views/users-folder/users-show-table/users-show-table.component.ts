@@ -56,18 +56,19 @@ export class UsersShowTableComponent implements OnInit {
 
   onEditUser(user: iUserDTO) {
     console.log('Editing user:', user);   
+    this.editCommunicationService.notifyEditMode(true);
     
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['submitted']) {
-      console.log('Submitted:', this.submitted); 
-    }
+    // if (changes['submitted']) {
+    //   console.log('Submitted:', this.submitted); 
+    // }
 
-    // Verifica si 'users' ha cambiado
-    if (changes['users']) {
-      console.log('Users:', this.users);
-    }
+    // // Verifica si 'users' ha cambiado
+    // if (changes['users']) {
+    //   console.log('Users:', this.users);
+    // }
   }
   
   confirmDeleteUser(user: iUserDTO) {
