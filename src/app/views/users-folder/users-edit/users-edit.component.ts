@@ -12,9 +12,11 @@ import { Router } from '@angular/router';
 export class UsersEditComponent implements OnInit {  
   users: iUserDTO[] | null = null;
   submitted: boolean = false;     
+  editMode: boolean = false;
 
   constructor(
-    private editCommunicationService: EditCommunicationService   
+    private editCommunicationService: EditCommunicationService,
+    private cdr: ChangeDetectorRef 
   )
   { 
   }
@@ -24,7 +26,10 @@ export class UsersEditComponent implements OnInit {
     
   }
 
-  
+  handleEditUser(user: iUserDTO) { 
+    this.editMode = true;
+    this.cdr.detectChanges(); 
+  }
 
   onUsersFetched(users: iUserDTO[] | null) {
     this.users = users;

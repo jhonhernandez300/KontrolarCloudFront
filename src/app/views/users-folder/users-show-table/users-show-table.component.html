@@ -21,7 +21,7 @@
                 <td>{{ user.surnames }}</td>
                 <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
                 <td *ngIf="action === 'edit'">
-                  <button class="btn btn-success btn-sm" (click)="editUser(user)">{{ 'EDIT' | translate }}</button>
+                  <button class="btn btn-success btn-sm" (click)="onEditUser(user)">{{ 'EDIT' | translate }}</button>
                 </td>
                 <td *ngIf="action === 'delete'">
                   <button class="btn btn-danger btn-sm" (click)="confirmDeleteUser(user)">{{ 'DELETE' | translate }}</button> 

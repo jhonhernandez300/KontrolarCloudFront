@@ -24,11 +24,14 @@ export class UsersShowTableComponent implements OnInit {
   private modal: bootstrap.Modal | null = null;
   serviceError: string = '';
   showServiceError: boolean = false;
+  
 
   @ViewChild('errorModal') modalElementRef!: ElementRef;
 
   @Input() users: iUserDTO[] | null = null;
   @Input() submitted: boolean = false; 
+
+  @Output() editUser = new EventEmitter<iUserDTO>();
 
   showDeleteAlert: boolean = false;
   userToDelete: iUserDTO | null = null;
@@ -50,22 +53,22 @@ export class UsersShowTableComponent implements OnInit {
 
   ngAfterViewInit() {
     this.modal = new bootstrap.Modal(this.modalElementRef.nativeElement);
+  }  
+
+  onEditUser(user: iUserDTO) {
+    console.log('Editing user:', user);  //This shows some data  
+    this.editUser.emit(user);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // if (changes['submitted']) {
-    //   console.log('Submitted:', this.submitted); 
-    // }
+    if (changes['submitted']) {
+      console.log('Submitted:', this.submitted); 
+    }
 
-    // // Verifica si 'users' ha cambiado
-    // if (changes['users']) {
-    //   console.log('Users:', this.users);
-    // }
-  }
-
-  editUser(user: iUserDTO) {
-    console.log('Editing user:', user);  //This shows some data  
-    
+    // Verifica si 'users' ha cambiado
+    if (changes['users']) {
+      console.log('Users:', this.users);
+    }
   }
   
   confirmDeleteUser(user: iUserDTO) {
