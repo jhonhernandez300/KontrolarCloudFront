@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageChangeService } from '../../../services/language-change-service';
 import * as bootstrap from 'bootstrap';
 import { EditCommunicationService } from '../../../services/user/edit-communication.service';
+import { UserTransferService } from '../../../services/user/user-transfer.service';
 
 @Component({
   selector: 'app-users-show-table',
@@ -40,11 +41,10 @@ export class UsersShowTableComponent implements OnInit {
     private userService: UserService,
     private translate: TranslateService,
     private languageChangeService: LanguageChangeService,
-    private editCommunicationService: EditCommunicationService
+    private editCommunicationService: EditCommunicationService,
+    private userTransferService: UserTransferService
     ) 
-    { 
-      console.log('UsersShowTableComponent instanciado');
-    }
+    { }
 
   ngOnInit(): void {
     this.action = this.localStorageService.getData('action');
@@ -55,9 +55,9 @@ export class UsersShowTableComponent implements OnInit {
   }  
 
   onEditUser(user: iUserDTO) {
-    console.log('Editing user:', user);   
-    this.editCommunicationService.notifyEditMode(true);
-    
+    //console.log('Editing user:', user);   
+    this.editCommunicationService.notifyEditMode(true);    
+    this.userTransferService.changeUser(user);
   }
 
   ngOnChanges(changes: SimpleChanges) {

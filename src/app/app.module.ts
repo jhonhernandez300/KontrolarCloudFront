@@ -20,7 +20,6 @@ import { UsersAddComponent } from './views/users-folder/users-add/users-add.comp
 import { ProfilesComponent } from './views/profiles-folder/profiles/profiles.component';
 import { ProfilesAddComponent } from './views/profiles-folder/profiles-add/profiles-add.component';
 import { CrudBaseComponent } from './views/crud-base/crud-base.component';
-import { UsersEditComponent } from './views/users-folder/users-edit/users-edit.component';
 import { UsersSearchComponent } from './views/users-folder/users-search/users-search.component';
 import { ProfilesEditComponent } from './views/profiles-folder/profiles-edit/profiles-edit.component';
 import { ProfilesDeleteComponent } from './views/profiles-folder/profiles-delete/profiles-delete.component';
@@ -46,8 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UsersAddComponent,
     ProfilesComponent,
     ProfilesAddComponent,
-    CrudBaseComponent,
-    UsersEditComponent,    
+    CrudBaseComponent,    
     UsersSearchComponent,
     ProfilesEditComponent,
     ProfilesDeleteComponent,

@@ -5,7 +5,7 @@ import * as bootstrap from 'bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageChangeService } from '../../../services/language-change-service';
 import { ProfileTransferService } from '../../../services/profile/profile-transfer.service';
-import { iUser } from '../../../models/iUser';
+import { iUserDTO } from '../../../models/iUserDTO';
 
 @Component({
   selector: 'app-users-edit-action',
@@ -16,12 +16,12 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
   myForm: FormGroup;
   modalMessage: string = '';
   modalHeader: string = '';
-  user: iUser = {
-    IdUser: 0,
-    IdentificationNumber: '',
-    Names: '',
-    Surnames: '',
-    UserMaster: false
+  user: iUserDTO = {
+    idUser: 0,
+    identificationNumber: '',
+    names: '',
+    surnames: '',
+    userMaster: false
   };
   private modal: bootstrap.Modal | null = null;
   serviceError: string = '';
@@ -38,9 +38,10 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     )
     {
       this.myForm = this.fb.group({
-        CodProfile: ['', [Validators.required]],
-        NameProfile: ['', [Validators.required]],
-        Description: ['', [Validators.required]]
+        identificationNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(25)]],
+        firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), Validators.maxLength(100)]],
+        lastName: ['', [Validators.required, Validators.maxLength(100)]],
+        userMaster: ['no', Validators.required]
       });
     }
 
@@ -50,8 +51,9 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
       this.translate.use(language);
     });
 
-    this.userTransferService.currentUser.subscribe(user => { // Nuevo
-      if (user) {
+    this.userTransferService.currentUser.subscribe(user => { 
+      if (user) {        
+        console.log(user);
         this.user = user;
         this.myForm.patchValue(user);
       }
@@ -90,12 +92,12 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
 
     if (this.myForm.valid) {
       
-      const user: iUser = {
-        IdUser: 0,
-        IdentificationNumber: this.myForm.value.IdentificationNumber,
-        Names: this.myForm.value.Names,
-        Surnames: this.myForm.value.Surnames,
-        UserMaster: this.myForm.value.UserMaster
+      const user: iUserDTO = {
+        idUser: 0,
+        identificationNumber: this.myForm.value.IdentificationNumber,
+        names: this.myForm.value.Names,
+        surnames: this.myForm.value.Surnames,
+        userMaster: this.myForm.value.UserMaster
       };          
 
       // this.userService. saveData(user).subscribe(

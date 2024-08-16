@@ -10,7 +10,7 @@ export class EditCommunicationService {
   constructor() {}
 
   notifyEditMode(editMode: boolean) {
-    console.log('On the service ', editMode);
+    //console.log('On the service ', editMode);
     this.editModeChanged.emit(editMode);
   }
 }

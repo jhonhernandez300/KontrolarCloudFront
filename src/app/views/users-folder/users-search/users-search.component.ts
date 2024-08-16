@@ -1,14 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { iUserDTO } from '../../../models/iUserDTO';
+import { EditCommunicationService } from '../../../services/user/edit-communication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-search',
   templateUrl: './users-search.component.html',
   styleUrls: ['./users-search.component.css']
 })
-export class UsersSearchComponent {
+export class UsersSearchComponent implements OnInit {  
   users: iUserDTO[] | null = null;
-  submitted: boolean = false;
+  submitted: boolean = false;     
+  editMode: boolean = false;
+
+  constructor(
+    private editCommunicationService: EditCommunicationService,
+    private cdr: ChangeDetectorRef 
+  )
+  { 
+  }
+
+  ngOnInit() {
+    this.editCommunicationService.editModeChanged.subscribe((editMode: boolean) => {
+      console.log('editMode ', editMode);
+      this.editMode = editMode;
+      this.cdr.detectChanges(); 
+    });
+  }    
 
   onUsersFetched(users: iUserDTO[] | null) {
     this.users = users;
@@ -16,5 +35,5 @@ export class UsersSearchComponent {
 
   handleSubmitPressed(submitted: boolean) {    
     this.submitted = submitted;
-  }
+  }  
 }

@@ -6,13 +6,8 @@ import { canActivateGuard } from '../app/helpers/auth.guard';
 import { BienvenidoComponent } from '../app/views/bienvenido/bienvenido.component';
 import { UsersComponent } from './views/users-folder/users/users.component';
 import { ProfilesComponent } from '../app/views/profiles-folder/profiles/profiles.component';
-import { UsersEditComponent } from '../app/views/users-folder/users-edit/users-edit.component';
 
-const routes: Routes = [
-  { path: 'users-edit', 
-    component: UsersEditComponent, 
-    canActivate: [canActivateGuard]
-  },
+const routes: Routes = [ 
   { path: 'profiles', 
     component: ProfilesComponent, 
     canActivate: [canActivateGuard]
