@@ -39,9 +39,9 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     {
       this.myForm = this.fb.group({
         identificationNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(25)]],
-        firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), Validators.maxLength(100)]],
-        lastName: ['', [Validators.required, Validators.maxLength(100)]],
-        userMaster: ['no', Validators.required]
+        names: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), Validators.maxLength(100)]],
+        surnames: ['', [Validators.required, Validators.maxLength(100)]],
+        userMaster: ['', Validators.required]
       });
     }
 
@@ -55,7 +55,8 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
       if (user) {        
         console.log(user);
         this.user = user;
-        this.myForm.patchValue(user);
+        const userMasterValue = user.userMaster ? 'yes' : 'no'; 
+        this.myForm.patchValue({ ...user, userMaster: userMasterValue });  
       }
     });
   }

@@ -13,11 +13,12 @@
             <div class="textbox-item textbox-identification"> 
               <input type="text" id="identificationNumber" formControlName="identificationNumber" class="form-control"
               [ngClass]="{'is-invalid': myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched}">
-            </div>          
+            </div>    
+            <div class="invalid-feedback" *ngIf="myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched">
+              {{ 'IT_IS_REQUIRED_AND_CAN_ONLY_HAVE_NUMBERS' | translate}}          
+            </div>      
           </div>
-          <div class="invalid-feedback" *ngIf="myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched">
-            {{ 'IDENTIFICACION_NUMBER_IS_REQUIRED_AND_IT_CAN_ONLY_HAVE_NUMBERS(MAX_25_CHARACTERS)' | translate}}          
-          </div>
+          
           <div id="service-error" *ngIf="showServiceError">
             {{ serviceError }}
           </div>
@@ -30,25 +31,25 @@
         <div class="section-body">
           <div class="mb-3 form-group">
             <div  class="label-menu-item">
-              <label for="firstName" class="form-label">{{ 'NAME' | translate }}</label>
+              <label for="names" class="form-label">{{ 'NAME' | translate }}</label>
             </div>          
             <div class="textbox-item textbox-names"> 
-              <input type="text" id="firstName" formControlName="firstName" class="form-control" [ngClass]="{'is-invalid': myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched}">
+              <input type="text" id="names" formControlName="names" class="form-control" [ngClass]="{'is-invalid': myForm.get('names')?.invalid && myForm.get('names')?.touched}">
             </div>          
           </div>
-          <div class="invalid-feedback" *ngIf="myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched">
-            {{ 'NAMES_ARE_REQUIRED_AND_CAN_ONLY_CONTAIN_LETTERS_AND_SPACES_(MAXIMUM_100_CHARACTERS)' | translate}}
+          <div class="invalid-feedback" *ngIf="myForm.get('names')?.invalid && myForm.get('names')?.touched">
+            {{ 'IT_IS_REQUIRED_AND_CAN_ONLY_HAVE_LETTERS_AND_SPACES' | translate}}
           </div>
           <div class="mb-3 form-group">
             <div  class="label-menu-item">
-              <label for="lastName" class="form-label">{{ 'SURNAMES' | translate }}</label>
+              <label for="surnames" class="form-label">{{ 'SURNAMES' | translate }}</label>
             </div>
             <div class="textbox-item textbox-surnames"> 
-              <input type="text" id="lastName" formControlName="lastName" class="form-control" [ngClass]="{'is-invalid': myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched}">
+              <input type="text" id="surnames" formControlName="surnames" class="form-control" [ngClass]="{'is-invalid': myForm.get('surnames')?.invalid && myForm.get('surnames')?.touched}">
             </div>          
           </div>
-          <div class="invalid-feedback" *ngIf="myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched">
-            {{ 'SURNAMES_IS_REQUIRED_(MAX_100_CHARACTERS)' | translate}}          
+          <div class="invalid-feedback" *ngIf="myForm.get('surnames')?.invalid && myForm.get('surnames')?.touched">
+            {{ 'IT_IS_REQUIRED' | translate}}          
           </div>
           <div class="mb-3 form-group">
             <div  class="label-menu-item">

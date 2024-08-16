@@ -3,7 +3,7 @@
   background-color: black;
   color: white;
   width: 100%;
-  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  margin: 0 auto;
   padding: 1rem; 
 }
 
@@ -31,14 +31,15 @@
 
 .form-group-wrapper {
   display: flex;
-  justify-content: center; /* Centra horizontalmente el contenido del contenedor */
+  justify-content: center; 
   margin-bottom: 1rem; 
 }
 
 .form-group {
   display: flex;
-  flex-direction: column; /* Cambiar a columna para pantallas pequeñas */
-  align-items: flex-start; /* Alinea verticalmente el label y el input */
+  flex-direction: column;
+   /* Alinea verticalmente el label y el input */
+  align-items: flex-start;
   width: 100%;
 }
 
@@ -48,9 +49,9 @@
 }
 
 .form-control {
-  background-color: #777; /* Fondo más claro */
+  background-color: #777; 
   color: white;
-  width: 100%; /* Ajusta el ancho para que ocupe todo el espacio disponible */
+  width: 100%; 
   max-width: 400px; 
   text-align: center; 
 }
@@ -58,7 +59,7 @@
 /* Estilos para pantallas grandes */
 @media (min-width: 576px) {
   .form-group {
-    flex-direction: row; /* Alinea en fila para pantallas grandes */
+    flex-direction: row; 
     align-items: center;
   }
 
@@ -104,10 +105,11 @@
 
 .form-check-group {
   display: flex;
-  flex-direction: row; /* Alinea los radio buttons horizontalmente */
+  flex-direction: row;
   align-items: center;
   justify-content: center; 
-  flex-wrap: wrap; /* Permite que los radio buttons se envuelvan en varias líneas si es necesario */    
+  /* Permite que los radio buttons se envuelvan en varias líneas si es necesario */  
+  flex-wrap: wrap;   
 }
 
 .form-check {
@@ -125,14 +127,18 @@
 
 .invalid-feedback {
   color: red;
-  font-size: 0.875rem; /* Ajusta el tamaño del texto del error */
-  margin-top: 0.25rem; /* Espacio entre el input y el mensaje de error */
+  font-size: 0.875rem; 
+  margin-top: 0.25rem; 
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  display: block;
 }
 
 #service-error{
   color: red;
-  font-size: 0.875rem; /* Ajusta el tamaño del texto del error */
-  margin-top: 0.25rem; /* Espacio entre el input y el mensaje de error */
+  font-size: 0.875rem; 
+  margin-top: 0.25rem; 
   background-color: white;
   align-items: center;
 }

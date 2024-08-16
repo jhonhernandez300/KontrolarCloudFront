@@ -1,139 +1,144 @@
 /* users-edit-action.component.css */
 .users-add {
-    background-color: black;
-    color: white;
-    width: 100%;
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-    padding: 1rem; 
-  }
-  
-  .section {
-    border: 2px solid darkblue;
-    border-radius: 5px;
-    margin-bottom: 1.5rem;
-    width: 100%;
-  }
-  
-  .section-header {
-    background-color: rgb(26, 163, 208);
-    color: white;
-    text-transform: uppercase;
-    padding: 0.5rem;
-    border-bottom: 2px solid darkblue;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  
-  .section-body {
-    padding: 1rem;
-    background-color: #333;
-  }
-  
-  .form-group-wrapper {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente el contenido del contenedor */
-    margin-bottom: 1rem; 
-  }
-  
+  background-color: black;
+  color: white;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem; 
+}
+
+.section {
+  border: 2px solid darkblue;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.section-header {
+  background-color: rgb(26, 163, 208);
+  color: white;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  border-bottom: 2px solid darkblue;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.section-body {
+  padding: 1rem;
+  background-color: #333;
+}
+
+.form-group-wrapper {
+  display: flex;
+  justify-content: center; 
+  margin-bottom: 1rem; 
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+   /* Alinea verticalmente el label y el input */
+  align-items: flex-start;
+  width: 100%;
+}
+
+.form-label {
+  color: lightgray;
+  margin-bottom: 0.5rem; 
+}
+
+.form-control {
+  background-color: #777; 
+  color: white;
+  width: 100%; 
+  max-width: 400px; 
+  text-align: center; 
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 576px) {
   .form-group {
-    display: flex;
-    flex-direction: column; /* Cambiar a columna para pantallas pequeñas */
-    align-items: flex-start; /* Alinea verticalmente el label y el input */
-    width: 100%;
+    flex-direction: row; 
+    align-items: center;
   }
-  
+
   .form-label {
-    color: lightgray;
-    margin-bottom: 0.5rem; 
+    margin-right: 1rem; 
+    margin-bottom: 0; 
   }
-  
+
   .form-control {
-    background-color: #777; /* Fondo más claro */
-    color: white;
-    width: 100%; /* Ajusta el ancho para que ocupe todo el espacio disponible */
-    max-width: 400px; 
-    text-align: center; 
+    width: auto; 
+  }
+
+  .textbox-item {
+    width: 20rem;
+    align-items: right;      
+   
   }
   
-  /* Estilos para pantallas grandes */
-  @media (min-width: 576px) {
-    .form-group {
-      flex-direction: row; /* Alinea en fila para pantallas grandes */
-      align-items: center;
-    }
-  
-    .form-label {
-      margin-right: 1rem; 
-      margin-bottom: 0; 
-    }
-  
-    .form-control {
-      width: auto; 
-    }
-  
-    .textbox-item {
-      width: 20rem;
-      align-items: right;      
-     
-    }
-    
-    .textbox-identification{
-      padding-left: 5.5rem;
-    }
-    
-    .textbox-names{
-      padding-left: 6rem;
-    }
-    
-    .textbox-surnames{
-      padding-left: 6rem;
-    }
-  
-    .form-check-group {
-      padding-left: 7rem;
-    }
-  
-    .label-menu-item{
-      width: 15rem;
-    }
-  
-    #service-error{
-      width: 15rem;
-    }
+  .textbox-identification{
+    padding-left: 5.5rem;
   }
   
+  .textbox-names{
+    padding-left: 6rem;
+  }
+  
+  .textbox-surnames{
+    padding-left: 6rem;
+  }
+
   .form-check-group {
-    display: flex;
-    flex-direction: row; /* Alinea los radio buttons horizontalmente */
-    align-items: center;
-    justify-content: center; 
-    flex-wrap: wrap; /* Permite que los radio buttons se envuelvan en varias líneas si es necesario */    
+    padding-left: 7rem;
   }
-  
-  .form-check {
-    margin-left: 1rem;
+
+  .label-menu-item{
+    width: 15rem;
   }
-  
-  .form-check-label {
-    color: lightgray;
-    margin-right: 0.5rem;
-  }
-  
-  .form-check-input {
-    margin-right: 0.5rem;
-  }
-  
-  .invalid-feedback {
-    color: red;
-    font-size: 0.875rem; /* Ajusta el tamaño del texto del error */
-    margin-top: 0.25rem; /* Espacio entre el input y el mensaje de error */
-  }
-  
+
   #service-error{
-    color: red;
-    font-size: 0.875rem; /* Ajusta el tamaño del texto del error */
-    margin-top: 0.25rem; /* Espacio entre el input y el mensaje de error */
-    background-color: white;
-    align-items: center;
+    width: 15rem;
   }
-  
+}
+
+.form-check-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+  /* Permite que los radio buttons se envuelvan en varias líneas si es necesario */  
+  flex-wrap: wrap;   
+}
+
+.form-check {
+  margin-left: 1rem;
+}
+
+.form-check-label {
+  color: lightgray;
+  margin-right: 0.5rem;
+}
+
+.form-check-input {
+  margin-right: 0.5rem;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 0.875rem; 
+  margin-top: 0.25rem; 
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  display: block;
+}
+
+#service-error{
+  color: red;
+  font-size: 0.875rem; 
+  margin-top: 0.25rem; 
+  background-color: white;
+  align-items: center;
+}

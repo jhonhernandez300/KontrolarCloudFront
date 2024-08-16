@@ -1811,7 +1811,15 @@ profiles-show-table.component.ts\par
 \par
 ////////////////\par
 \par
-\par
+\b Actualizar el input type radio con los datos q el componente recibe\par
+\b0 this.userTransferService.currentUser.subscribe(user => \{ \par
+      if (user) \{        \par
+        console.log(user);\par
+        this.user = user;\par
+        const userMasterValue = user.userMaster ? 'yes' : 'no'; \par
+        this.myForm.patchValue(\{ ...user, userMaster: userMasterValue \});  \par
+      \}\par
+    \});\par
 \par
 ////////////////\par
 \par

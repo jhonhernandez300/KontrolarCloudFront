@@ -16,9 +16,9 @@
           </div>          
         </div>
         <div class="invalid-feedback" *ngIf="myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched">
-          {{ 'IDENTIFICACION_NUMBER_IS_REQUIRED_AND_IT_CAN_ONLY_HAVE_NUMBERS(MAX_25_CHARACTERS)' | translate}}          
+         {{ 'IT_IS_REQUIRED_AND_CAN_ONLY_HAVE_NUMBERS' | translate}}          
         </div>
-        <div id="service-error" *ngIf="showServiceError">
+        <div id="service-error" *ngIf="showServiceError">          
           {{ serviceError }}
         </div>
       </div>
@@ -37,7 +37,7 @@
           </div>          
         </div>
         <div class="invalid-feedback" *ngIf="myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched">
-          {{ 'NAMES_ARE_REQUIRED_AND_CAN_ONLY_CONTAIN_LETTERS_AND_SPACES_(MAXIMUM_100_CHARACTERS)' | translate}}
+          {{ 'IT_IS_REQUIRED_AND_CAN_ONLY_HAVE_LETTERS_AND_SPACES' | translate}}
         </div>
         <div class="mb-3 form-group">
           <div  class="label-menu-item">
@@ -48,7 +48,7 @@
           </div>          
         </div>
         <div class="invalid-feedback" *ngIf="myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched">
-          {{ 'SURNAMES_IS_REQUIRED_(MAX_100_CHARACTERS)' | translate}}          
+          {{ 'IT_IS_REQUIRED' | translate}}          
         </div>
         <div class="mb-3 form-group">
           <div  class="label-menu-item">
