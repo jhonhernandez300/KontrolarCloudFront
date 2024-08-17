@@ -7,6 +7,7 @@ import { ProfilesEditComponent } from '../profiles-edit/profiles-edit.component'
 import { ProfilesDeleteComponent } from '../profiles-delete/profiles-delete.component';
 import { ProfilesSearchComponent } from '../profiles-search/profiles-search.component';
 import { LocalStorageService } from '../../../helpers/local-storage.service';
+import { ActivateEditSaveService } from '../../../services/activate-edit-save.service';
 
 @Component({
   selector: 'app-profiles',
@@ -26,9 +27,12 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   override showDelete = CrudActionsVisibility.showDelete;
   override showSearch = CrudActionsVisibility.showSearch;
 
-  constructor(crudActionsVisibilityService: CrudActionsVisibilityService,
-    private localStorageService: LocalStorageService) {
-    super(crudActionsVisibilityService);
+  constructor(
+    crudActionsVisibilityService: CrudActionsVisibilityService,
+    private localStorageService: LocalStorageService,
+    activateEditSaveService: ActivateEditSaveService
+  ) {
+    super(crudActionsVisibilityService, activateEditSaveService);
   }
 
   ngAfterViewInit(): void {

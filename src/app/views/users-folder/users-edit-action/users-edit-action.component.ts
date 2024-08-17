@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageChangeService } from '../../../services/language-change-service';
 import { ProfileTransferService } from '../../../services/profile/profile-transfer.service';
 import { iUserDTO } from '../../../models/iUserDTO';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-users-edit-action',
@@ -16,6 +17,8 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
   myForm: FormGroup;
   modalMessage: string = '';
   modalHeader: string = '';
+  userIdReceived: number = 0;
+
   user: iUserDTO = {
     idUser: 0,
     identificationNumber: '',
@@ -34,7 +37,8 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     private fb: FormBuilder,
     private translate: TranslateService,
     private languageChangeService: LanguageChangeService,
-    private profileTransferService: ProfileTransferService
+    private profileTransferService: ProfileTransferService,
+    private userService: UserService
     )
     {
       this.myForm = this.fb.group({
@@ -53,8 +57,9 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
 
     this.userTransferService.currentUser.subscribe(user => { 
       if (user) {        
-        console.log(user);
+        //console.log(user);
         this.user = user;
+        this.userIdReceived = user.idUser;
         const userMasterValue = user.userMaster ? 'yes' : 'no'; 
         this.myForm.patchValue({ ...user, userMaster: userMasterValue });  
       }
@@ -88,37 +93,40 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit() {    
     this.resetVariables();    
 
     if (this.myForm.valid) {
+      console.log('Form valid');
+      const converted = this.myForm.value.userMaster === 'no' ? true : false;
       
       const user: iUserDTO = {
-        idUser: 0,
-        identificationNumber: this.myForm.value.IdentificationNumber,
-        names: this.myForm.value.Names,
-        surnames: this.myForm.value.Surnames,
-        userMaster: this.myForm.value.UserMaster
+        idUser: this.userIdReceived,
+        identificationNumber: this.myForm.value.identificationNumber,
+        names: this.myForm.value.names,
+        surnames: this.myForm.value.surnames,
+        userMaster: converted
       };          
+      console.log('User to be sent ', user);
 
-      // this.userService. saveData(user).subscribe(
-      //   response => {
-      //     console.log(response);
-      //     this.translate.get('SAVED_SUCCESSFULLY').subscribe((translatedMessage: string) => {
-      //       this.modalMessage = translatedMessage;
-      //       this.translate.get('SUCCESS').subscribe((translatedHeader: string) => {
-      //         this.modalHeader = translatedHeader;
-      //         this.showModal(this.modalMessage, this.modalHeader);
-      //       });
-      //     });
-      //     this.resetForm();
-      //   },
-      //   error => {
-      //     this.serviceError = error.error?.message || 'UNKNOWN_ERROR';
-      //     this.translateServiceError(this.serviceError);
-      //     this.showServiceError = true;
-      //   }
-      // );
+      this.userService.update(user).subscribe(
+        response => {
+          console.log(response);
+          this.translate.get('UPDATED_SUCCESSFULLY').subscribe((translatedMessage: string) => {
+            this.modalMessage = translatedMessage;
+            this.translate.get('SUCCESS').subscribe((translatedHeader: string) => {
+              this.modalHeader = translatedHeader;
+              this.showModal(this.modalMessage, this.modalHeader);
+            });
+          });
+          this.resetForm();
+        },
+        error => {
+          this.serviceError = error.error?.message || 'UNKNOWN_ERROR';
+          this.translateServiceError(this.serviceError);
+          this.showServiceError = true;
+        }
+      );
     } else {      
       this.translateServiceError('FORM_IS_INVALID');
       this.showServiceError = true;
@@ -141,6 +149,15 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     if (this.modal) {
       this.modal.hide();
     }
+  }
+
+  onCancel(): void {
+    this.myForm.reset({
+      identificationNumber: '',
+      names: '',
+      surnames: '',
+      userMaster: 'no'
+    });
   }
 
 }

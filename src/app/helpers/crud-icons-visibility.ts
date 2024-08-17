@@ -1,5 +1,6 @@
 export class CrudActionsVisibility {
     static showAdd = false;
+    static showAddForEdit = false;
     static showEdit = false;
     static showDelete = false;
     static showSearch = false;
@@ -7,6 +8,11 @@ export class CrudActionsVisibility {
     static setAddVisible(): void {
       this.resetVisibility();
       this.showAdd = true;
+    }
+
+    static setAddForEditVisible(): void {
+      this.resetVisibility();
+      this.showAddForEdit = true;
     }
   
     static setEditVisible(): void {
@@ -26,6 +32,7 @@ export class CrudActionsVisibility {
   
     private static resetVisibility(): void {
       this.showAdd = false;
+      this.showAddForEdit = false;
       this.showEdit = false;
       this.showDelete = false;
       this.showSearch = false;

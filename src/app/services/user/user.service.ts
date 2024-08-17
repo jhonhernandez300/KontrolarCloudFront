@@ -34,6 +34,25 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  update(user: iUserDTO): Observable<any> {
+    console.log('User on the service ', user);   
+    const encryptedData = CryptoHelper.encrypt(user);
+    const json = JSON.stringify(encryptedData);
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+  
+    return this.http.put<any>(`${this.apiUrl}/Update`, json, {
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  //El registro no se borra, se deja IsEnabled = false
   disableUser(user: iUserDTO): Observable<any> {    
     const encryptedData = CryptoHelper.encrypt(user);
     const json = JSON.stringify(encryptedData);

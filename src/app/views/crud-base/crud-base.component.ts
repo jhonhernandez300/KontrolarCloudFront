@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { CrudActionsVisibilityService } from '../../services/crud-actions-visibility.service';
-
+import { ActivateEditSaveService } from '../../services/activate-edit-save.service';
 
 @Component({
   selector: 'app-crud-base',
@@ -10,15 +10,24 @@ import { CrudActionsVisibilityService } from '../../services/crud-actions-visibi
 })
 export class CrudBaseComponent implements OnInit {
   showSaveAndCancel = false;
+  showSaveForEditAndCancel = false;
   showAdd = false;
+  showAddForEdit = true;  
   showEdit = false;
   showDelete = false;
   showSearch = false;
 
-  constructor(protected crudActionsVisibilityService: CrudActionsVisibilityService) {}
+  constructor(
+    protected crudActionsVisibilityService: CrudActionsVisibilityService,
+    protected activateEditSaveService: ActivateEditSaveService
+  ) {}
 
   ngOnInit(): void {
     this.updateVisibility();
+    // Suscríbete al evento para ejecutar el método cuando sea necesario
+    this.activateEditSaveService.action$.subscribe(() => {
+      this.onAddForEditClick();
+    });
   }
 
   onCancelClick(): void {
@@ -26,9 +35,20 @@ export class CrudBaseComponent implements OnInit {
     this.updateVisibility();
   }
 
+  onCancelForEditClick(): void {
+    this.crudActionsVisibilityService.resetVisibility();
+    this.updateVisibility();
+  }
+
   onAddClick(): void {
     this.crudActionsVisibilityService.setAddVisible();
     this.updateVisibility();
+  }
+
+  onAddForEditClick(): void {
+    this.crudActionsVisibilityService.setAddForEditVisible();
+    this.updateVisibility();
+    //console.log('Add for Edit Clicked');
   }
 
   onEditClick(): void {
@@ -53,5 +73,6 @@ export class CrudBaseComponent implements OnInit {
     this.showDelete = this.crudActionsVisibilityService.showDelete;
     this.showSearch = this.crudActionsVisibilityService.showSearch;
     this.showSaveAndCancel = this.crudActionsVisibilityService.showSaveAndCancel;
+    this.showSaveForEditAndCancel = this.crudActionsVisibilityService.showSaveForEditAndCancel;
   }
 }

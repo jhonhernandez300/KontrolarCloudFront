@@ -1823,7 +1823,76 @@ profiles-show-table.component.ts\par
 \par
 ////////////////\par
 \par
+E\b jecutar un m\'e9todo de un componente abuelo desde un componente nieto\par
+\b0 Utilizar un servicio para la comunicaci\'f3n entre componentes. \par
 \par
+1. Crear un Servicio de Comunicaci\'f3n\par
+Primero, crea un servicio que manejar\'e1 la comunicaci\'f3n entre los componentes.\par
+\par
+// communication.service.ts\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ Subject \} from 'rxjs';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class CommunicationService \{\par
+  private actionSource = new Subject<void>();\par
+  action$ = this.actionSource.asObservable();\par
+\par
+  triggerAction() \{\par
+    this.actionSource.next();\par
+  \}\par
+\}\par
+\par
+2. Inyectar el Servicio en el Componente Nieto\par
+Inyecta el servicio en el componente nieto, desde donde se va a desencadenar la acci\'f3n.\par
+\par
+// nieto.component.ts\par
+import \{ Component \} from '@angular/core';\par
+import \{ CommunicationService \} from '../communication.service';\par
+\par
+@Component(\{\par
+  selector: 'app-nieto',\par
+  templateUrl: './nieto.component.html'\par
+\})\par
+export class NietoComponent \{\par
+\par
+  constructor(private communicationService: CommunicationService) \{\}\par
+\par
+  onSomeEvent() \{\par
+    // Ejecuta el m\'e9todo en el abuelo a trav\'e9s del servicio\par
+    this.communicationService.triggerAction();\par
+  \}\par
+\}\par
+\par
+3. Escuchar el Evento en el Componente Abuelo\par
+En el componente abuelo, inyecta el servicio y suscr\'edbete al evento para ejecutar el m\'e9todo deseado.\par
+\par
+// abuelo.component.ts\par
+import \{ Component, OnInit \} from '@angular/core';\par
+import \{ CommunicationService \} from '../communication.service';\par
+\par
+@Component(\{\par
+  selector: 'app-abuelo',\par
+  templateUrl: './abuelo.component.html'\par
+\})\par
+export class AbueloComponent implements OnInit \{\par
+\par
+  constructor(private communicationService: CommunicationService) \{\}\par
+\par
+  ngOnInit() \{\par
+    // Suscr\'edbete al evento para ejecutar el m\'e9todo cuando sea necesario\par
+    this.communicationService.action$.subscribe(() => \{\par
+      this.miMetodo();\par
+    \});\par
+  \}\par
+\par
+  miMetodo() \{\par
+    // M\'e9todo que quieres ejecutar desde el componente nieto\par
+    console.log('M\'e9todo en el componente abuelo ejecutado.');\par
+  \}\par
+\}\par
 \par
 ////////////////\par
 \par

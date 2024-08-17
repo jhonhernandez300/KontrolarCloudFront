@@ -5,15 +5,23 @@ import { Injectable } from '@angular/core';
 })
 export class CrudActionsVisibilityService {
   showAdd = false;
+  showAddForEdit = false;
   showEdit = false;
   showDelete = false;
   showSearch = false;
   showSaveAndCancel = false; 
+  showSaveForEditAndCancel = false; 
 
   setAddVisible(): void {
     this.resetVisibility();
     this.showAdd = true;
     this.showSaveAndCancel = true;    
+  }
+
+  setAddForEditVisible(): void {
+    this.resetVisibilityForAddOfEdit();
+    this.showAddForEdit = true;
+    this.showSaveForEditAndCancel = true;    
   }
 
   setEditVisible(): void {
@@ -37,5 +45,15 @@ export class CrudActionsVisibilityService {
     this.showDelete = false;
     this.showSearch = false;
     this.showSaveAndCancel = false;
+    this.showSaveForEditAndCancel = false;
+  }
+
+  resetVisibilityForAddOfEdit(): void {
+    this.showAdd = false;
+    this.showEdit = false;
+    this.showDelete = false;   
+    //this.showSearch = false; This one was removed because the users-edit-action component wasn´t showing
+    this.showSaveAndCancel = false;
+    this.showSaveForEditAndCancel = false;
   }
 }

@@ -8,6 +8,7 @@ import { LanguageChangeService } from '../../../services/language-change-service
 import * as bootstrap from 'bootstrap';
 import { EditCommunicationService } from '../../../services/user/edit-communication.service';
 import { UserTransferService } from '../../../services/user/user-transfer.service';
+import { ActivateEditSaveService } from '../../../services/activate-edit-save.service';
 
 @Component({
   selector: 'app-users-show-table',
@@ -42,7 +43,8 @@ export class UsersShowTableComponent implements OnInit {
     private translate: TranslateService,
     private languageChangeService: LanguageChangeService,
     private editCommunicationService: EditCommunicationService,
-    private userTransferService: UserTransferService
+    private userTransferService: UserTransferService,
+    private activateEditSaveService: ActivateEditSaveService
     ) 
     { }
 
@@ -56,8 +58,11 @@ export class UsersShowTableComponent implements OnInit {
 
   onEditUser(user: iUserDTO) {
     //console.log('Editing user:', user);   
+    //Hacer que user-search cambie el valor de una variable que se usa en el html para decidir que componentes se muestran
     this.editCommunicationService.notifyEditMode(true);    
     this.userTransferService.changeUser(user);
+    //Hacer que se muestren los íconos del disquete y la x en users
+    this.activateEditSaveService.triggerAction();
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -23,7 +23,7 @@ export class UsersSearchComponent implements OnInit {
 
   ngOnInit() {
     this.editCommunicationService.editModeChanged.subscribe((editMode: boolean) => {
-      console.log('editMode ', editMode);
+      //console.log('editMode ', editMode);
       this.editMode = editMode;
       this.cdr.detectChanges(); 
     });
