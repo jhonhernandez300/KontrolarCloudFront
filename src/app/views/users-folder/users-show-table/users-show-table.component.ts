@@ -66,6 +66,7 @@ export class UsersShowTableComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.action = this.localStorageService.getData('action');
     // if (changes['submitted']) {
     //   console.log('Submitted:', this.submitted); 
     // }

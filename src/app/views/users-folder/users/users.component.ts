@@ -65,6 +65,7 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
 
   override onSearchClick(): void {    
+    console.log('Search');
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();    
     this.localStorageService.removeData('action');
@@ -72,6 +73,7 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
   
   override onDeleteClick(): void {    
+    console.log('Delete');
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();    
     this.localStorageService.removeData('action');
@@ -79,6 +81,7 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
 
   override onEditClick(): void {    
+    console.log('Edit');
     this.crudActionsVisibilityService.setSearchVisible();    
     this.updateVisibility();        
     this.localStorageService.removeData('action');

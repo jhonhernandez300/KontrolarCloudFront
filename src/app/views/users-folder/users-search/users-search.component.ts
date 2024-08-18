@@ -31,9 +31,15 @@ export class UsersSearchComponent implements OnInit {
 
   onUsersFetched(users: iUserDTO[] | null) {
     this.users = users;
+    this.submitted = true;
   }
 
   handleSubmitPressed(submitted: boolean) {    
     this.submitted = submitted;
+    if (this.submitted)
+    {
+      this.users = null;
+      //this.editMode = false;
+    }
   }  
 }
