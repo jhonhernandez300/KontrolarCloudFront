@@ -19,7 +19,7 @@
                 <td>{{ profile.nameProfile }}</td>
                 <td>{{ profile.description }}</td>
                 <td *ngIf="action === 'edit'">
-                  <button class="btn btn-warning btn-sm" (click)="editProfile(profile)">{{ 'EDIT' | translate }}</button>
+                  <button class="btn btn-warning btn-sm" (click)="onEditProfile(profile)">{{ 'EDIT' | translate }}</button>
                 </td>
                 <td *ngIf="action === 'delete'">
                   <button class="btn btn-warning btn-sm" (click)="confirmDeleteProfile(profile)">{{ 'DELETE' | translate }}</button> 

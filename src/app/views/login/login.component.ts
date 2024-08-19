@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as bootstrap from 'bootstrap';
 import { DateFormatter } from '../../helpers/date-formatter';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthServiceService } from '../../services/auth-service.service';
+import { AuthServiceService } from '../../services/general/auth-service.service';
 import { CryptoHelper } from '../../helpers/CryptoHelper';
 
 @Component({

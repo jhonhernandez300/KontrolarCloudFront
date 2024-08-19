@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { CrudActionsVisibilityService } from '../../services/crud-actions-visibility.service';
-import { ActivateEditSaveService } from '../../services/activate-edit-save.service';
+import { CrudActionsVisibilityService } from '../../services/general/crud-actions-visibility.service';
+import { ActivateEditSaveService } from '../../services/general/activate-edit-save.service';
 
 @Component({
   selector: 'app-crud-base',

@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile/profile.service';
 import * as bootstrap from 'bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageChangeService } from '../../../services/language-change-service';
+import { LanguageChangeService } from '../../../services/general/language-change-service';
 import { iProfileDTO } from '../../../models/iProfileDTO';
 import { ProfileTransferService } from '../../../services/profile/profile-transfer.service';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-profiles-edit-action',
@@ -16,6 +17,8 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
   myForm: FormGroup;
   modalMessage: string = '';
   modalHeader: string = '';
+  profileIdReceived: number = 0;
+
   profile: iProfileDTO = {
     idProfile: 0,
     codProfile: '',
@@ -33,7 +36,8 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
     private profileService: ProfileService,
     private translate: TranslateService,
     private languageChangeService: LanguageChangeService,
-    private profileTransferService: ProfileTransferService
+    private profileTransferService: ProfileTransferService,
+    private userService: UserService
   ) {
     this.myForm = this.fb.group({
       CodProfile: ['', [Validators.required]],
@@ -51,6 +55,7 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
     this.profileTransferService.currentProfile.subscribe(profile => { // Nuevo
       if (profile) {
         this.profile = profile;
+        this.profileIdReceived = profile.idProfile;        
         this.myForm.patchValue(profile);
       }
     });
@@ -135,5 +140,13 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
     if (this.modal) {
       this.modal.hide();
     }
+  }
+
+  onCancel(): void {
+    this.myForm.reset({
+      profileCode: '',
+      profileName: '',
+      profileDescription: ''
+    });
   }
 }

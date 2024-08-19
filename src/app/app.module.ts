@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginComponent } from './views/login/login.component';
-import { AuthInterceptor } from '../app/services/authInterceptor';
+import { AuthInterceptor } from './services/general/authInterceptor';
 import { BienvenidoComponent } from './views/bienvenido/bienvenido.component';
 import { SidebarMenuComponent } from './views/sidebar-menu/sidebar-menu.component';
 import { UsersComponent } from './views/users-folder/users/users.component';

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { iUserDTO } from '../../../models/iUserDTO';
-import { EditCommunicationService } from '../../../services/user/edit-communication.service';
+import { EditCommunicationService } from '../../../services/general/edit-communication.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,6 +36,7 @@ export class UsersSearchComponent implements OnInit {
 
   handleSubmitPressed(submitted: boolean) {    
     this.submitted = submitted;
+    
     if (this.submitted)
     {
       this.users = null;

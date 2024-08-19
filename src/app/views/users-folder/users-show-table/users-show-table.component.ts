@@ -4,11 +4,11 @@ import { iUserDTO } from '../../../models/iUserDTO';
 import { LocalStorageService } from '../../../helpers/local-storage.service';
 import { UserService } from '../../../services/user/user.service';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageChangeService } from '../../../services/language-change-service';
+import { LanguageChangeService } from '../../../services/general/language-change-service';
 import * as bootstrap from 'bootstrap';
-import { EditCommunicationService } from '../../../services/user/edit-communication.service';
+import { EditCommunicationService } from '../../../services/general/edit-communication.service';
 import { UserTransferService } from '../../../services/user/user-transfer.service';
-import { ActivateEditSaveService } from '../../../services/activate-edit-save.service';
+import { ActivateEditSaveService } from '../../../services/general/activate-edit-save.service';
 
 @Component({
   selector: 'app-users-show-table',

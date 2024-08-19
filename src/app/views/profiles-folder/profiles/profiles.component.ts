@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ViewContainerRef } from '@angular/core';
 import { CrudActionsVisibility } from '../../../helpers/crud-icons-visibility';
 import { CrudBaseComponent } from '../../crud-base/crud-base.component';
-import { CrudActionsVisibilityService } from '../../../services/crud-actions-visibility.service';
+import { CrudActionsVisibilityService } from '../../../services/general/crud-actions-visibility.service';
 import { ProfilesAddComponent } from '../profiles-add/profiles-add.component';
-import { ProfilesEditComponent } from '../profiles-edit/profiles-edit.component';
-import { ProfilesDeleteComponent } from '../profiles-delete/profiles-delete.component';
 import { ProfilesSearchComponent } from '../profiles-search/profiles-search.component';
 import { LocalStorageService } from '../../../helpers/local-storage.service';
-import { ActivateEditSaveService } from '../../../services/activate-edit-save.service';
+import { ActivateEditSaveService } from '../../../services/general/activate-edit-save.service';
+import { ProfilesEditActionComponent } from '../../profiles-folder/profiles-edit-action/profiles-edit-action.component';
 
 @Component({
   selector: 'app-profiles',
@@ -16,13 +15,17 @@ import { ActivateEditSaveService } from '../../../services/activate-edit-save.se
 })
 
 export class ProfilesComponent extends CrudBaseComponent implements AfterViewInit {
-  @ViewChild(ProfilesAddComponent) profilesAddComponent?: ProfilesAddComponent;
-  @ViewChild(ProfilesEditComponent) profilesEditComponent?: ProfilesEditComponent;
-  @ViewChild(ProfilesDeleteComponent) profilesDeleteComponent?: ProfilesDeleteComponent;
+  @ViewChild(ProfilesAddComponent) profilesAddComponent?: ProfilesAddComponent;  
+  @ViewChild(ProfilesEditActionComponent) profilesEditActionComponent?: ProfilesEditActionComponent; 
   @ViewChild(ProfilesSearchComponent) profilesSearchComponent?: ProfilesSearchComponent;
 
   override showSaveAndCancel = false;
+  override showSaveForEditAndCancel = false;
+
+  //override showSaveAndCancel = false; //??
+
   override showAdd = CrudActionsVisibility.showAdd;
+  override showAddForEdit = CrudActionsVisibility.showAddForEdit;
   override showEdit = CrudActionsVisibility.showEdit;
   override showDelete = CrudActionsVisibility.showDelete;
   override showSearch = CrudActionsVisibility.showSearch;
@@ -30,7 +33,8 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   constructor(
     crudActionsVisibilityService: CrudActionsVisibilityService,
     private localStorageService: LocalStorageService,
-    activateEditSaveService: ActivateEditSaveService
+    activateEditSaveService: ActivateEditSaveService,
+    private viewContainerRef: ViewContainerRef 
   ) {
     super(crudActionsVisibilityService, activateEditSaveService);
   }
@@ -51,9 +55,22 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
      }
   }
 
+  onSaveForEditClick(): void {    
+    //console.log(this.showAddForEdit);
+    //console.log(this.profilesEditActionComponent);
+    if (this.showAddForEdit && this.profilesEditActionComponent) {
+      this.profilesEditActionComponent.onSubmit();    
+    } 
+  }
+
   override onCancelClick(): void {
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();    
+  }
+
+  override onCancelForEditClick(): void {
+    this.crudActionsVisibilityService.resetVisibility();
+    this.updateVisibility();
   }
 
   override onSearchClick(): void {    

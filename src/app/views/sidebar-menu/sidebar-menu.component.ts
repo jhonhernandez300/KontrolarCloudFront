@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service'; 
 import { LocalStorageService } from '../../helpers/local-storage.service';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageChangeService } from '../../services/language-change-service';
+import { LanguageChangeService } from '../../services/general/language-change-service';
 import { ModuleDTO } from '../../models/ModuleDTO';
 import { OptionDTO } from '../../models/OptionDTO';
 

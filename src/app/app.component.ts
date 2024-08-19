@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
-import { LanguageServiceService } from '../app/services/language-service.service';
+import { LanguageServiceService } from './services/general/language-service.service';
 import { UserService } from '../app/services/user/user.service'; 
-import { LanguageChangeService } from '../app/services/language-change-service'; 
+import { LanguageChangeService } from './services/general/language-change-service'; 
 import { TranslateService } from '@ngx-translate/core';
-import { AuthServiceService } from '../app/services/auth-service.service'
+import { AuthServiceService } from './services/general/auth-service.service'
 import { ProfileService } from './services/profile/profile.service';
 
 @Component({

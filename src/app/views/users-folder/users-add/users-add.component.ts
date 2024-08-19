@@ -5,7 +5,7 @@ import { UserService } from '../../../services/user/user.service';
 import { iUserDTO } from '../../../models/iUserDTO';
 import * as bootstrap from 'bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageChangeService } from '../../../services/language-change-service';
+import { LanguageChangeService } from '../../../services/general/language-change-service';
 
 @Component({
   selector: 'app-users-add',

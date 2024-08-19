@@ -4,7 +4,7 @@ import { ProfileService } from '../../../services/profile/profile.service';
 import { iProfileDTO } from '../../../models/iProfileDTO';
 import * as bootstrap from 'bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageChangeService } from '../../../services/language-change-service';
+import { LanguageChangeService } from '../../../services/general/language-change-service';
 
 @Component({
   selector: 'app-profiles-add',

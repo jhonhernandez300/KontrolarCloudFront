@@ -3,9 +3,12 @@ import { iProfileDTO } from '../../../models/iProfileDTO';
 import { LocalStorageService } from '../../../helpers/local-storage.service';
 import { ProfileService } from '../../../services/profile/profile.service';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageChangeService } from '../../../services/language-change-service';
+import { LanguageChangeService } from '../../../services/general/language-change-service';
 import * as bootstrap from 'bootstrap';
 import { ProfileTransferService } from '../../../services/profile/profile-transfer.service';
+import { EditCommunicationService } from '../../../services/general/edit-communication.service';
+import { UserTransferService } from '../../../services/user/user-transfer.service';
+import { ActivateEditSaveService } from '../../../services/general/activate-edit-save.service';
 
 @Component({
   selector: 'app-profiles-show-table',
@@ -37,7 +40,9 @@ export class ProfilesShowTableComponent implements OnInit{
     private profileService: ProfileService,
     private translate: TranslateService,
     private languageChangeService: LanguageChangeService,
-    private profileTransferService: ProfileTransferService
+    private editCommunicationService: EditCommunicationService,
+    private profileTransferService: ProfileTransferService,
+    private activateEditSaveService: ActivateEditSaveService
     ) { }
 
   ngOnInit(): void {
@@ -46,6 +51,14 @@ export class ProfilesShowTableComponent implements OnInit{
 
   ngAfterViewInit() {
     this.modal = new bootstrap.Modal(this.modalElementRef.nativeElement);
+  }
+
+  onEditProfile(profile: iProfileDTO) {         
+    //Hacer que user-search cambie el valor de una variable que se usa en el html para decidir que componentes se muestran
+    this.editCommunicationService.notifyEditMode(true);    
+    this.profileTransferService.changeProfile(profile);
+    //Hacer que se muestren los íconos del disquete y la x en profiles
+    this.activateEditSaveService.triggerAction();
   }
 
   ngOnChanges(changes: SimpleChanges)
@@ -60,11 +73,6 @@ export class ProfilesShowTableComponent implements OnInit{
     // }
   }
 
-  editProfile(profile: iProfileDTO) {
-    console.log('Editing profile:', profile);
-    this.profileTransferService.changeProfile(profile); // Cambio
-  }
-
   confirmDeleteProfile(profile: iProfileDTO) {
     this.profileToDelete = profile;
     this.showDeleteAlert = true; 
@@ -76,8 +84,7 @@ export class ProfilesShowTableComponent implements OnInit{
   }
 
   deleteProfile(profile: iProfileDTO | null) {
-    if (profile) {
-      console.log('Deleting profile:', profile);
+    if (profile) {      
       this.showDeleteAlert = false; 
       this.profileToDelete = null;
       this.disableProfile(profile);
@@ -141,4 +148,8 @@ export class ProfilesShowTableComponent implements OnInit{
     }
   }
 
+  editProfile(profile: iProfileDTO) {
+    console.log('Editing profile:', profile);
+    this.profileTransferService.changeProfile(profile); // Cambio
+  }
 }

@@ -3,7 +3,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angula
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageChangeService } from '../../../services/language-change-service';
+import { LanguageChangeService } from '../../../services/general/language-change-service';
 import { ProfileTransferService } from '../../../services/profile/profile-transfer.service';
 import { iUserDTO } from '../../../models/iUserDTO';
 import { UserService } from '../../../services/user/user.service';
