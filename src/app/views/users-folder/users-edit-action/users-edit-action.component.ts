@@ -7,6 +7,7 @@ import { LanguageChangeService } from '../../../services/general/language-change
 import { ProfileTransferService } from '../../../services/profile/profile-transfer.service';
 import { iUserDTO } from '../../../models/iUserDTO';
 import { UserService } from '../../../services/user/user.service';
+import { EditCommunicationService } from '../../../services/general/edit-communication.service';
 
 @Component({
   selector: 'app-users-edit-action',
@@ -38,7 +39,8 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     private translate: TranslateService,
     private languageChangeService: LanguageChangeService,
     private profileTransferService: ProfileTransferService,
-    private userService: UserService
+    private userService: UserService,
+    private editCommunicationService: EditCommunicationService,
     )
     {
       this.myForm = this.fb.group({
@@ -83,6 +85,7 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     if (this.modalHeader === 'SUCCESS') {
       this.resetForm();
     }
+    this.editCommunicationService.notifyEditMode(false);
   }
 
   private resetForm(): void {
@@ -94,7 +97,7 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
   }
 
   onSubmit() {    
-    //console.log('It never gets this point');
+    console.log('Here');
     this.resetVariables();    
 
     if (this.myForm.valid) {

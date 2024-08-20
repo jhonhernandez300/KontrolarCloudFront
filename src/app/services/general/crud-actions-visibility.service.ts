@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { EditCommunicationService } from './edit-communication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrudActionsVisibilityService {
+  constructor(private editCommunicationService: EditCommunicationService) {}
+  
   showAdd = false;
   showAddForEdit = false;
   showEdit = false;
@@ -46,6 +49,7 @@ export class CrudActionsVisibilityService {
     this.showSearch = false;
     this.showSaveAndCancel = false;
     this.showSaveForEditAndCancel = false;
+    this.editCommunicationService.notifyEditMode(false);
   }
 
   resetVisibilityForAddOfEdit(): void {

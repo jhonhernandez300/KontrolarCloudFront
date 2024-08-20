@@ -14,7 +14,10 @@
   </div>
 
   <div class="inner" id="crud-components">
-    <div *ngIf="showAdd"><app-users-add></app-users-add></div>     
-    <div *ngIf="showSearch"><app-users-search></app-users-search></div>
+    <div *ngIf="!editMode && showAdd"><app-users-add></app-users-add></div>
+    <div *ngIf="!editMode && showSearch"><app-users-search></app-users-search></div>
+    <div *ngIf="editMode">
+      <app-users-edit-action></app-users-edit-action>
+    </div>
   </div>
 </div>

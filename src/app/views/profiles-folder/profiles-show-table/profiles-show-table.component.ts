@@ -63,6 +63,7 @@ export class ProfilesShowTableComponent implements OnInit{
 
   ngOnChanges(changes: SimpleChanges)
   {
+    this.action = this.localStorageService.getData('action');
     // if (changes['submitted']) {
     //   console.log('Submitted:', this.submitted); // Asegúrate de que esto es true cuando el formulario se envía
     // }

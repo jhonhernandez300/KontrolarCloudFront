@@ -7,6 +7,7 @@ import { UsersSearchComponent } from '../users-search/users-search.component';
 import { LocalStorageService } from '../../../helpers/local-storage.service';
 import { ActivateEditSaveService } from '../../../services/general/activate-edit-save.service';
 import { UsersEditActionComponent } from '../../users-folder/users-edit-action/users-edit-action.component';
+import { EditCommunicationService } from '../../../services/general/edit-communication.service';
 
 @Component({
   selector: 'app-users',
@@ -27,37 +28,44 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   override showDelete = CrudActionsVisibility.showDelete;
   override showSearch = CrudActionsVisibility.showSearch;
 
+  editMode: boolean = false;
+
   constructor(
     crudActionsVisibilityService: CrudActionsVisibilityService,
     private localStorageService: LocalStorageService,
     activateEditSaveService: ActivateEditSaveService,
-    private viewContainerRef: ViewContainerRef 
+    private viewContainerRef: ViewContainerRef,
+    private editCommunicationService: EditCommunicationService,
     ) {
     super(crudActionsVisibilityService, activateEditSaveService);
   }
 
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.editCommunicationService.editModeChanged.subscribe((mode: boolean) => {
+      this.editMode = mode;
+    });
+  }
+
   ngAfterViewInit(): void {
     this.updateVisibility();
+    console.log(this.usersEditActionComponent);
   }
 
   onSaveClick(): void {    
     if (this.showAdd && this.usersAddComponent) {
-      this.usersAddComponent.onSubmit();    
+      this.usersAddComponent.onSubmit();
     } 
   }
 
   onSaveForEditClick(): void {
-    // console.log(this.showAddForEdit);
-    // console.log(this.usersEditActionComponent);
-    //this.showAddForEdit && 
-  
-    setTimeout(() => {
-      if (this.usersEditActionComponent) {
-        this.usersEditActionComponent.onSubmit();
-      } else {
-        console.error("El componente usersEditActionComponent no está definido.");
-      }
-    }, 5000); 
+    console.log('here 001');
+    //this.usersEditActionComponent.onSubmit();
+    
+    if (this.usersEditActionComponent) {
+      console.log('here 002');
+      this.usersEditActionComponent.onSubmit();
+    }
   }
 
   override onCancelClick(): void {
@@ -91,6 +99,6 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     this.crudActionsVisibilityService.setSearchVisible();    
     this.updateVisibility();        
     this.localStorageService.removeData('action');
-    this.localStorageService.setData('action', 'edit');     
+    this.localStorageService.setData('action', 'edit');    
   }
 }
