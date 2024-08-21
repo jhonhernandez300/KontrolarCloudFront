@@ -40,9 +40,9 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
     private userService: UserService
   ) {
     this.myForm = this.fb.group({
-      CodProfile: ['', [Validators.required]],
-      NameProfile: ['', [Validators.required]],
-      Description: ['', [Validators.required]]
+      codProfile: ['', [Validators.required]],
+      nameProfile: ['', [Validators.required]],
+      description: ['', [Validators.required]]
     });
   }
 
@@ -52,8 +52,9 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
       this.translate.use(language);
     });
 
-    this.profileTransferService.currentProfile.subscribe(profile => { // Nuevo
+    this.profileTransferService.currentProfile.subscribe(profile => { 
       if (profile) {
+        //console.log(profile);
         this.profile = profile;
         this.profileIdReceived = profile.idProfile;        
         this.myForm.patchValue(profile);

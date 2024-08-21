@@ -39,7 +39,9 @@ export class ProfileService {
   }
 
   getProfilesByParam(parametro: string): Observable<iProfileDTO[]> {
+    console.log(parametro);
     const encryptedData = CryptoHelper.encrypt(parametro);
+    console.log(encryptedData);
     const json = JSON.stringify(encryptedData);
 
     const headers = new HttpHeaders({

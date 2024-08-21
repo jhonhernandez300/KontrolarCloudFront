@@ -9,8 +9,7 @@
               <tr>
                 <th>{{ 'IDENTIFICATION_NUMBER' | translate }}</th>
                 <th>{{ 'NAME' | translate }}</th>
-                <th>{{ 'SURNAMES' | translate }}</th>
-                <th>{{ 'MASTER' | translate }}</th>
+                <th>{{ 'SURNAMES' | translate }}</th>                
                 <th *ngIf="action === 'edit' || action === 'delete'">{{ 'ACTIONS' | translate }}</th>
               </tr>
             </thead>
@@ -18,8 +17,7 @@
               <tr *ngFor="let user of users">
                 <td>{{ user.identificationNumber }}</td>
                 <td>{{ user.names }}</td>
-                <td>{{ user.surnames }}</td>
-                <td>{{ user.userMaster ? 'Yes' : 'No' }}</td>
+                <td>{{ user.surnames }}</td>                
                 <td *ngIf="action === 'edit'">
                   <button class="btn btn-success btn-sm" (click)="onEditUser(user)">{{ 'EDIT' | translate }}</button>
                 </td>

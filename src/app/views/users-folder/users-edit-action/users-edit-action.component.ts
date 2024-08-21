@@ -24,8 +24,7 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     idUser: 0,
     identificationNumber: '',
     names: '',
-    surnames: '',
-    userMaster: false
+    surnames: ''    
   };
   private modal: bootstrap.Modal | null = null;
   serviceError: string = '';
@@ -46,8 +45,7 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
       this.myForm = this.fb.group({
         identificationNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(25)]],
         names: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), Validators.maxLength(100)]],
-        surnames: ['', [Validators.required, Validators.maxLength(100)]],
-        userMaster: ['', Validators.required]
+        surnames: ['', [Validators.required, Validators.maxLength(100)]]
       });
     }
 
@@ -61,9 +59,8 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
       if (user) {        
         //console.log(user);
         this.user = user;
-        this.userIdReceived = user.idUser;
-        const userMasterValue = user.userMaster ? 'yes' : 'no'; 
-        this.myForm.patchValue({ ...user, userMaster: userMasterValue });  
+        this.userIdReceived = user.idUser;        
+        this.myForm.patchValue(user);  
       }
     });
   }
@@ -100,18 +97,14 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     console.log('Here');
     this.resetVariables();    
 
-    if (this.myForm.valid) {
-      console.log('Form valid');
-      const converted = this.myForm.value.userMaster === 'no' ? true : false;
+    if (this.myForm.valid) {      
       
       const user: iUserDTO = {
         idUser: this.userIdReceived,
         identificationNumber: this.myForm.value.identificationNumber,
         names: this.myForm.value.names,
-        surnames: this.myForm.value.surnames,
-        userMaster: converted
-      };          
-      console.log('User to be sent ', user);
+        surnames: this.myForm.value.surnames        
+      };                
 
       this.userService.update(user).subscribe(
         response => {

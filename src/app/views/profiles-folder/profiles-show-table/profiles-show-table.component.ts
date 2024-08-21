@@ -53,7 +53,8 @@ export class ProfilesShowTableComponent implements OnInit{
     this.modal = new bootstrap.Modal(this.modalElementRef.nativeElement);
   }
 
-  onEditProfile(profile: iProfileDTO) {         
+  onEditProfile(profile: iProfileDTO) {       
+    //console.log(profile);  
     //Hacer que user-search cambie el valor de una variable que se usa en el html para decidir que componentes se muestran
     this.editCommunicationService.notifyEditMode(true);    
     this.profileTransferService.changeProfile(profile);

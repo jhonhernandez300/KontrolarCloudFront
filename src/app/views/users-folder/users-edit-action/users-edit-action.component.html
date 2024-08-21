@@ -51,23 +51,7 @@
           <div class="invalid-feedback" *ngIf="myForm.get('surnames')?.invalid && myForm.get('surnames')?.touched">
             {{ 'IT_IS_REQUIRED' | translate}}          
           </div>
-
-          <div class="mb-3 form-group">
-            <div  class="label-menu-item">
-              <label class="form-label">{{ 'IS_USER_MASTER' | translate }}</label>
-            </div>          
-            <div class="form-check-group">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="userMaster" id="userMasterYes" value="yes">
-                <label class="form-check-label" for="userMasterYes">{{ 'YES' | translate}}</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="userMaster" id="userMasterNo" value="no" checked>
-                <label class="form-check-label" for="userMasterNo"> {{'NO' | translate }}</label>
-              </div>
-            </div>
-          </div>
-
+          
           <div class="mb-3 form-group">
             <div class="section mt-4">
               <div class="section-body d-flex justify-content-start">

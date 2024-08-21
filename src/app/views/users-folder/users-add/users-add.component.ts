@@ -18,8 +18,7 @@ export class UsersAddComponent implements AfterViewInit, OnInit {
   modalHeader: string = '';
   identificationNumber = 0;
   names = '';
-  surnames = '';
-  isUserMaster = '';
+  surnames = '';  
   modalVisible: boolean = false;
   private modal: bootstrap.Modal | null = null;
   serviceError: string = '';
@@ -41,8 +40,7 @@ export class UsersAddComponent implements AfterViewInit, OnInit {
     this.myForm = this.fb.group({
       identificationNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(25)]],
       firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$'), Validators.maxLength(100)]],
-      lastName: ['', [Validators.required, Validators.maxLength(100)]],
-      userMaster: ['no', Validators.required]
+      lastName: ['', [Validators.required, Validators.maxLength(100)]]      
     });
   }
 
@@ -77,13 +75,11 @@ export class UsersAddComponent implements AfterViewInit, OnInit {
     }
   }
 
-  private resetForm(): void {
-    const userMasterValue = this.myForm.get('userMaster')?.value;
+  private resetForm(): void {    
     this.myForm.reset({
       identificationNumber: '',
       firstName: '',
-      lastName: '',
-      userMaster: userMasterValue
+      lastName: ''      
     });
   }
 
@@ -95,8 +91,7 @@ export class UsersAddComponent implements AfterViewInit, OnInit {
         idUser: 0,
         identificationNumber: this.myForm.value.identificationNumber,
         names: this.myForm.value.firstName,
-        surnames: this.myForm.value.lastName,
-        userMaster: this.myForm.value.userMaster === 'yes'
+        surnames: this.myForm.value.lastName        
       };
   
       this.userService.saveData(user).subscribe(

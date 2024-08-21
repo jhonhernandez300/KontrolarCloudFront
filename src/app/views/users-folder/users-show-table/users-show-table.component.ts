@@ -59,7 +59,8 @@ export class UsersShowTableComponent implements OnInit {
   onEditUser(user: iUserDTO) {
     //console.log('Editing user:', user);   
     //Hacer que user-search cambie el valor de una variable que se usa en el html para decidir que componentes se muestran
-    this.editCommunicationService.notifyEditMode(true);    
+    this.editCommunicationService.notifyEditMode(true); 
+    //Enviarle el user a users-edit-action. Él lo carga en el formulario   
     this.userTransferService.changeUser(user);
     //Hacer que se muestren los íconos del disquete y la x en users
     this.activateEditSaveService.triggerAction();

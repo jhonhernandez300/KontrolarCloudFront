@@ -12,6 +12,7 @@ export class ProfileTransferService {
   constructor() {}
 
   changeProfile(profile: iProfileDTO) {
+    //console.log(profile);
     this.profileSource.next(profile);
   }
 }

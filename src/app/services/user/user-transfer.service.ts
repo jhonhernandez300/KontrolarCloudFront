@@ -12,6 +12,7 @@ export class UserTransferService {
   constructor() { }
 
   changeUser(user: iUserDTO) {
+    //console.log('en el servicio ', user);
     this.userSource.next(user);
   }
 }

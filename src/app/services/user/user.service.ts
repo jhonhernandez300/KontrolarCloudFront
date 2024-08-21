@@ -73,11 +73,10 @@ export class UserService {
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('An error occurred:', error.message);
     return throwError('Something bad happened; please try again later.');
-  }
-  
+  }  
 
-  getUserByParam(parametro: string): Observable<iUserDTO[]> {
-    const encryptedData = CryptoHelper.encrypt(parametro);
+  getUserByParam(parametro: string): Observable<iUserDTO[]> {    
+    const encryptedData = CryptoHelper.encrypt(parametro);    
     const json = JSON.stringify(encryptedData);
 
     const headers = new HttpHeaders({
