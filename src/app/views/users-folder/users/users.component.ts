@@ -29,6 +29,10 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   override showSearch = CrudActionsVisibility.showSearch;
 
   editMode: boolean = false;
+  hideAddIcon: boolean = false; 
+  hideEditIcon: boolean = false; 
+  hideDeleteIcon: boolean = false; 
+  hideSearchIcon: boolean = false; 
 
   constructor(
     crudActionsVisibilityService: CrudActionsVisibilityService,
@@ -45,11 +49,20 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     this.editCommunicationService.editModeChanged.subscribe((mode: boolean) => {
       this.editMode = mode;
     });
+    
   }
 
   ngAfterViewInit(): void {
     this.updateVisibility();
-    console.log(this.usersEditActionComponent);
+    //console.log(this.usersEditActionComponent);
+  }
+
+  override onAddClick(): void {    
+    this.hideEditIcon = true;  
+    this.hideDeleteIcon = true;  
+    this.hideSearchIcon = true;  
+    this.crudActionsVisibilityService.setAddVisible();  
+    this.updateVisibility();  
   }
 
   onSaveClick(): void {    
@@ -59,27 +72,37 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
 
   onSaveForEditClick(): void {
-    console.log('here 001');
+    //console.log('here 001');
     //this.usersEditActionComponent.onSubmit();
     
     if (this.usersEditActionComponent) {
-      console.log('here 002');
+      //console.log('here 002');
       this.usersEditActionComponent.onSubmit();
     }
   }
 
-  override onCancelClick(): void {
+  override onCancelClick(): void {    
+    this.hideAddIcon = false;  
+    this.hideEditIcon = false;  
+    this.hideDeleteIcon = false;  
+    this.hideSearchIcon = false;  
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();
   }
 
   override onCancelForEditClick(): void {
+    this.hideAddIcon = false;  
+    this.hideDeleteIcon = false;  
+    this.hideSearchIcon = false;  
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();
   }
 
   override onSearchClick(): void {    
-    console.log('Search');
+    //console.log('Search');
+    this.hideAddIcon = true;  
+    this.hideEditIcon = true;  
+    this.hideDeleteIcon = true;  
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();    
     this.localStorageService.removeData('action');
@@ -87,7 +110,10 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
   
   override onDeleteClick(): void {    
-    console.log('Delete');
+    //console.log('Delete');
+    this.hideAddIcon = true;  
+    this.hideEditIcon = true;  
+    this.hideSearchIcon = true;  
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();    
     this.localStorageService.removeData('action');
@@ -95,7 +121,10 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
 
   override onEditClick(): void {    
-    console.log('Edit');
+    //console.log('Edit');
+    this.hideAddIcon = true;  
+    this.hideDeleteIcon = true;  
+    this.hideSearchIcon = true;  
     this.crudActionsVisibilityService.setSearchVisible();    
     this.updateVisibility();        
     this.localStorageService.removeData('action');

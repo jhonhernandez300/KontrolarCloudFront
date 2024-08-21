@@ -148,3 +148,19 @@
     align-items: center;
   }
   
+  @media (max-width: 480px) {    
+    .section-body {
+      padding: 0;
+
+    }
+    .global-container {  
+      width: 400px;    
+      padding: 0;
+      border-radius: 0;
+      border: none;       
+    }
+
+  #label-input{
+    width: 30px;
+  } 
+} 

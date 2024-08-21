@@ -850,7 +850,7 @@ this.\highlight1 showModal\highlight0 ('IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY');
 En los archivos q est\'e1n en la ubicaci\'f3n assets > i18n (traducido para cada idioma en el lado derecho)\par
 "IDENTIFICATION_NUMBER_CANNOT_BE_EMPTY":"Identification number cannot be empty"\par
 \par
-////////////////\par
+////////////////             1\par
 \par
 \b Determinar desde la bd el color de un bot\'f3n\par
 Determinar en la bd el \'edcono\par
@@ -866,7 +866,7 @@ Determinar en la bd el \'edcono\par
           <span style="margin-left: 30px;">\{\{ modulo.nombreModulo \}\}</span>\par
 </button>\par
 \par
-////////////////\par
+////////////////              2\par
 \par
 \b Como traducir un men\'fa seg\'fan lo q se escoja en el dropdown de otro componente\par
 \b0 angular.json\par
@@ -954,7 +954,7 @@ En assets crear la carpeta i18n y adentro poner los archivos en-US.json, es-CO.j
   "MANAGER_ADMIN":"Administrador admin"\par
 \}\par
 \par
-app.module\par
+\cf6\b app.module\cf0\b0\par
 import \{ TranslateModule, TranslateLoader \} from '@ngx-translate/core';\par
 import \{ TranslateHttpLoader \} from '@ngx-translate/http-loader';\par
 \par
@@ -971,7 +971,7 @@ TranslateModule.forRoot(\{\par
       \}\par
     \}),\par
 \par
-app.component.ts\par
+\cf6\b app.component.ts\cf0\b0\par
 import \{ LanguageServiceService \} from '../app/services/language-service.service';\par
 import \{ LanguageChangeService \} from '../app/services/language-change-service'; \par
 \par
@@ -986,8 +986,7 @@ xport class AppComponent \{\par
     private languageChangeService: LanguageChangeService \par
   ) \{\}\par
 \par
-  setLanguage(event: Event) \{\par
-    //console.log('setLanguage en app.component ');\par
+  setLanguage(event: Event) \{    \par
     const selectElement = event.target as HTMLSelectElement;\par
     const language = selectElement.value;\par
     this.languageService.setLanguage(language);\par
@@ -1000,7 +999,7 @@ xport class AppComponent \{\par
     this.isAuthenticated = true;\par
   \}\par
 \par
-app.component.html\par
+\cf6\b app.component.html\cf0\b0\par
 <div class="container-fluid">\par
   <div class="row">\par
 \par
@@ -1031,14 +1030,14 @@ app.component.html\par
   </div><!-- row -->\par
 </div>\par
 \par
-sidebar-menu.component.ts\par
+\cf6\b sidebar-menu.component.ts\cf0\b0\par
 import \{ TranslateService \} from '@ngx-translate/core';\par
 import \{ LanguageChangeService \} from '../../services/language-change-service';\par
 \par
 export class SidebarMenuComponent implements OnInit \{\par
   options: any;\par
   iobjOpcionMovil: iObjOpcionMovil = \{\par
-    listaOpcionesMoviles: [] as iMenu[],  // Inicializando como array vac\'edo de iMenu\par
+    listaOpcionesMoviles: [] as iMenu[],  \par
     listaModulos: [] as iModulo[]\par
   \};\par
   filteredOptions: \{ [key: number]: iMenu[] \} = \{\};\par
@@ -1059,14 +1058,12 @@ export class SidebarMenuComponent implements OnInit \{\par
       (data) => \{        \par
         this.iobjOpcionMovil = data;                \par
         this.filterOptions();\par
-        //console.log('this.iobjOpcionMovil: ', this.iobjOpcionMovil);\par
         this.selectedCompany = this.localStorageService.getData('selectedCompany');        \par
       \},\par
       (error) => \{\par
         console.error('Error fetching options', error);\par
       \}\par
     );\par
-    //console.log('this.iobjOpcionMovil: ', this.iobjOpcionMovil);\par
     // Escucha el cambio de idioma\par
     this.languageChangeService.currentLanguage.subscribe(language => \{\par
       this.translateModulesAndOptions();\par
@@ -1123,7 +1120,7 @@ export class SidebarMenuComponent implements OnInit \{\par
   \}\par
 \}\par
 \par
-sidebar-menu.component.html\par
+\cf6\b sidebar-menu.component.html\cf0\b0\par
 <div>\par
   <img src="../../../assets/img/LOGO_FONDO_TRANSPARENTE2.png" alt="Image Description" class="img-fluid mb-3">   \par
 </div>\par
@@ -1210,7 +1207,7 @@ sidebar-menu.component.html\par
   </div>\par
 </div>\par
 \par
-language-service.service.ts\par
+\cf6\b language-service.service.ts\cf0\b0\par
 import \{ Injectable \} from '@angular/core';\par
 import \{ Location \} from '@angular/common';\par
 import \{ TranslateService \} from '@ngx-translate/core';\par
@@ -1223,15 +1220,14 @@ export class LanguageServiceService \{\par
   constructor(private translate: TranslateService, private location: Location) \{    \par
   \}\par
 \par
-  setLanguage(language: string) \{\par
-    //console.log("language al llegar al servicio ", language);\par
+  setLanguage(language: string) \{    \par
     this.translate.use(language).subscribe(() => \{\par
       this.location.replaceState(this.location.path(), '', \{ lang: language \});\par
     \});\par
   \}\par
 \}\par
 \par
-language-change.service.ts\par
+\cf6\b language-change.service.ts\cf0\b0\par
 import \{ Injectable \} from '@angular/core';\par
 import \{ BehaviorSubject \} from 'rxjs';\par
 \par
@@ -1242,10 +1238,8 @@ export class LanguageChangeService \{\par
   private languageSource = new BehaviorSubject<string>('es-CO');\par
   currentLanguage = this.languageSource.asObservable();\par
 \par
-  changeLanguage(language: string) \{\par
-    //console.log('language ', language);\par
-    this.languageSource.next(language);\par
-    //sconsole.log('this.languageSource ', this.languageSource);\par
+  changeLanguage(language: string) \{    \par
+    this.languageSource.next(language);    \par
   \}\par
 \}\par
 \par

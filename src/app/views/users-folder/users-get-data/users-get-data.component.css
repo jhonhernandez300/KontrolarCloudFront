@@ -29,7 +29,8 @@
 
 .form-group {
   display: flex;
-  flex-direction: column; /* Cambiar a columna para pantallas pequeñas */
+  /* Cambiar a columna para pantallas pequeñas */
+  flex-direction: column; 
   align-items: flex-start; 
   width: 100%;
 }
@@ -51,7 +52,8 @@
   display: flex;
   justify-content: center; 
   margin-top: 1rem;
-  padding-left: 3rem; /* Aplica padding-left solo en pantallas grandes */
+  /* Aplica padding-left solo en pantallas grandes */
+  padding-left: 3rem; 
 }
 
 /* Estilos para pantallas grandes */
@@ -60,13 +62,14 @@
     background-color: black;
     color: white;
     width: 100%;
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    /* Centra el contenedor horizontalmente */
+    margin: 0 auto; 
     padding: 1rem; 
   }
 
   .form-group {
-    flex-direction: row; /* Alinea en fila para pantallas grandes */
-    align-items: center;    
+    flex-direction: row; 
+    align-items: center;
   }
 
   .form-label {
@@ -102,7 +105,7 @@
   }
 
   #button-section {    
-    padding-left: 48rem; /* Aplica padding-left solo en pantallas grandes */
+    padding-left: 48rem; 
   }
 
   .form-group-inline {
@@ -122,8 +125,7 @@
 
 }
 
-.invalid-feedback {
-  /* Asegúrate de que se muestre el mensaje */
+.invalid-feedback {  
   display: block; 
   color: red;
   font-size: 0.875rem; 
@@ -141,14 +143,4 @@
 .btn-primary {
   background-color: rgb(26, 163, 208);
   border-color: darkblue;
-}
-
-/* Estilos para pantallas pequñas */
-@media screen and (max-width: 480px) {
-  .form-group{
-    width: 90% !important;
-  } 
-  .section{
-    width: 90% !important;
-  }
 }

@@ -9,6 +9,7 @@ import { ActivateEditSaveService } from '../../services/general/activate-edit-sa
   styleUrl: './crud-base.component.css'
 })
 export class CrudBaseComponent implements OnInit {
+  showCancel = false;
   showSaveAndCancel = false;
   showSaveForEditAndCancel = false;
   showAdd = false;
@@ -36,12 +37,13 @@ export class CrudBaseComponent implements OnInit {
   }
 
   onCancelForEditClick(): void {
+    console.log('Pasando por crud-base');
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();
   }
 
   onAddClick(): void {
-    this.crudActionsVisibilityService.setAddVisible();
+    this.crudActionsVisibilityService.setAddVisible();    
     this.updateVisibility();
   }
 
@@ -72,6 +74,7 @@ export class CrudBaseComponent implements OnInit {
     this.showEdit = this.crudActionsVisibilityService.showEdit;
     this.showDelete = this.crudActionsVisibilityService.showDelete;
     this.showSearch = this.crudActionsVisibilityService.showSearch;
+    this.showCancel = this.crudActionsVisibilityService.showCancel;
     this.showSaveAndCancel = this.crudActionsVisibilityService.showSaveAndCancel;
     this.showSaveForEditAndCancel = this.crudActionsVisibilityService.showSaveForEditAndCancel;
   }

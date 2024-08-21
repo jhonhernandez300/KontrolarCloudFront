@@ -5,24 +5,32 @@
         <h4>{{ 'BUSCAR USUARIO' | translate }}</h4>
       </div>
       <div class="section-body">
-        <div class="row g-2">
-          <div class="col-md-3 col-sm-12">
-            <label for="parametro" class="form-label">{{ 'Parametro de Busqueda' | translate }}</label>
+        <div class="mb-3 form-group">          
+            <label for="parametro" class="form-label">{{ 'Parametro de Busqueda' | translate }}</label>          
+          <div class="form-group-inline">
+
+            <div>
+              <div>
+                <input type="text" id="parametro" formControlName="parametro" class="form-control" 
+                [ngClass]="{'is-invalid': myForm.get('parametro')?.invalid && (myForm.get('parametro')?.touched || myForm.get('parametro')?.dirty)}">
+              </div>
+              <div class="invalid-feedback error-message" *ngIf="myForm.get('parametro')?.invalid && (myForm.get('parametro')?.touched || myForm.get('parametro')?.dirty)">
+                {{ 'Debes ingresar un parámetro de búsqueda válido' | translate }}
+              </div>
+            </div>  
+
           </div>
-          <div class="col-md-6 col-sm-12">
-            <input type="text" id="parametro" formControlName="parametro" class="form-control" 
-              [ngClass]="{'is-invalid': myForm.get('parametro')?.invalid && (myForm.get('parametro')?.touched || myForm.get('parametro')?.dirty)}">
-            <div class="invalid-feedback error-message" *ngIf="myForm.get('parametro')?.invalid && (myForm.get('parametro')?.touched || myForm.get('parametro')?.dirty)">
-              {{ 'Debes ingresar un parámetro de búsqueda válido' | translate }}
-            </div>
+          <div id="service-error" *ngIf="showServiceError">
+            {{ serviceError }}
           </div>
-          <div class="col-md-3 col-sm-12 d-flex align-items-end">
+        </div>          
+
+        <div class="mb-3 form-group">
+          <div id="button-section">
             <button type="submit" class="btn btn-primary w-100">{{ 'Buscar' | translate }}</button>
-          </div>
+          </div>          
         </div>
-        <div id="service-error" *ngIf="showServiceError">
-          {{ serviceError }}
-        </div>
+        
       </div>
     </div>
   </form>
