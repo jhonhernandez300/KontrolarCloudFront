@@ -15,6 +15,25 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
+  update(profile: iProfileDTO): Observable<any> {
+    //console.log('Profile on the service ', profile);   
+    const encryptedData = CryptoHelper.encrypt(profile);
+    const json = JSON.stringify(encryptedData);
+    //console.log(json);
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+  
+    return this.http.put<any>(`${this.apiUrl}/Update`, json, {
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   disableProfile(profile: iProfileDTO): Observable<any> {
     //console.log(profile);
     const encryptedData = CryptoHelper.encrypt(profile);

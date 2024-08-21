@@ -35,7 +35,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   update(user: iUserDTO): Observable<any> {
-    console.log('User on the service ', user);   
+    //console.log('User on the service ', user);   
     const encryptedData = CryptoHelper.encrypt(user);
     const json = JSON.stringify(encryptedData);
   

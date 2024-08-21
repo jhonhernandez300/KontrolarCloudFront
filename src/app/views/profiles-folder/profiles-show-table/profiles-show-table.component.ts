@@ -54,7 +54,7 @@ export class ProfilesShowTableComponent implements OnInit{
   }
 
   onEditProfile(profile: iProfileDTO) {       
-    //console.log(profile);  
+    console.log(profile);  
     //Hacer que user-search cambie el valor de una variable que se usa en el html para decidir que componentes se muestran
     this.editCommunicationService.notifyEditMode(true);    
     this.profileTransferService.changeProfile(profile);

@@ -94,7 +94,7 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
   }
 
   onSubmit() {    
-    console.log('Here');
+    //console.log('Here');
     this.resetVariables();    
 
     if (this.myForm.valid) {      

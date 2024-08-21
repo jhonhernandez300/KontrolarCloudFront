@@ -7,6 +7,7 @@ import { ProfilesSearchComponent } from '../profiles-search/profiles-search.comp
 import { LocalStorageService } from '../../../helpers/local-storage.service';
 import { ActivateEditSaveService } from '../../../services/general/activate-edit-save.service';
 import { ProfilesEditActionComponent } from '../../profiles-folder/profiles-edit-action/profiles-edit-action.component';
+import { EditCommunicationService } from '../../../services/general/edit-communication.service';
 
 @Component({
   selector: 'app-profiles',
@@ -30,50 +31,75 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   override showDelete = CrudActionsVisibility.showDelete;
   override showSearch = CrudActionsVisibility.showSearch;
 
+  editMode: boolean = false;
+  hideAddIcon: boolean = false; 
+  hideEditIcon: boolean = false; 
+  hideDeleteIcon: boolean = false; 
+  hideSearchIcon: boolean = false;
+
   constructor(
     crudActionsVisibilityService: CrudActionsVisibilityService,
     private localStorageService: LocalStorageService,
     activateEditSaveService: ActivateEditSaveService,
-    private viewContainerRef: ViewContainerRef 
+    private viewContainerRef: ViewContainerRef,
+    private editCommunicationService: EditCommunicationService 
   ) {
     super(crudActionsVisibilityService, activateEditSaveService);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.editCommunicationService.editModeChanged.subscribe((mode: boolean) => {
+      this.editMode = mode;
+    });
+    
   }
 
   ngAfterViewInit(): void {
     this.updateVisibility();
   }
 
+  override onAddClick(): void {    
+    this.hideEditIcon = true;  
+    this.hideDeleteIcon = true;  
+    this.hideSearchIcon = true;  
+    this.crudActionsVisibilityService.setAddVisible();  
+    this.updateVisibility();  
+  }
+
   onSaveClick(): void {
     if (this.showAdd && this.profilesAddComponent) {
-      this.profilesAddComponent.onSubmit();
-    // } else if (this.showEdit && this.profilesEditComponent) {
-    //   this.profilesEditComponent.onSubmit();
-    // } else if (this.showDelete && this.profilesDeleteComponent) {
-    //   this.profilesDeleteComponent.onSubmit();
-    // } else if (this.showSearch && this.profilesSearchComponent) {
-    //   this.profilesSearchComponent.onSubmit();
+      this.profilesAddComponent.onSubmit();    
      }
   }
 
-  onSaveForEditClick(): void {    
-    //console.log(this.showAddForEdit);
-    //console.log(this.profilesEditActionComponent);
-    if (this.showAddForEdit && this.profilesEditActionComponent) {
+  onSaveForEditClick(): void {        
+    if (this.profilesEditActionComponent) {
       this.profilesEditActionComponent.onSubmit();    
     } 
   }
 
   override onCancelClick(): void {
+    this.hideAddIcon = false;  
+    this.hideEditIcon = false;  
+    this.hideDeleteIcon = false;  
+    this.hideSearchIcon = false;  
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();    
   }
 
   override onCancelForEditClick(): void {
+    this.hideAddIcon = false;  
+    this.hideDeleteIcon = false;  
+    this.hideSearchIcon = false; 
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();
   }
 
   override onSearchClick(): void {    
+    this.hideAddIcon = true;  
+    this.hideEditIcon = true;  
+    this.hideDeleteIcon = true;  
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();    
     this.localStorageService.removeData('action');
@@ -81,6 +107,9 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   }
 
   override onDeleteClick(): void {    
+    this.hideAddIcon = true;  
+    this.hideEditIcon = true;  
+    this.hideSearchIcon = true;  
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();    
     this.localStorageService.removeData('action');
@@ -88,6 +117,9 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   }
 
   override onEditClick(): void {    
+    this.hideAddIcon = true;  
+    this.hideDeleteIcon = true;  
+    this.hideSearchIcon = true; 
     this.crudActionsVisibilityService.setSearchVisible();
     this.updateVisibility();    
     this.localStorageService.removeData('action');

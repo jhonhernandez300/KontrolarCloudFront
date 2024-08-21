@@ -54,7 +54,7 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
 
     this.profileTransferService.currentProfile.subscribe(profile => { 
       if (profile) {
-        //console.log(profile);
+        console.log(profile);
         this.profile = profile;
         this.profileIdReceived = profile.idProfile;        
         this.myForm.patchValue(profile);
@@ -90,18 +90,20 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
   }
 
   onSubmit() {
-    this.resetVariables();    
+    this.resetVariables();   
+    //console.log(this.myForm.valid); 
 
     if (this.myForm.valid) {
       
       const profile: iProfileDTO = {
-        idProfile: 0,
-        codProfile: this.myForm.value.CodProfile,
-        nameProfile: this.myForm.value.NameProfile,
-        description: this.myForm.value.Description       
+        idProfile: this.profileIdReceived,
+        codProfile: this.myForm.value.codProfile,
+        nameProfile: this.myForm.value.nameProfile,
+        description: this.myForm.value.description       
       };          
+      //console.log(profile);
 
-      this.profileService.saveData(profile).subscribe(
+      this.profileService.update(profile).subscribe(
         response => {
           console.log(response);
           this.translate.get('SAVED_SUCCESSFULLY').subscribe((translatedMessage: string) => {

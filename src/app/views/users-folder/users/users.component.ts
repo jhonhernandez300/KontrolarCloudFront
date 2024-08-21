@@ -39,7 +39,7 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     private localStorageService: LocalStorageService,
     activateEditSaveService: ActivateEditSaveService,
     private viewContainerRef: ViewContainerRef,
-    private editCommunicationService: EditCommunicationService,
+    private editCommunicationService: EditCommunicationService
     ) {
     super(crudActionsVisibilityService, activateEditSaveService);
   }
