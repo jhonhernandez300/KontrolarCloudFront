@@ -15,7 +15,7 @@
               [ngClass]="{'is-invalid': myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched}">
             </div>    
             <div class="invalid-feedback" *ngIf="myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched">
-              {{ 'IT_IS_REQUIRED_AND_CAN_ONLY_HAVE_NUMBERS' | translate}}          
+              {{ 'REQUIRED_ONLY_NUMBERS' | translate}}          
             </div>      
           </div>
           
@@ -38,7 +38,7 @@
             </div>          
           </div>
           <div class="invalid-feedback" *ngIf="myForm.get('names')?.invalid && myForm.get('names')?.touched">
-            {{ 'IT_IS_REQUIRED_AND_CAN_ONLY_HAVE_LETTERS_AND_SPACES' | translate}}
+            {{ 'REQUIRED_ONLY_LETTERS_AND_SPACES' | translate}}
           </div>
           <div class="mb-3 form-group">
             <div  class="label-menu-item">
@@ -49,7 +49,7 @@
             </div>          
           </div>
           <div class="invalid-feedback" *ngIf="myForm.get('surnames')?.invalid && myForm.get('surnames')?.touched">
-            {{ 'IT_IS_REQUIRED' | translate}}          
+            {{ 'REQUIRED' | translate}}          
           </div>
           
           <div class="mb-3 form-group">

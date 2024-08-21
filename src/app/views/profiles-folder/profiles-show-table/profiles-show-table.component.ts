@@ -152,6 +152,6 @@ export class ProfilesShowTableComponent implements OnInit{
 
   editProfile(profile: iProfileDTO) {
     console.log('Editing profile:', profile);
-    this.profileTransferService.changeProfile(profile); // Cambio
+    this.profileTransferService.changeProfile(profile); 
   }
 }

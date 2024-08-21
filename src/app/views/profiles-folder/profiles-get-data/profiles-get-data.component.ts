@@ -32,7 +32,7 @@ export class ProfilesGetDataComponent {
       this.profileService.getProfilesByParam(parametro).subscribe(
         (response) => {
           this.profilesFetched.emit(response);
-          console.log('Profiles found:', response);
+          //console.log('Profiles found:', response);
         },
         (error) => {
           console.error('Error fetching profiles:', error);

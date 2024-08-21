@@ -15,7 +15,7 @@
                 [ngClass]="{'is-invalid': myForm.get('parametro')?.invalid && (myForm.get('parametro')?.touched || myForm.get('parametro')?.dirty)}">
               </div>
               <div class="invalid-feedback error-message" *ngIf="myForm.get('parametro')?.invalid && (myForm.get('parametro')?.touched || myForm.get('parametro')?.dirty)">
-                {{ 'Debes ingresar un parámetro de búsqueda válido' | translate }}
+                {{ 'ENTER_A_SEARCH_PARAMETER' | translate }}
               </div>
             </div>  
 
