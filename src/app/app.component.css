@@ -1,12 +1,15 @@
+/* app.component.css  */
 #global-container {
-  background-color: #ffffff; /* Fondo blanco */
-  min-height: 100vh; /* Asegura que el fondo cubra toda la pantalla */
+  background-color: #ffffff; 
+   /* Asegura que el fondo cubra toda la pantalla */
+  min-height: 100vh;
 }
 
 #sidebarMenu {
     background-color: black;  
-    color: #fff;           
-    height: 100vh;         /* Altura completa de la pantalla */
+    color: #fff;          
+    /* Altura completa de la pantalla */ 
+    height: 100vh;         
     padding-left: 0.5rem;
     padding-top: 1rem;
     padding-right: 0.5rem;    
@@ -32,7 +35,7 @@ button:hover {
     z-index: 1030;
   }
   #right-side {
-    padding-top: 56px; /* Ajuste del padding para dejar espacio para el navbar */
+    padding-top: 56px; 
   }
 }
 
