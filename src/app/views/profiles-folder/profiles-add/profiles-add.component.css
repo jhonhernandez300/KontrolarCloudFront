@@ -66,6 +66,19 @@
         margin-bottom: 0;
     }
 
+    .form-control {
+        width: auto; 
+    }
+
+    .textbox-item {
+        width: 20rem;
+        align-items: right;             
+    }
+
+    #service-error{
+        width: 15rem;
+    }    
+
     .label-menu-item{
         padding-left: 8rem;
     }
@@ -93,9 +106,16 @@
 }
 
 .invalid-feedback {
-    color: red;
+    /* color: red;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
+    margin-top: 0.25rem; */
+    color: red;
+    font-size: 0.875rem; 
+    margin-top: 0.25rem; 
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    display: block;
 }
 
 #service-error {

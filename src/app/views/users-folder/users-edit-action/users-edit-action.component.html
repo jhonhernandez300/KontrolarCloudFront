@@ -51,15 +51,6 @@
           <div class="invalid-feedback" *ngIf="myForm.get('surnames')?.invalid && myForm.get('surnames')?.touched">
             {{ 'REQUIRED' | translate}}          
           </div>
-          
-          <div class="mb-3 form-group">
-            <div class="section mt-4">
-              <div class="section-body d-flex justify-content-start">
-                <button type="submit" class="btn btn-primary me-2">{{ 'UPDATE' | translate }}</button>
-                <button type="button" class="btn btn-secondary" (click)="onCancel()">{{ 'CANCEL' | translate }}</button>
-              </div>
-            </div>
-          </div>         
 
         </div>
       </div>

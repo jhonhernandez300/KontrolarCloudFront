@@ -12,7 +12,7 @@
           </div>
           <div class="textbox-item textbox-identification"> 
             <input type="text" id="identificationNumber" formControlName="identificationNumber" class="form-control"
-            [ngClass]="{'is-invalid': myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched}">
+              [ngClass]="{'is-invalid': myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched}">
           </div>          
         </div>
         <div class="invalid-feedback" *ngIf="myForm.get('identificationNumber')?.invalid && myForm.get('identificationNumber')?.touched">

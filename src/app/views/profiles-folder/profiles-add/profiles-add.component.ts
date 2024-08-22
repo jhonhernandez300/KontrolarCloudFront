@@ -34,8 +34,8 @@ export class ProfilesAddComponent implements AfterViewInit, OnInit {
     private languageChangeService: LanguageChangeService
   ) {
     this.myForm = this.fb.group({
-      CodProfile: ['', ],
-      NameProfile: ['', ],
+      CodProfile: ['', [Validators.required]],
+      NameProfile: ['', [Validators.required]],
       Description: ['', [Validators.required]]
     });
   }
