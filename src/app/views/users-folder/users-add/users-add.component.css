@@ -41,6 +41,7 @@
    /* Alinea verticalmente el label y el input */
   align-items: flex-start;
   width: 100%;
+  padding-top: 1rem; /**/
 }
 
 .form-label {
@@ -101,6 +102,10 @@
   #service-error{
     width: 15rem;
   }
+
+  .invalid-feedback{
+    margin-left: 17rem; 
+  }
 }
 
 .form-check-group {
@@ -133,6 +138,7 @@
   padding: 0.5rem;
   border-radius: 5px;
   display: block;
+  width: 350px;  /**/
 }
 
 #service-error{

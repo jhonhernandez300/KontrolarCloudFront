@@ -40,7 +40,7 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
     private userService: UserService
   ) {
     this.myForm = this.fb.group({
-      codProfile: ['', [Validators.required]],
+      codProfile: ['', [Validators.required, Validators.minLength(10)]],
       nameProfile: ['', [Validators.required]],
       description: ['', [Validators.required]]
     });
@@ -54,7 +54,7 @@ export class ProfilesEditActionComponent implements AfterViewInit, OnInit {
 
     this.profileTransferService.currentProfile.subscribe(profile => { 
       if (profile) {
-        console.log(profile);
+        //console.log(profile);
         this.profile = profile;
         this.profileIdReceived = profile.idProfile;        
         this.myForm.patchValue(profile);

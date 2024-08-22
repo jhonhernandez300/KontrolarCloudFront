@@ -97,6 +97,7 @@
   "REQUIRED": "Obrigatório",
   "REQUIRED_ONLY_LETTERS_AND_SPACES": "Obrigatório. Só letras e espaços",
   "REQUIRED_ONLY_NUMBERS": "Obrigatório. Só números",
+  "REQUIRED_ONLY_NUMBERS_MIN_10": "Obrigatório. Só números min 10",
   "RETURN ACCOUNTED DOCUMENTS": "Devolução de Documentos Contabilizados",
   "RETURN ACCOUNTED RECEIPTS": "Devolução de Recibos Contabilizados",
   "Registro agregado con exito": "Registro adicionado com sucesso",

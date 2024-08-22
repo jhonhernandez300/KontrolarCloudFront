@@ -19,7 +19,7 @@
                         </div>                        
                     </div>
                     <div class="invalid-feedback" *ngIf="myForm.get('codProfile')?.invalid && myForm.get('codProfile')?.touched">
-                        {{ 'REQUIRED_ONLY_NUMBERS' | translate }}
+                        {{ 'REQUIRED_ONLY_NUMBERS_MIN_10' | translate }}
                     </div>
                     <div id="service-error" *ngIf="showServiceError">
                         {{ serviceError }}

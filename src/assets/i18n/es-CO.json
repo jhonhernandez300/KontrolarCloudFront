@@ -91,6 +91,7 @@
   "REQUIRED": "Requerido",
   "REQUIRED_ONLY_LETTERS_AND_SPACES": "Requerido. Solo letras y espacios",
   "REQUIRED_ONLY_NUMBERS": "Requerido. Solo numeros",
+  "REQUIRED_ONLY_NUMBERS_MIN_10": "Requerido. Solo numeros min 10",
   "Requerido. Solo numeros": "Required. Only",
   "RETURN ACCOUNTED DOCUMENTS": "Devolución Contabilizado Documentos",
   "RETURN ACCOUNTED RECEIPTS": "Devolución Contabilizado Recibos",
