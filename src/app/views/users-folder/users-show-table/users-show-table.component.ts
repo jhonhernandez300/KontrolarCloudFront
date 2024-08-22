@@ -90,15 +90,16 @@ export class UsersShowTableComponent implements OnInit {
   
   deleteUser(user: iUserDTO | null) {
     if (user) {      
+      console.log(user);
       this.showDeleteAlert = false; 
       this.userToDelete = null;
-      this.disableUser(user);
+      this.delete(user);
     }
   }
 
-  disableUser(user: iUserDTO){
+  delete(user: iUserDTO){
     
-    this.userService.disableUser(user).subscribe(
+    this.userService.deleteUser(user).subscribe(
       response => {        
         this.responseMessage = response.message;
         this.messageStatus = 'success';

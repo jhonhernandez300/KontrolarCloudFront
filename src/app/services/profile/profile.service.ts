@@ -34,7 +34,7 @@ export class ProfileService {
     );
   }
 
-  disableProfile(profile: iProfileDTO): Observable<any> {
+  deleteProfile(profile: iProfileDTO): Observable<any> {
     //console.log(profile);
     const encryptedData = CryptoHelper.encrypt(profile);
     const json = JSON.stringify(encryptedData);
@@ -44,8 +44,9 @@ export class ProfileService {
       'Accept': 'application/json'
     });
   
-    return this.http.put<any>(`${this.apiUrl}/DisableProfile`, json, {
+    return this.http.delete<any>(`${this.apiUrl}/DeleteProfile`, {
       headers: headers,
+      body: json,
       responseType: 'json'
     }).pipe(
       catchError(this.handleError)

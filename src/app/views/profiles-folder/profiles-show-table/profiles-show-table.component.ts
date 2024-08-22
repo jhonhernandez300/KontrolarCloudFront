@@ -89,13 +89,13 @@ export class ProfilesShowTableComponent implements OnInit{
     if (profile) {      
       this.showDeleteAlert = false; 
       this.profileToDelete = null;
-      this.disableProfile(profile);
+      this.delete(profile);
     }
   }
 
-  disableProfile(profile: iProfileDTO){
+  delete(profile: iProfileDTO){
     
-    this.profileService.disableProfile(profile).subscribe(
+    this.profileService.deleteProfile(profile).subscribe(
       response => {        
         this.responseMessage = response.message;
         this.messageStatus = 'success';

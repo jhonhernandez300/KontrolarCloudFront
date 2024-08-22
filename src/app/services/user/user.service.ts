@@ -51,9 +51,9 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-
-  //El registro no se borra, se deja IsEnabled = false
-  disableUser(user: iUserDTO): Observable<any> {    
+  
+  deleteUser(user: iUserDTO): Observable<any> {    
+    console.log(user);
     const encryptedData = CryptoHelper.encrypt(user);
     const json = JSON.stringify(encryptedData);
   
@@ -61,9 +61,10 @@ export class UserService {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-  
-    return this.http.put<any>(`${this.apiUrl}/DisableUser`, json, {
+      
+    return this.http.delete<any>(`${this.apiUrl}/DeleteUser`, {
       headers: headers,
+      body: json, // nuevo
       responseType: 'json'
     }).pipe(
       catchError(this.handleError)
