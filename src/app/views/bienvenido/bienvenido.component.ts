@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef, Renderer2  } from '@angular/core';
+import { ThemeServiceService } from '../../services/general/theme-service.service';
 
 @Component({
   selector: 'app-bienvenido',
@@ -6,15 +7,15 @@ import { Component, ChangeDetectorRef, Renderer2  } from '@angular/core';
   styleUrls: ['./bienvenido.component.css']
 })
 export class BienvenidoComponent {
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private renderer: Renderer2
-  ) { } 
-
-  currentTheme: string = 'dark'; 
+  constructor(    
+    private themeService: ThemeServiceService
+  ) { 
+    this.currentTheme = this.themeService.getTheme(); 
+  } 
+  
+  currentTheme: string;
 
   changeTheme(theme: string) {    
-    this.currentTheme = theme === 'light' ? 'theme-light' : 'theme-dark'; 
-    this.cdr.detectChanges();
-  }  
+    this.themeService.setTheme(theme); 
+  } 
 }
