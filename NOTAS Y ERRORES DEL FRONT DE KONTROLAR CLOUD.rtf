@@ -1890,6 +1890,143 @@ export class AbueloComponent implements OnInit \{\par
 \par
 ////////////////\par
 \par
+\b Como personalizar los estilos\par
+\b0 Crear un servicio\par
+\par
+import \{ Injectable, Renderer2, RendererFactory2 \} from '@angular/core';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class ThemeServiceService \{\par
+  private renderer: Renderer2;\par
+  private currentTheme: string = 'theme-dark'; \par
+\par
+  constructor(rendererFactory: RendererFactory2) \{\par
+    this.renderer = rendererFactory.createRenderer(null, null);\par
+    this.setTheme(this.currentTheme); \par
+  \}\par
+\par
+  setTheme(theme: string) \{\par
+    this.renderer.removeClass(document.body, this.currentTheme); \par
+    this.currentTheme = theme === 'light' ? 'theme-light' : 'theme-dark'; \par
+    this.renderer.addClass(document.body, this.currentTheme); \par
+\par
+    const backgroundColor = theme === 'light' ? '#ffffff' : '#000000';\par
+    const textColor = theme === 'light' ? '#000000' : '#ffffff';\par
+\par
+    this.renderer.setStyle(document.documentElement, '--background-color', backgroundColor);\par
+    this.renderer.setStyle(document.documentElement, '--text-color', textColor);\par
+  \}  \par
+\par
+  getTheme(): string \{\par
+    return this.currentTheme; \par
+  \}\par
+\}\par
+\par
+En la base de los estilos:\par
+\par
+/* styles.css */\par
+:root \{\par
+    --background-color: #000000; \par
+    --text-color: #ffffff; \par
+\}\par
+\par
+.theme-light \{\par
+    --background-color: #ffffff;\par
+    --text-color: #000000;\par
+\}\par
+\par
+.theme-dark \{\par
+    --background-color: #000000;\par
+    --text-color: #ffffff;\par
+\}\par
+\par
+body \{\par
+    background-color: var(--background-color);\par
+    color: var(--text-color);\par
+\}\par
+\par
+El componente donde se escogen los estilos del sitio\par
+\par
+<!-- bienvenido.component.html -->\par
+<div>\par
+    <label>\par
+        <input type="radio" name="theme" value="light" (change)="changeTheme('light')">\par
+        Light Theme\par
+    </label>\par
+    <label>\par
+        <input type="radio" name="theme" value="dark" (change)="changeTheme('dark')" checked>\par
+        Dark Theme\par
+    </label>\par
+</div>\par
+\par
+<h2 [ngClass]="currentTheme">Bienvenido</h2>\par
+\par
+import \{ Component, ChangeDetectorRef, Renderer2  \} from '@angular/core';\par
+import \{ ThemeServiceService \} from '../../services/general/theme-service.service';\par
+\par
+@Component(\{\par
+  selector: 'app-bienvenido',\par
+  templateUrl: './bienvenido.component.html',\par
+  styleUrls: ['./bienvenido.component.css']\par
+\})\par
+export class BienvenidoComponent \{\par
+  constructor(    \par
+    private themeService: ThemeServiceService\par
+  ) \{ \par
+    this.currentTheme = this.themeService.getTheme(); \par
+  \} \par
+  \par
+  currentTheme: string;\par
+\par
+  changeTheme(theme: string) \{    \par
+    this.themeService.setTheme(theme); \par
+  \} \par
+\}\par
+\par
+Componente interno q toma los cambios\par
+\par
+.section-body \{\par
+    padding: 1rem;\par
+    /* background-color: #333; */\par
+    background-color: var(--background-color); /**/    \par
+\}\par
+\par
+////////////////\par
+\par
+\b Hacer que un div quede al lado del otro en pantallas grandes y que queden uno encima del otro en pantallas peque\'f1as + controlar el tama\'f1o de un textbox interno\par
+\b0\par
+<div class="container">\par
+    <div class="row">\par
+        <div class="col-12 col-md-6">\par
+            1\par
+        </div>\par
+        <div class="col-12 col-md-6">\par
+            2 <input type="text" class="form-control form-control-sm w-50 w-md-75">\par
+        </div>\par
+    </div>\par
+</div>\par
+\par
+////////////////\par
+\par
+\par
+////////////////\par
+\par
+\par
+////////////////\par
+\par
+\par
+////////////////\par
+\par
+\par
+////////////////\par
+\par
+\par
+////////////////\par
+\par
+\par
+////////////////\par
 \par
 \par
 \par

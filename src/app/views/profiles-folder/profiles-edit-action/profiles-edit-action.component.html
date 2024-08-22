@@ -7,13 +7,16 @@
                     <h4>{{ 'PROFILE_CODE' | translate }}</h4>
                 </div>
                 <div class="section-body">
-                    <div class="mb-3 form-group">
-                        <div id="label-input" class="d-flex flex-column">
-                            <div class="label-menu-item">
+                    <div class="mb-3 form-group container">
+                        <div id="label-input" class="row">
+                            <div class="label-menu-item col-12 col-md-6">
                                 <label for="codProfile" class="form-label">{{ 'CODE' | translate }}</label>
                             </div>
-                            <div class="textbox-item textbox-code ">
-                                <input type="text" id="codProfile" formControlName="codProfile" class="form-control"
+                            <div class="textbox-item textbox-code col-12 col-md-6">
+                                <input type="text" 
+                                    id="codProfile" 
+                                    formControlName="codProfile" 
+                                    class="form-control form-control-sm w-75 w-md-100"
                                     [ngClass]="{'is-invalid': myForm.get('codProfile')?.invalid && myForm.get('codProfile')?.touched}">
                             </div>
                         </div>                        
@@ -78,4 +81,3 @@
         </div>
     </div>
 </div>
-
