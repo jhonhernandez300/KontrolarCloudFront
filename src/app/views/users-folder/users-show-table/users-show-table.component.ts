@@ -62,7 +62,7 @@ export class UsersShowTableComponent implements OnInit {
     this.editCommunicationService.notifyEditMode(true); 
     //Enviarle el user a users-edit-action. Él lo carga en el formulario   
     this.userTransferService.changeUser(user);
-    //Hacer que se muestren los íconos del disquete y la x en users
+    //Hacer que se muestren los íconos del disquete y la logout en users
     this.activateEditSaveService.triggerAction();
   }
 

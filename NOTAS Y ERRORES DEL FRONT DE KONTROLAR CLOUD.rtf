@@ -2010,6 +2010,55 @@ Componente interno q toma los cambios\par
 \par
 ////////////////\par
 \par
+\b Como hacer que un bot\'f3n de un nieto ejecute una acci\'f3n de un abuelo\par
+Como hacer que al pulsar edit se muestren \'edconos en el componente users\par
+\b0\par
+users-show-table\par
+En onEditUser\par
+ this.activateEditSaveService.triggerAction();\par
+\par
+El servicio\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ Subject \} from 'rxjs';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class ActivateEditSaveService \{\par
+  private actionSource = new Subject<void>();\par
+  action$ = this.actionSource.asObservable();\par
+\par
+  triggerAction() \{\par
+    //console.log('En el servicio triggerAction');\par
+    this.actionSource.next();\par
+  \}\par
+\}\par
+\par
+users\par
+Dentro del constructor\par
+super(crudActionsVisibilityService, activateEditSaveService);\par
+\par
+crud-base\par
+  ngOnInit(): void \{\par
+    this.updateVisibility();\par
+    // Suscr\'edbete al evento para ejecutar el m\'e9todo cuando sea necesario\par
+    this.activateEditSaveService.action$.subscribe(() => \{\par
+      this.onAddForEditClick();\par
+    \});\par
+  \}\par
+\par
+onAddForEditClick(): void \{\par
+    this.crudActionsVisibilityService.setAddForEditVisible();\par
+    this.updateVisibility();\par
+    //console.log('Add for Edit Clicked');\par
+  \}\par
+\par
+En el servicio crud-action-visibility\par
+ setAddForEditVisible(): void \{\par
+    this.resetVisibilityForAddOfEdit();\par
+    this.showAddForEdit = true;\par
+    this.showSaveForEditAndLogout = true;    \par
+  \}\par
 \par
 ////////////////\par
 \par
