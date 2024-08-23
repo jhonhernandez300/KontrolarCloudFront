@@ -9,6 +9,7 @@ import * as bootstrap from 'bootstrap';
 import { EditCommunicationService } from '../../../services/general/edit-communication.service';
 import { UserTransferService } from '../../../services/user/user-transfer.service';
 import { ActivateEditSaveService } from '../../../services/general/activate-edit-save.service';
+import { ShowTableGetDataCommunicationService } from '../../../services/user/show-table-get-data-communication.service';
 
 @Component({
   selector: 'app-users-show-table',
@@ -26,7 +27,7 @@ export class UsersShowTableComponent implements OnInit {
   private modal: bootstrap.Modal | null = null;
   serviceError: string = '';
   showServiceError: boolean = false;
-  
+  usersArray: iUserDTO[] = [];
 
   @ViewChild('errorModal') modalElementRef!: ElementRef;
 
@@ -44,7 +45,8 @@ export class UsersShowTableComponent implements OnInit {
     private languageChangeService: LanguageChangeService,
     private editCommunicationService: EditCommunicationService,
     private userTransferService: UserTransferService,
-    private activateEditSaveService: ActivateEditSaveService
+    private activateEditSaveService: ActivateEditSaveService,
+    private showTableGetDataCommunicationService: ShowTableGetDataCommunicationService
     ) 
     { }
 
@@ -67,15 +69,7 @@ export class UsersShowTableComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.action = this.localStorageService.getData('action');
-    // if (changes['submitted']) {
-    //   console.log('Submitted:', this.submitted); 
-    // }
-
-    // // Verifica si 'users' ha cambiado
-    // if (changes['users']) {
-    //   console.log('Users:', this.users);
-    // }
+    this.action = this.localStorageService.getData('action');    
   }
   
   confirmDeleteUser(user: iUserDTO) {
@@ -112,10 +106,15 @@ export class UsersShowTableComponent implements OnInit {
               this.translate.get('Exito').subscribe((translatedHeader: string) => {
                 this.messageHeader = translatedHeader;
                 this.showModal(this.responseMessage, this.messageHeader);
+                this.showTableGetDataCommunicationService.notifySibling()
               });
             });
           });
         });
+
+        if(this.users != null){
+          this.users = this.users.filter(p => p !== user);            
+        }     
       },
       error => {
         this.serviceError = error.error?.message || 'Error desconocido';

@@ -2062,21 +2062,13 @@ En el servicio crud-action-visibility\par
 \par
 ////////////////\par
 \par
-En Angular, no se puede llamar directamente a un m\'e9todo de un componente hermano, pero puedes lograrlo mediante la comunicaci\'f3n entre componentes a trav\'e9s de un servicio compartido.\par
-\par
-Aqu\'ed te doy un ejemplo paso a paso para comunicar dos componentes hermanos y llamar un m\'e9todo en uno desde el otro.\par
-\par
-Paso 1: Crear un servicio para la comunicaci\'f3n\par
-Primero, necesitas crear un servicio que ambos componentes hermanos puedan compartir.\par
-\par
-bash\par
-Copiar c\'f3digo\par
+\b Llamar a un m\'e9todo de un componente hermano a trav\'e9s de un servicio\par
+\b0 Paso 1: Crear un servicio para la comunicaci\'f3n\par
 ng generate service sibling-communication\par
-Luego, en el servicio SiblingCommunicationService, crea un Subject o BehaviorSubject que permitir\'e1 emitir eventos entre los componentes:\par
 \par
-typescript\par
-Copiar c\'f3digo\par
-// sibling-communication.service.ts\par
+Crea un Subject o BehaviorSubject que permitir\'e1 emitir eventos entre los componentes:\par
+\par
+\cf6\b // sibling-communication.service.ts\cf0\b0\par
 import \{ Injectable \} from '@angular/core';\par
 import \{ Subject \} from 'rxjs';\par
 \par
@@ -2091,13 +2083,12 @@ export class SiblingCommunicationService \{\par
     this.notifySiblingSource.next();\par
   \}\par
 \}\par
+\par
 Paso 2: Modificar los componentes hermanos\par
 Ahora, en el primer componente (SiblingAComponent), llama al m\'e9todo notifySibling() del servicio cuando necesites notificar al segundo componente.\par
 \par
-typescript\par
-Copiar c\'f3digo\par
-// sibling-a.component.ts\par
-import \{ Component \} from '@angular/core';\par
+\cf6\b // sibling-a.component.ts\par
+\cf0\b0 import \{ Component \} from '@angular/core';\par
 import \{ SiblingCommunicationService \} from '../sibling-communication.service';\par
 \par
 @Component(\{\par
@@ -2111,12 +2102,11 @@ export class SiblingAComponent \{\par
     this.siblingService.notifySibling();\par
   \}\par
 \}\par
+\par
 En el segundo componente (SiblingBComponent), suscr\'edbete al observable del servicio y llama a un m\'e9todo local cuando reciba una notificaci\'f3n.\par
 \par
-typescript\par
-Copiar c\'f3digo\par
-// sibling-b.component.ts\par
-import \{ Component, OnInit \} from '@angular/core';\par
+\cf6\b // sibling-b.component.ts\par
+\cf0\b0 import \{ Component, OnInit \} from '@angular/core';\par
 import \{ SiblingCommunicationService \} from '../sibling-communication.service';\par
 \par
 @Component(\{\par

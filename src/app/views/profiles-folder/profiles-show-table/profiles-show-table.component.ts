@@ -26,8 +26,9 @@ export class ProfilesShowTableComponent implements OnInit, OnChanges{
   modalVisible: boolean = false;
   private modal: bootstrap.Modal | null = null;
   serviceError: string = '';
-  showServiceError: boolean = false;
-  profilesArray: iProfileDTO[] = [];
+  showServiceError: boolean = false;  
+
+  private dataUpdated: boolean = false;
 
   @ViewChild('errorModal') modalElementRef!: ElementRef;
 
@@ -67,24 +68,8 @@ export class ProfilesShowTableComponent implements OnInit, OnChanges{
 
   ngOnChanges(changes: SimpleChanges)
   {
-    this.action = this.localStorageService.getData('action');
-    // if (changes['submitted']) {
-    //   console.log('Submitted:', this.submitted); // Asegúrate de que esto es true cuando el formulario se envía
-    // }
-
-    // // Verifica si 'profiles' ha cambiado
-    // if (changes['profiles']) {
-    //   console.log('Profiles:', this.profiles);
-    // }
-    console.log('ngOnChanges');
-    console.log(changes['profiles']);
-    if (changes['profiles']) {
-      console.log(this.profiles);
-      console.log('Antes ', this.profilesArray);
-      this.profilesArray = this.profiles || []; // nuevo: actualiza profilesArray cuando profiles cambia
-      console.log('Después ', this.profilesArray);
-    }
-  }
+    this.action = this.localStorageService.getData('action');      
+  }  
 
   confirmDeleteProfile(profile: iProfileDTO) {
     this.profileToDelete = profile;
@@ -119,15 +104,15 @@ export class ProfilesShowTableComponent implements OnInit, OnChanges{
               this.translate.get('Exito').subscribe((translatedHeader: string) => {
                 this.messageHeader = translatedHeader;
                 this.showModal(this.responseMessage, this.messageHeader);
-                this.showTableGetDataCommunicationService.notifySibling();
-                console.log(profile);
-                console.log(this.profilesArray);
-                this.profilesArray = this.profilesArray.filter(p => p !== profile);  
-                console.log(this.profilesArray);              
+                this.showTableGetDataCommunicationService.notifySibling();                
               });
             });
           });
         });
+        
+        if(this.profiles != null){
+          this.profiles = this.profiles.filter(p => p !== profile);            
+        }              
       },
       error => {
         this.serviceError = error.error?.message || 'Error desconocido';
@@ -167,7 +152,7 @@ export class ProfilesShowTableComponent implements OnInit, OnChanges{
   }
 
   editProfile(profile: iProfileDTO) {
-    console.log('Editing profile:', profile);
+    //console.log('Editing profile:', profile);
     this.profileTransferService.changeProfile(profile); 
   }
 }
