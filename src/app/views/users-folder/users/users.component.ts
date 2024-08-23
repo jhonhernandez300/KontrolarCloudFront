@@ -57,6 +57,14 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     //console.log(this.usersEditActionComponent);
   }
 
+  onCleanFormSaveClick(): void{
+    this.usersAddComponent?.resetForm();
+  }
+
+  onCleanFormForEditClick(): void {
+    this.usersEditActionComponent?.onCancel();
+  }
+
   override onAddClick(): void {    
     this.hideAddIcon = true;  
     this.hideEditIcon = true;  

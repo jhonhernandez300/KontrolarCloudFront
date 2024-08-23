@@ -14,15 +14,18 @@
 }
 
 #icons {
-    flex: 1 1 20%; /* 20% del contenedor */
+    /* 20% del contenedor */
+    flex: 1 1 20%; 
 }
 
 #crud-components {
-    flex: 3 1 80%; /* 80% del contenedor */
+    /* 80% del contenedor */
+    flex: 3 1 80%; 
 }
 
 #crud-components > div {
-    width: 100%; /* Ocupa el 100% del ancho */
+    /* Ocupa el 100% del ancho */
+    width: 100%; 
 }
 
 .inner ul {
@@ -48,8 +51,9 @@
     background-color: black;
     color: white;    
     width: 100%; 
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-    padding: 1rem; /* Añade un poco de relleno para el contenido */
+    /* Centra el contenedor horizontalmente */
+    margin: 0 auto; 
+    padding: 1rem; 
 }
 
 .section {
@@ -72,5 +76,7 @@
 .section-header h3 {
     margin: 0;
 }
+
+
 
 

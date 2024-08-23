@@ -75,7 +75,7 @@ export class UsersAddComponent implements AfterViewInit, OnInit {
     }
   }
 
-  private resetForm(): void {    
+  public resetForm(): void {    
     this.myForm.reset({
       identificationNumber: '',
       firstName: '',

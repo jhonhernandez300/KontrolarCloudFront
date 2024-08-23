@@ -58,6 +58,14 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   ngAfterViewInit(): void {
     this.updateVisibility();
   }
+  
+  onClearFormSaveClick(): void{
+    this.profilesAddComponent?.resetForm();
+  }
+
+  onClearFormForEditClick(): void{
+    this.profilesEditActionComponent?.onCancel();
+  }
 
   override onAddClick(): void {    
     this.hideAddIcon = true;

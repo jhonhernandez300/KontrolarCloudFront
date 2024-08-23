@@ -26,7 +26,7 @@
 
 .section-body {
     padding: 1rem;    
-    background-color: var(--background-color); /**/    
+    background-color: var(--background-color);  /**/
 }
 
 .form-group-wrapper {
@@ -44,7 +44,7 @@
 }
 
 .form-label {    
-    color: var(--text-color);; /**/
+    color: var(--text-color); /**/
     margin-bottom: 0.5rem;
 }
 
@@ -110,10 +110,7 @@
     }
 }
 
-.invalid-feedback {
-    /* color: red;
-    font-size: 0.875rem;
-    margin-top: 0.25rem; */
+.invalid-feedback {    
     color: red;
     font-size: 0.875rem; 
     margin-top: 0.25rem; 

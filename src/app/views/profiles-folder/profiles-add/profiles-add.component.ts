@@ -66,7 +66,7 @@ export class ProfilesAddComponent implements AfterViewInit, OnInit {
     }
   }
 
-  private resetForm(): void {
+  public resetForm(): void {
     this.myForm.reset({
       CodProfile: '',
       NameProfile: '',

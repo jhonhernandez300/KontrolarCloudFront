@@ -2062,6 +2062,81 @@ En el servicio crud-action-visibility\par
 \par
 ////////////////\par
 \par
+En Angular, no se puede llamar directamente a un m\'e9todo de un componente hermano, pero puedes lograrlo mediante la comunicaci\'f3n entre componentes a trav\'e9s de un servicio compartido.\par
+\par
+Aqu\'ed te doy un ejemplo paso a paso para comunicar dos componentes hermanos y llamar un m\'e9todo en uno desde el otro.\par
+\par
+Paso 1: Crear un servicio para la comunicaci\'f3n\par
+Primero, necesitas crear un servicio que ambos componentes hermanos puedan compartir.\par
+\par
+bash\par
+Copiar c\'f3digo\par
+ng generate service sibling-communication\par
+Luego, en el servicio SiblingCommunicationService, crea un Subject o BehaviorSubject que permitir\'e1 emitir eventos entre los componentes:\par
+\par
+typescript\par
+Copiar c\'f3digo\par
+// sibling-communication.service.ts\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ Subject \} from 'rxjs';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root',\par
+\})\par
+export class SiblingCommunicationService \{\par
+  private notifySiblingSource = new Subject<void>();\par
+  notifySibling$ = this.notifySiblingSource.asObservable();\par
+\par
+  notifySibling() \{\par
+    this.notifySiblingSource.next();\par
+  \}\par
+\}\par
+Paso 2: Modificar los componentes hermanos\par
+Ahora, en el primer componente (SiblingAComponent), llama al m\'e9todo notifySibling() del servicio cuando necesites notificar al segundo componente.\par
+\par
+typescript\par
+Copiar c\'f3digo\par
+// sibling-a.component.ts\par
+import \{ Component \} from '@angular/core';\par
+import \{ SiblingCommunicationService \} from '../sibling-communication.service';\par
+\par
+@Component(\{\par
+  selector: 'app-sibling-a',\par
+  template: `<button (click)="notifySibling()">Notify Sibling B</button>`,\par
+\})\par
+export class SiblingAComponent \{\par
+  constructor(private siblingService: SiblingCommunicationService) \{\}\par
+\par
+  notifySibling() \{\par
+    this.siblingService.notifySibling();\par
+  \}\par
+\}\par
+En el segundo componente (SiblingBComponent), suscr\'edbete al observable del servicio y llama a un m\'e9todo local cuando reciba una notificaci\'f3n.\par
+\par
+typescript\par
+Copiar c\'f3digo\par
+// sibling-b.component.ts\par
+import \{ Component, OnInit \} from '@angular/core';\par
+import \{ SiblingCommunicationService \} from '../sibling-communication.service';\par
+\par
+@Component(\{\par
+  selector: 'app-sibling-b',\par
+  template: `<p>Sibling B Component</p>`,\par
+\})\par
+export class SiblingBComponent implements OnInit \{\par
+  constructor(private siblingService: SiblingCommunicationService) \{\}\par
+\par
+  ngOnInit() \{\par
+    this.siblingService.notifySibling$.subscribe(() => \{\par
+      this.doSomething();\par
+    \});\par
+  \}\par
+\par
+  doSomething() \{\par
+    console.log('Sibling B received the notification!');\par
+    // Aqu\'ed puedes ejecutar cualquier l\'f3gica que necesites.\par
+  \}\par
+\}\par
 \par
 ////////////////\par
 \par

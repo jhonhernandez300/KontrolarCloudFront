@@ -18,7 +18,7 @@
 
 .section-body {
   padding: 1rem;
-  background-color: #333;
+  background-color: var(--background-color);
 }
 
 .form-group-wrapper {
@@ -37,7 +37,7 @@
 }
 
 .form-label {
-  color: lightgray;
+  color: var(--text-color);
   margin-bottom: 0.5rem; 
 }
 

@@ -1,13 +1,15 @@
 <!-- bienvenido.component.html -->
-<div>
-    <label>
-        <input type="radio" name="theme" value="light" (change)="changeTheme('light')">
-        Light Theme
-    </label>
-    <label>
-        <input type="radio" name="theme" value="dark" (change)="changeTheme('dark')" checked>
-        Dark Theme
-    </label>
-</div>
+<div class="d-flex justify-content-center align-items-center vh-100" id="parent-container">
+    <div class="p-5 bg-light border text-center">
+        <h2 [ngClass]="currentTheme">Bienvenido</h2>
 
-<h2 [ngClass]="currentTheme">Bienvenido</h2>
+        <label class="p-5">
+            <input type="radio" name="theme" value="light" (change)="changeTheme('light')">
+            Light Theme
+        </label>
+        <label class="p-5">
+            <input type="radio" name="theme" value="dark" (change)="changeTheme('dark')" checked>
+            Dark Theme
+        </label>
+    </div>
+</div>

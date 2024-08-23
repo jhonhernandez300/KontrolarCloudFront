@@ -7,10 +7,11 @@
             <li *ngIf="!hideDeleteIcon"><img src="../../../assets/img/DatoBorrado.png" alt="Borrar" (click)="onDeleteClick()"></li>
             <li *ngIf="!hideSearchIcon"><img src="../../../assets/img/Buscar.png" alt="Buscar" (click)="onSearchClick()"></li>
             <li *ngIf="showSaveAndLogout"><img src="../../../assets/img/Save.png" alt="Guardar" (click)="onSaveClick()"></li>
+            <li *ngIf="showSaveAndLogout"><img src="../../../assets/img/Cancel.png" alt="Cancelar" (click)="onClearFormSaveClick()"></li>
             <li *ngIf="showSaveAndLogout  || showLogout"><img src="../../../assets/img/Logout.png" alt="Logoutar" (click)="onLogoutClick()"></li>
             <li *ngIf="showSaveForEditAndLogout"><img src="../../../assets/img/Save.png" alt="Actualizar" (click)="onSaveForEditClick()"></li>
-            <li *ngIf="showSaveForEditAndLogout"><img src="../../../assets/img/Cancel.png" alt="Cancelar" ></li>
-            <li *ngIf="showSaveForEditAndLogout"><img src="../../../assets/img/Logout.png" alt="Logoutar" (click)="onLogoutForEditClick()"></li>   
+            <li *ngIf="showSaveForEditAndLogout"><img src="../../../assets/img/Cancel.png" alt="Cancelar" (click)="onClearFormForEditClick()"></li>
+            <li *ngIf="showSaveForEditAndLogout"><img src="../../../assets/img/Logout.png" alt="Logout" (click)="onLogoutForEditClick()"></li>   
         </ul>
     </div>
 
