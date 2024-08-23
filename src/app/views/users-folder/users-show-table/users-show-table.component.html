@@ -41,7 +41,7 @@
   <strong>{{ 'CONFIRM_DELETE' | translate }}</strong>
   <p>{{ 'ARE_YOU_SURE?' | translate }}</p>
   <div class="d-flex justify-content-center gap-3">
-    <button type="button" class="btn btn-secondary" (click)="cancelDelete()">{{ 'NO' | translate }}</button>
+    <button type="button" class="btn btn-secondary" (click)="logoutDelete()">{{ 'NO' | translate }}</button>
     <button type="button" class="btn btn-danger" (click)="deleteUser(userToDelete)">{{ 'YES' | translate }}</button>
   </div>
 </div>

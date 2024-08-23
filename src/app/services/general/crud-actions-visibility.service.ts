@@ -12,20 +12,20 @@ export class CrudActionsVisibilityService {
   showEdit = false;
   showDelete = false;
   showSearch = false;
-  showCancel = false;
-  showSaveAndCancel = false; 
-  showSaveForEditAndCancel = false; 
+  showLogout = false;
+  showSaveAndLogout = false; 
+  showSaveForEditAndLogout = false; 
 
   setAddVisible(): void {
     this.resetVisibility();
     this.showAdd = true;
-    this.showSaveAndCancel = true;    
+    this.showSaveAndLogout = true;    
   }
 
   setAddForEditVisible(): void {
     this.resetVisibilityForAddOfEdit();
     this.showAddForEdit = true;
-    this.showSaveForEditAndCancel = true;    
+    this.showSaveForEditAndLogout = true;    
   }
 
   setEditVisible(): void {
@@ -36,13 +36,13 @@ export class CrudActionsVisibilityService {
   setDeleteVisible(): void {
     this.resetVisibility();
     this.showDelete = true;
-    this.showCancel = true;  
+    this.showLogout = true;  
   }
 
   setSearchVisible(): void {
     this.resetVisibility();
     this.showSearch = true;    
-    this.showCancel = true;  
+    this.showLogout = true;  
   }
 
   resetVisibility(): void {
@@ -50,9 +50,9 @@ export class CrudActionsVisibilityService {
     this.showEdit = false;
     this.showDelete = false;
     this.showSearch = false;
-    this.showCancel = false;
-    this.showSaveAndCancel = false;
-    this.showSaveForEditAndCancel = false;
+    this.showLogout = false;
+    this.showSaveAndLogout = false;
+    this.showSaveForEditAndLogout = false;
     this.editCommunicationService.notifyEditMode(false);
   }
 
@@ -60,9 +60,9 @@ export class CrudActionsVisibilityService {
     this.showAdd = false;
     this.showEdit = false;
     this.showDelete = false;   
-    this.showCancel = false;
+    this.showLogout = false;
     //this.showSearch = false; This one was removed because the users-edit-action component wasn´t showing
-    this.showSaveAndCancel = false;
-    this.showSaveForEditAndCancel = false;
+    this.showSaveAndLogout = false;
+    this.showSaveForEditAndLogout = false;
   }
 }

@@ -20,10 +20,10 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   @ViewChild(ProfilesEditActionComponent) profilesEditActionComponent?: ProfilesEditActionComponent; 
   @ViewChild(ProfilesSearchComponent) profilesSearchComponent?: ProfilesSearchComponent;
 
-  override showSaveAndCancel = false;
-  override showSaveForEditAndCancel = false;
+  override showSaveAndLogout = false;
+  override showSaveForEditAndLogout = false;
 
-  //override showSaveAndCancel = false; //??
+  //override showSaveAndLogout = false; //??
 
   override showAdd = CrudActionsVisibility.showAdd;
   override showAddForEdit = CrudActionsVisibility.showAddForEdit;
@@ -60,6 +60,7 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   }
 
   override onAddClick(): void {    
+    this.hideAddIcon = true;
     this.hideEditIcon = true;  
     this.hideDeleteIcon = true;  
     this.hideSearchIcon = true;  
@@ -79,7 +80,7 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
     } 
   }
 
-  override onCancelClick(): void {
+  override onLogoutClick(): void {
     this.hideAddIcon = false;  
     this.hideEditIcon = false;  
     this.hideDeleteIcon = false;  
@@ -88,15 +89,17 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
     this.updateVisibility();    
   }
 
-  override onCancelForEditClick(): void {
+  override onLogoutForEditClick(): void {
     this.hideAddIcon = false;  
     this.hideDeleteIcon = false;  
+    this.hideEditIcon = false;  
     this.hideSearchIcon = false; 
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();
   }
 
   override onSearchClick(): void {    
+    this.hideSearchIcon = true;
     this.hideAddIcon = true;  
     this.hideEditIcon = true;  
     this.hideDeleteIcon = true;  
@@ -107,6 +110,7 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   }
 
   override onDeleteClick(): void {    
+    this.hideDeleteIcon = true;
     this.hideAddIcon = true;  
     this.hideEditIcon = true;  
     this.hideSearchIcon = true;  
@@ -117,6 +121,7 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   }
 
   override onEditClick(): void {    
+    this.hideEditIcon = true;
     this.hideAddIcon = true;  
     this.hideDeleteIcon = true;  
     this.hideSearchIcon = true; 

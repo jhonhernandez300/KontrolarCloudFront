@@ -80,7 +80,7 @@ export class ProfilesShowTableComponent implements OnInit{
     this.showDeleteAlert = true; 
   }
   
-  cancelDelete() {
+  logoutDelete() {
     this.showDeleteAlert = false; 
     this.profileToDelete = null;
   }

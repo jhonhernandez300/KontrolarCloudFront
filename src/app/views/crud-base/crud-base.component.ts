@@ -9,9 +9,9 @@ import { ActivateEditSaveService } from '../../services/general/activate-edit-sa
   styleUrl: './crud-base.component.css'
 })
 export class CrudBaseComponent implements OnInit {
-  showCancel = false;
-  showSaveAndCancel = false;
-  showSaveForEditAndCancel = false;
+  showLogout = false;
+  showSaveAndLogout = false;
+  showSaveForEditAndLogout = false;
   showAdd = false;
   showAddForEdit = true;  
   showEdit = false;
@@ -31,12 +31,12 @@ export class CrudBaseComponent implements OnInit {
     });
   }
 
-  onCancelClick(): void {
+  onLogoutClick(): void {
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();
   }
 
-  onCancelForEditClick(): void {
+  onLogoutForEditClick(): void {
     console.log('Pasando por crud-base');
     this.crudActionsVisibilityService.resetVisibility();
     this.updateVisibility();
@@ -74,8 +74,8 @@ export class CrudBaseComponent implements OnInit {
     this.showEdit = this.crudActionsVisibilityService.showEdit;
     this.showDelete = this.crudActionsVisibilityService.showDelete;
     this.showSearch = this.crudActionsVisibilityService.showSearch;
-    this.showCancel = this.crudActionsVisibilityService.showCancel;
-    this.showSaveAndCancel = this.crudActionsVisibilityService.showSaveAndCancel;
-    this.showSaveForEditAndCancel = this.crudActionsVisibilityService.showSaveForEditAndCancel;
+    this.showLogout = this.crudActionsVisibilityService.showLogout;
+    this.showSaveAndLogout = this.crudActionsVisibilityService.showSaveAndLogout;
+    this.showSaveForEditAndLogout = this.crudActionsVisibilityService.showSaveForEditAndLogout;
   }
 }

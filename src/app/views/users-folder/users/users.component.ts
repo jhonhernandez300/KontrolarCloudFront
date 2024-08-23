@@ -19,8 +19,8 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   @ViewChild(UsersEditActionComponent) usersEditActionComponent?: UsersEditActionComponent; 
   @ViewChild(UsersSearchComponent) usersSearchComponent?: UsersSearchComponent;  
 
-  override showSaveAndCancel = false;
-  override showSaveForEditAndCancel = false;
+  override showSaveAndLogout = false;
+  override showSaveForEditAndLogout = false;
 
   override showAdd = CrudActionsVisibility.showAdd;
   override showAddForEdit = CrudActionsVisibility.showAddForEdit;
@@ -58,6 +58,7 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
 
   override onAddClick(): void {    
+    this.hideAddIcon = true;  
     this.hideEditIcon = true;  
     this.hideDeleteIcon = true;  
     this.hideSearchIcon = true;  
@@ -81,7 +82,7 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     }
   }
 
-  override onCancelClick(): void {    
+  override onLogoutClick(): void {    
     this.hideAddIcon = false;  
     this.hideEditIcon = false;  
     this.hideDeleteIcon = false;  
@@ -90,8 +91,9 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     this.updateVisibility();
   }
 
-  override onCancelForEditClick(): void {
+  override onLogoutForEditClick(): void {    
     this.hideAddIcon = false;  
+    this.hideEditIcon = false;  
     this.hideDeleteIcon = false;  
     this.hideSearchIcon = false;  
     this.crudActionsVisibilityService.resetVisibility();
@@ -99,7 +101,8 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
 
   override onSearchClick(): void {    
-    //console.log('Search');
+    this.hideSearchIcon = true;  
+    this.hideSearchIcon = true;  
     this.hideAddIcon = true;  
     this.hideEditIcon = true;  
     this.hideDeleteIcon = true;  
@@ -110,7 +113,7 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
   
   override onDeleteClick(): void {    
-    //console.log('Delete');
+    this.hideDeleteIcon = true;  
     this.hideAddIcon = true;  
     this.hideEditIcon = true;  
     this.hideSearchIcon = true;  
@@ -121,7 +124,7 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
   }
 
   override onEditClick(): void {    
-    //console.log('Edit');
+    this.hideEditIcon = true;  
     this.hideAddIcon = true;  
     this.hideDeleteIcon = true;  
     this.hideSearchIcon = true;  

@@ -1782,7 +1782,7 @@ confirmDeleteProfile(profile: iProfileDTO) \{\par
 ////////////////\par
 \par
 \b Como hacer que aparezca el bot\'f3n editar\b0\par
-profiles.component.ts\par
+\cf6\b profiles.component.ts\cf0\b0\par
  override onEditClick(): void \{    \par
     this.crudActionsVisibilityService.setSearchVisible();\par
     this.updateVisibility();    \par
@@ -1790,7 +1790,7 @@ profiles.component.ts\par
     this.localStorageService.setData('action', 'edit');     \par
   \}\par
 \par
-profiles-show-table.component.html\par
+\cf6\b profiles-show-table.component.html\cf0\b0\par
 <td *ngIf="action === 'edit'">\par
                   <button class="btn btn-warning btn-sm" \par
 \tab\tab (click)="editProfile(profile)">\par
@@ -1798,7 +1798,7 @@ profiles-show-table.component.html\par
 \tab </button>\par
 </td>\par
 \par
-profiles-show-table.component.ts\par
+\cf6\b profiles-show-table.component.ts\cf0\b0\par
  ngOnInit(): void \{\par
     this.action = this.localStorageService.getData('action');\par
   \}\par
@@ -1817,13 +1817,13 @@ profiles-show-table.component.ts\par
 \par
 ////////////////\par
 \par
-E\b jecutar un m\'e9todo de un componente abuelo desde un componente nieto\par
+\b Ejecutar un m\'e9todo de un componente abuelo desde un componente nieto\par
 \b0 Utilizar un servicio para la comunicaci\'f3n entre componentes. \par
 \par
 1. Crear un Servicio de Comunicaci\'f3n\par
-Primero, crea un servicio que manejar\'e1 la comunicaci\'f3n entre los componentes.\par
+1. Crea un servicio que manejar\'e1 la comunicaci\'f3n entre los componentes.\par
 \par
-// communication.service.ts\par
+\cf6\b // communication.service.ts\cf0\b0\par
 import \{ Injectable \} from '@angular/core';\par
 import \{ Subject \} from 'rxjs';\par
 \par
@@ -1842,7 +1842,7 @@ export class CommunicationService \{\par
 2. Inyectar el Servicio en el Componente Nieto\par
 Inyecta el servicio en el componente nieto, desde donde se va a desencadenar la acci\'f3n.\par
 \par
-// nieto.component.ts\par
+\cf6 // nieto.component.ts\cf0\par
 import \{ Component \} from '@angular/core';\par
 import \{ CommunicationService \} from '../communication.service';\par
 \par
@@ -1863,7 +1863,7 @@ export class NietoComponent \{\par
 3. Escuchar el Evento en el Componente Abuelo\par
 En el componente abuelo, inyecta el servicio y suscr\'edbete al evento para ejecutar el m\'e9todo deseado.\par
 \par
-// abuelo.component.ts\par
+\cf6\b // abuelo.component.ts\cf0\b0\par
 import \{ Component, OnInit \} from '@angular/core';\par
 import \{ CommunicationService \} from '../communication.service';\par
 \par

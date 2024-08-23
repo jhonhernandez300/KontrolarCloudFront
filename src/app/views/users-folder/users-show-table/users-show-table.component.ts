@@ -83,7 +83,7 @@ export class UsersShowTableComponent implements OnInit {
     this.showDeleteAlert = true; 
   }
   
-  cancelDelete() {
+  logoutDelete() {
     this.showDeleteAlert = false;
     this.userToDelete = null;
   }
