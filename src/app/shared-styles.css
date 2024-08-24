@@ -4,7 +4,7 @@
     height: 650px;
     justify-content: center;
     align-items: center;
-    background-color: black;
+    background-color: var(--background-color);
 }
 
 .inner {

@@ -1,6 +1,6 @@
 /* profiles-add.component.css */
 .profiles-add {
-    background-color: black;
+    background-color: var(--background-color);
     color: white;
     width: 100%;
     margin: 0 auto;

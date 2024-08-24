@@ -28,6 +28,7 @@ import { ProfilesGetDataComponent } from './views/profiles-folder/profiles-get-d
 import { ProfilesShowTableComponent } from './views/profiles-folder/profiles-show-table/profiles-show-table.component';
 import { ProfilesEditActionComponent } from './views/profiles-folder/profiles-edit-action/profiles-edit-action.component';
 import { UsersEditActionComponent } from './views/users-folder/users-edit-action/users-edit-action.component';
+import { SettingsComponent } from './views/settings/settings.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -51,7 +52,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfilesGetDataComponent,
     ProfilesShowTableComponent,
     ProfilesEditActionComponent,
-    UsersEditActionComponent
+    UsersEditActionComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

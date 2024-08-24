@@ -1,0 +1,18 @@
+
+<div class="container" >  
+<div class="d-flex justify-content-center align-items-center vh-100" id="parent-container">
+    <div class="p-5 bg-light border text-center">
+      <h2 [ngClass]="currentTheme">Settings</h2>
+  
+      <label class="p-5">
+        <input type="radio" name="theme" value="light" (change)="changeTheme('light')" [checked]="currentTheme === 'theme-light'">
+        Light Theme
+      </label>
+      <label class="p-5">
+        <input type="radio" name="theme" value="dark" (change)="changeTheme('dark')" [checked]="currentTheme === 'theme-dark'">
+        Dark Theme
+      </label>
+    </div>
+  </div>
+</div>
+  

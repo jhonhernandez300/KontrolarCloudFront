@@ -1,6 +1,6 @@
 /* users-edit-action.component.css */
 .profiles-add {
-  background-color: black;
+  background-color: var(--background-color);;
   color: white;
   width: 100%;
   margin: 0 auto;
@@ -57,10 +57,10 @@
   text-align: center; 
 }
 
-.section {
+/* .section {
   border: none;
   box-shadow: none;
-}
+} */
 
 .form-check-group {
   display: flex;

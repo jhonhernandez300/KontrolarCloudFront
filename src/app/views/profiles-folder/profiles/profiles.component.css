@@ -5,6 +5,7 @@
     padding-right: 30px;
     /* Asegura que el padding no se incluya en el tamaño total del contenedor */
     box-sizing: content-box; 
+    background-color: var(--background-color);
 }
 
 @media (max-width: 480px) {

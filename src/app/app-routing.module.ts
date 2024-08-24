@@ -6,6 +6,7 @@ import { canActivateGuard } from '../app/helpers/auth.guard';
 import { BienvenidoComponent } from '../app/views/bienvenido/bienvenido.component';
 import { UsersComponent } from './views/users-folder/users/users.component';
 import { ProfilesComponent } from '../app/views/profiles-folder/profiles/profiles.component';
+import { SettingsComponent } from './views/settings/settings.component';
 
 const routes: Routes = [ 
   { path: 'profiles', 
@@ -18,6 +19,10 @@ const routes: Routes = [
   },
   { path: 'bienvenido', 
     component: BienvenidoComponent, 
+    canActivate: [canActivateGuard]
+  },
+  { path: 'settings', 
+    component: SettingsComponent, 
     canActivate: [canActivateGuard]
   },
   { path: 'login', component: LoginComponent },

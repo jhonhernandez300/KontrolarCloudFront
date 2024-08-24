@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
 import { LanguageServiceService } from './services/general/language-service.service';
 import { UserService } from '../app/services/user/user.service'; 
 import { LanguageChangeService } from './services/general/language-change-service'; 
 import { TranslateService } from '@ngx-translate/core';
-import { AuthServiceService } from './services/general/auth-service.service'
+import { AuthServiceService } from './services/general/auth-service.service';
 import { ProfileService } from './services/profile/profile.service';
+import { ThemeServiceService } from './services/general/theme-service.service';
 
 @Component({
   selector: 'app-root',
@@ -15,35 +16,43 @@ import { ProfileService } from './services/profile/profile.service';
 export class AppComponent {
   title = 'kontrolar-cloud-pwa';
   isAuthenticated: boolean = false;
-  isSidebarMenuOpen: boolean = false; // Nuevo estado para controlar la visibilidad del menú  
+  isSidebarMenuOpen: boolean = false;
 
   constructor(
-    private _swUpdate: SwUpdate,    
+    private _swUpdate: SwUpdate,
     private languageService: LanguageServiceService,
     private userService: UserService,
     private languageChangeService: LanguageChangeService,
     private translate: TranslateService,
     private authService: AuthServiceService,
     private profileService: ProfileService,
-  ) {}
+    private themeService: ThemeServiceService,
+    private renderer: Renderer2
+  ) {
+    this.applyTheme(this.themeService.getTheme());
+  }
+
+  ngOnInit(): void {
+    this.translate.setDefaultLang('es-CO');
+    this.translate.use('es-CO');
+    this.checkForUpdates();
+    this.isAuthenticated = this.userService.IsAuthenticated();
+    
+    this.authService.authenticated$.subscribe(isAuthenticated => {
+      this.isAuthenticated = isAuthenticated;
+    });
+  }
+
+  applyTheme(theme: string): void {
+    const themeClass = theme === 'theme-light' ? 'theme-light' : 'theme-dark';
+    this.renderer.addClass(document.body, themeClass);
+  }
 
   setLanguage(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const language = selectElement.value;
     this.languageService.setLanguage(language);
-    this.languageChangeService.changeLanguage(language); // Notifica el cambio de idioma
-  }
-
-  ngOnInit(): void {
-    this.translate.setDefaultLang('es-CO'); // Establece español como idioma predeterminado
-    this.translate.use('es-CO'); // Asegúrarse de usar el idioma español al iniciar
-    this.checkForUpdates();
-    this.isAuthenticated = this.userService.IsAuthenticated();
-    
-    // Suscribirse a cambios de autenticación
-    this.authService.authenticated$.subscribe(isAuthenticated => {
-      this.isAuthenticated = isAuthenticated;
-    });
+    this.languageChangeService.changeLanguage(language);
   }
 
   checkForUpdates(): void {
