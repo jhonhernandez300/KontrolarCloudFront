@@ -4,14 +4,34 @@
     padding-top: 20px;
     padding-right: 30px;
     /* Asegura que el padding no se incluya en el tamaño total del contenedor */
-    box-sizing: content-box;    
+    box-sizing: content-box; 
+    background-color: var(--background-color);
 }
 
-@media (max-width: 480px) {
-    .container{
-        width: 500px;
+li{
+    background-color: var(--background-color);
+    border: 0;
+}
+
+.list-group-horizontal-sm {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.small-icon {
+    width: 85px;
+    height: 85px; 
+    background-color: var(--background-color);
+}  
+  
+@media (min-width: 992px) {
+    .list-group-horizontal-sm {
+        flex-direction: column;
     }
-    .global-container{
-        width: 600px;
+
+    .small-icon {
+      width: 125px; 
+      height: 125px;
     }
 }

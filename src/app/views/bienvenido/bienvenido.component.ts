@@ -7,15 +7,5 @@ import { ThemeServiceService } from '../../services/general/theme-service.servic
   styleUrls: ['./bienvenido.component.css']
 })
 export class BienvenidoComponent {
-  constructor(    
-    private themeService: ThemeServiceService
-  ) { 
-    this.currentTheme = this.themeService.getTheme(); 
-  } 
-  
-  currentTheme: string;
-
-  changeTheme(theme: string) {    
-    this.themeService.setTheme(theme); 
-  } 
+ 
 }

@@ -57,11 +57,11 @@ export class UsersComponent extends CrudBaseComponent implements AfterViewInit {
     //console.log(this.usersEditActionComponent);
   }
 
-  onCleanFormSaveClick(): void{
+  onClearFormSaveClick(): void{
     this.usersAddComponent?.resetForm();
   }
 
-  onCleanFormForEditClick(): void {
+  onClearFormForEditClick(): void {
     this.usersEditActionComponent?.onCancel();
   }
 
