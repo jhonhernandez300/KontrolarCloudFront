@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageChangeService } from '../../services/general/language-change-service';
 import { ModuleDTO } from '../../models/ModuleDTO';
 import { OptionDTO } from '../../models/OptionDTO';
+import { CryptoHelper } from '../../helpers/CryptoHelper';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -29,7 +30,7 @@ export class SidebarMenuComponent implements OnInit {
       (data) => {    
         //console.log("data ", data);    
         this.listaModulos = data.listaModulos;
-        this.selectedCompany = this.localStorageService.getData('selectedCompany');     
+        this.selectedCompany = this.localStorageService.getData('selectedCompany');  
         this.translateModulesAndOptions();    
       },
       (error) => {

@@ -15,10 +15,13 @@ export class LocalStorageService {
   //   localStorage.setItem(key, JSON.stringify(encrypted));    
   // }
 
-  setData(key: string, data: any): void {
-    console.log(data);
+  setToken(key: string, data: any): void {
     const encrypted = CryptoHelper.encrypt(data);
-    console.log(encrypted);
+    // console.log(data);
+    localStorage.setItem(key, encrypted);    
+  }
+
+  setData(key: string, data: any): void {
     localStorage.setItem(key, data);    
   }
   
@@ -26,7 +29,7 @@ export class LocalStorageService {
     //console.log(key);
     //const encryptedData = localStorage.getItem(key);
     return localStorage.getItem(key);
-    console.log(localStorage.getItem(key));    
+    // console.log(localStorage.getItem(key));    
     // if (encryptedData) {
     //   try {
     //     //console.log(CryptoHelper.decrypt(encryptedData));
