@@ -145,6 +145,7 @@ export class UserService {
   }
 
   GetOptionsByIdUser(idUser: number): Observable<{ listaModulos: ModuleDTO[], listaOpcionesMoviles: OptionDTO[] }> {
+    //console.log(idUser);
     const encryptedIdUser = CryptoHelper.encrypt(idUser.toString());
   
     return this.http
@@ -153,9 +154,9 @@ export class UserService {
         { responseType: 'text' }
       )
       .pipe(
-        map((encryptedData) => {
+        map((encryptedData) => {          
           const decryptedData = CryptoHelper.decrypt(encryptedData);
-          //console.log("decryptedData: ", decryptedData);  // Verifica los datos desencriptados
+          console.log("decryptedData: ", decryptedData);  
   
           // Asume que decryptedData ya es un objeto, por lo que no es necesario analizarlo como JSON
           const modules: ModuleDTO[] = decryptedData;
@@ -211,7 +212,7 @@ export class UserService {
     ).pipe(
       map(encryptedData => {
         try {
-          console.log(encryptedData);
+          //console.log(encryptedData);
           return CryptoHelper.decrypt(encryptedData);
         } catch (error) {
           console.error('Error al desencriptar los datos:', error);

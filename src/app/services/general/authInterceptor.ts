@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const tokenEncrypted = localStorage.getItem("token");
-        console.log(tokenEncrypted);
+        //console.log(tokenEncrypted);
 
         if (tokenEncrypted) {
             try {                
@@ -73,39 +73,3 @@ export class AuthInterceptor implements HttpInterceptor {
         }
     }
 }
-
-
-    
-//     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-//         const tokenEncrypted = localStorage.getItem("token");
-//         console.log(tokenEncrypted);
-
-//         if(tokenEncrypted){
-
-//             var token = CryptoHelper.decrypt(tokenEncrypted)
-
-//             if (this.isTokenExpired(token)) {
-//                 this.router.navigate(['/login']);
-//             }
-
-//             const cloned = req.clone({
-//                 //headers: req.headers.set("Authorization", "Bearer" + token)
-//                 //Alt 96
-//                 setHeaders: {Authorization: `Bearer ${tokenEncrypted}`}               
-//             });
-//             // console.log(cloned);
-
-//             return next.handle(cloned);            
-//         }
-//         else
-//         {
-//             return next.handle(req);
-//         }
-//     }
-
-//     private isTokenExpired(token: string): boolean {
-//         const payload = JSON.parse(atob(token.split('.')[1]));
-//         const expiry = payload.exp;
-//         return (Math.floor((new Date).getTime() / 1000)) >= expiry;
-//     }
-// }

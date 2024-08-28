@@ -18,3 +18,13 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
 }
+
+.section-header {
+    background-color: rgb(26, 163, 208);
+    color: white;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    border-bottom: 2px solid darkblue;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}

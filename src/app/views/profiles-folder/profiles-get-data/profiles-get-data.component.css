@@ -6,16 +6,6 @@
   width: 100%;
 }
 
-.section-header {
-  background-color: rgb(26, 163, 208);
-  color: white;
-  text-transform: uppercase;
-  padding: 0.5rem;
-  border-bottom: 2px solid darkblue;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
 .section-body {
   padding: 1rem;
   background-color: var(--background-color); 

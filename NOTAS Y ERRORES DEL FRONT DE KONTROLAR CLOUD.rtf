@@ -2251,6 +2251,180 @@ La clase img-fluid hace que la imagen se ajuste al tama\'f1o del contenedor sin 
 \par
 ////////////////\par
 \par
+\b Interceptar todas las peticiones y ponerles un token encriptado\par
+Interceptor\par
+\b0 import \{ HttpEvent, HttpHandler, HttpInterceptor, HttpRequest \} from "@angular/common/http";\par
+import \{ Injectable \} from "@angular/core";\par
+import \{ Observable \} from "rxjs";\par
+import \{ CryptoHelper \} from "../../helpers/CryptoHelper";\par
+import \{ Router \} from "@angular/router";\par
+import \{ LocalStorageService \} from "../../helpers/local-storage.service";\par
+\par
+@Injectable()\par
+export class AuthInterceptor implements HttpInterceptor \{\par
+\par
+    constructor(\par
+        private router: Router,\par
+        private localStorageService: LocalStorageService\par
+    ) \{\}\par
+\par
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> \{\par
+        const tokenEncrypted = localStorage.getItem("token");\par
+        console.log(tokenEncrypted);\par
+\par
+        if (tokenEncrypted) \{\par
+            try \{                \par
+                if (this.isBase64(tokenEncrypted)) \{\par
+                    const decodedToken = atob(tokenEncrypted);\par
+                    var token = CryptoHelper.decrypt(tokenEncrypted);\par
+\par
+                    if (this.isTokenExpired(token)) \{\par
+                        this.router.navigate(['/login']);\par
+                        // Retornar inmediatamente si el token est\'e1 expirado\par
+                        return next.handle(req); \par
+                    \}\par
+\par
+                    const cloned = req.clone(\{\par
+                                        //headers: req.headers.set("Authorization", "Bearer" + token)\par
+                                        //Alt 96\par
+                                        setHeaders: \{Authorization: `Bearer $\{tokenEncrypted\}`\}               \par
+                                    \});                    \par
+\par
+                    return next.handle(cloned);\par
+                \} else \{\par
+                    const encodedToken = btoa(tokenEncrypted);\par
+                    const cloned = req.clone(\{\par
+                        setHeaders: \{Authorization: `Bearer $\{encodedToken\}`\}\par
+                    \});\par
+                    return next.handle(req);\par
+                \}\par
+            \} catch (e) \{\par
+                console.error("Error decoding the token:", e);\par
+                this.router.navigate(['/error']); \par
+                return next.handle(req);\par
+            \}\par
+        \} else \{\par
+            return next.handle(req);\par
+        \}\par
+    \}\par
+    \par
+    private isBase64(str: string): boolean \{\par
+        try \{\par
+            return btoa(atob(str)) === str;\par
+        \} catch (err) \{\par
+            return false;\par
+        \}\par
+    \}\par
+\par
+    private isTokenExpired(token: string): boolean \{\par
+        try \{\par
+            const payload = JSON.parse(atob(token.split('.')[1]));\par
+            const expiry = payload.exp;\par
+            return (Math.floor((new Date).getTime() / 1000)) >= expiry;\par
+        \} catch (e) \{\par
+            console.error("Error parsing token payload:", e);\par
+            // Considerar el token como expirado si no se puede parsear\par
+            return true; \par
+        \}\par
+    \}\par
+\}\par
+\par
+import \{ Injectable \} from '@angular/core';\par
+import \{ CryptoHelper \} from '../helpers/CryptoHelper';\par
+\par
+@Injectable(\{\par
+  providedIn: 'root'\par
+\})\par
+export class LocalStorageService \{\par
+\par
+  constructor() \{ \}\par
+ \par
+  setToken(key: string, data: any): void \{\par
+    const encrypted = CryptoHelper.encrypt(data);\par
+    localStorage.setItem(key, encrypted);    \par
+  \}\par
+\par
+  setData(key: string, data: any): void \{\par
+    localStorage.setItem(key, data);    \par
+  \}\par
+  \par
+  getData(key: string): any \{   \par
+    return localStorage.getItem(key);   \par
+  \}\par
+\par
+  removeData(key: string): void \{\par
+    localStorage.removeItem(key);\par
+  \}\par
+\par
+  removeAllData(): void \{\par
+    localStorage.clear();\par
+  \}\par
+\par
+  isEmpty(): boolean \{\par
+    return localStorage.length === 0;\par
+  \}\par
+\}\par
+\par
+import * as CryptoJS from 'crypto-js';\par
+\par
+export class CryptoHelper \{\par
+  private static readonly Key = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16 bytes\par
+  private static readonly Iv = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16 bytes\par
+\par
+  static encrypt(data: any): string \{\par
+    const jsonData = JSON.stringify(data);\par
+    const encryptedData = CryptoJS.AES.encrypt(jsonData, CryptoHelper.Key, \{ iv: CryptoHelper.Iv \}).toString();\par
+    return encryptedData;\par
+  \}\par
+\par
+  static decrypt(data: string): any \{\par
+    try \{      \par
+      const base64Data = this.ensureBase64(data);\par
+\par
+      const decryptedDataBytes = CryptoJS.AES.decrypt(base64Data, CryptoHelper.Key, \{ iv: CryptoHelper.Iv \});\par
+      const decryptedDataStr = decryptedDataBytes.toString(CryptoJS.enc.Utf8);\par
+      \par
+      if (!this.isValidJson(decryptedDataStr)) \{\par
+        throw new Error("El dato desencriptado no es un JSON v\'e1lido");\par
+      \}\par
+\par
+      return JSON.parse(decryptedDataStr);\par
+    \} catch (error) \{\par
+      console.error("Error al desencriptar los datos: ", error);\par
+      throw error;\par
+    \}\par
+  \}\par
+  \par
+  private static ensureBase64(data: string): string \{\par
+    if (!this.isBase64(data)) \{      \par
+      try \{\par
+        // Convertir a base64 si es necesario\par
+        return btoa(unescape(encodeURIComponent(data)));\par
+      \} catch (e) \{\par
+        console.error("Error al convertir la cadena a base64:", e);\par
+        throw new Error("La cadena no se pudo convertir a base64");\par
+      \}\par
+    \}\par
+    return data;\par
+  \}\par
+  \par
+  private static isBase64(str: string): boolean \{\par
+    try \{\par
+      return btoa(atob(str)) === str;\par
+    \} catch (e) \{\par
+      return false;\par
+    \}\par
+  \}\par
+  \par
+  private static isValidJson(str: string): boolean \{\par
+    try \{\par
+      JSON.parse(str);\par
+      return true;\par
+    \} catch (e) \{\par
+      return false;\par
+    \}\par
+  \}\par
+\}\par
 \par
 ////////////////\par
 \par
