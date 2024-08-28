@@ -38,6 +38,7 @@ export class UserService {
     //console.log('User on the service ', user);   
     const encryptedData = CryptoHelper.encrypt(user);
     const json = JSON.stringify(encryptedData);
+    //console.log(json);
   
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -73,12 +74,14 @@ export class UserService {
   
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('An error occurred:', error.message);
-    return throwError('Something bad happened; please try again later.');
+    // lanza el error directamente para que lo maneje el componente
+    return throwError(error);
   }  
 
   getUserByParam(parametro: string): Observable<iUserDTO[]> {    
     const encryptedData = CryptoHelper.encrypt(parametro);    
     const json = JSON.stringify(encryptedData);
+    //console.log(encryptedData);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -90,6 +93,10 @@ export class UserService {
     }).pipe(
       map(response => {
         return response;
+      }),
+      catchError((error: HttpErrorResponse) => {        
+        console.error('Error fetching users:', error.message);
+        return throwError(() => new Error('Failed to fetch users. Please try again later.'));
       })
     );
   }
@@ -204,10 +211,11 @@ export class UserService {
     ).pipe(
       map(encryptedData => {
         try {
+          console.log(encryptedData);
           return CryptoHelper.decrypt(encryptedData);
         } catch (error) {
           console.error('Error al desencriptar los datos:', error);
-          throw error; // Puedes manejar este error según sea necesario en tu aplicación
+          throw error; 
         }
       })
     );

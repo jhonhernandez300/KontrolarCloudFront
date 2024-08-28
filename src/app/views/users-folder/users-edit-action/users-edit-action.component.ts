@@ -8,6 +8,7 @@ import { ProfileTransferService } from '../../../services/profile/profile-transf
 import { iUserDTO } from '../../../models/iUserDTO';
 import { UserService } from '../../../services/user/user.service';
 import { EditCommunicationService } from '../../../services/general/edit-communication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-edit-action',
@@ -40,6 +41,7 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
     private profileTransferService: ProfileTransferService,
     private userService: UserService,
     private editCommunicationService: EditCommunicationService,
+    private router: Router
     )
     {
       this.myForm = this.fb.group({
@@ -119,9 +121,15 @@ export class UsersEditActionComponent implements AfterViewInit, OnInit {
           this.resetForm();
         },
         error => {
-          this.serviceError = error.error?.message || 'UNKNOWN_ERROR';
-          this.translateServiceError(this.serviceError);
-          this.showServiceError = true;
+          console.log(error);
+          //401 (Unauthorized) o 403 (Forbidden)          
+          if (error.status === 401 || error.status === 403) { 
+            this.router.navigate(['/login']); 
+          } else {
+            this.serviceError = error.error?.message || 'UNKNOWN_ERROR';
+            this.translateServiceError(this.serviceError);
+            this.showServiceError = true;
+          }          
         }
       );
     } else {      

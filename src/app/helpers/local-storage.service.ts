@@ -16,25 +16,27 @@ export class LocalStorageService {
   // }
 
   setData(key: string, data: any): void {
+    console.log(data);
     const encrypted = CryptoHelper.encrypt(data);
-    //console.log(encrypted);
-    localStorage.setItem(key, encrypted);    
+    console.log(encrypted);
+    localStorage.setItem(key, data);    
   }
   
   getData(key: string): any {
     //console.log(key);
-    const encryptedData = localStorage.getItem(key);
-    //console.log(encryptedData);    
-    if (encryptedData) {
-      try {
-        //console.log(CryptoHelper.decrypt(encryptedData));
-        return CryptoHelper.decrypt(encryptedData);
-      } catch (error) {
-        console.error("Error al desencriptar los datos: ", error);
-        return null;
-      }
-    }
-    return null;
+    //const encryptedData = localStorage.getItem(key);
+    return localStorage.getItem(key);
+    console.log(localStorage.getItem(key));    
+    // if (encryptedData) {
+    //   try {
+    //     //console.log(CryptoHelper.decrypt(encryptedData));
+    //     return CryptoHelper.decrypt(encryptedData);
+    //   } catch (error) {
+    //     console.error("Error al desencriptar los datos: ", error);
+    //     return null;
+    //   }
+    // }
+    // return null;
   }
 
   removeData(key: string): void {

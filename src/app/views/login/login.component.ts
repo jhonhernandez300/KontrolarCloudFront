@@ -148,7 +148,7 @@ export class LoginComponent implements OnInit {
 
   private handleTokenResponse(response: any): void {
     this.token = response;
-    //console.log("this.token ", this.token);    
+    console.log("this.token ", this.token);    
     this.localStorageService.setData('token', this.token);    
     localStorage.setItem('last date', new Date().toISOString());    
 
@@ -157,6 +157,7 @@ export class LoginComponent implements OnInit {
   }
 
   private handleTokenError(error: any): void {
+    console.log(error);
     if (error.status === 404) {
       this.showModal('THERE_WAS_AN_ERROR_GETTING_THE_TOKEN');
     } else {
