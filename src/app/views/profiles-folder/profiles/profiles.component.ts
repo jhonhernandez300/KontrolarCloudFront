@@ -23,7 +23,7 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   override showSaveAndLogout = false;
   override showSaveForEditAndLogout = false;
 
-  //override showSaveAndLogout = false; //??
+  selectedTab: string = 'management';
 
   override showAdd = CrudActionsVisibility.showAdd;
   override showAddForEdit = CrudActionsVisibility.showAddForEdit;
@@ -35,7 +35,7 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
   hideAddIcon: boolean = false; 
   hideEditIcon: boolean = false; 
   hideDeleteIcon: boolean = false; 
-  hideSearchIcon: boolean = false;
+  hideSearchIcon: boolean = false;  
 
   constructor(
     crudActionsVisibilityService: CrudActionsVisibilityService,
@@ -57,6 +57,10 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
 
   ngAfterViewInit(): void {
     this.updateVisibility();
+  }
+
+  selectTab(tab: string) {
+    this.selectedTab = tab;
   }
   
   onClearFormSaveClick(): void{

@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { CryptoHelper } from '../../helpers/CryptoHelper';
 import { iProfile } from '../../models/iProfile';
 import { iProfileDTO } from '../../models/iProfileDTO';
+import { iOptionProfileDTO } from '../../models/iOptionProfileDTO';
 
 
 @Injectable({
@@ -78,6 +79,27 @@ export class ProfileService {
     );
   }
 
+  GetOptionsProfile(parametro: string): Observable<iOptionProfileDTO[]> {
+    console.log(parametro);
+    const encryptedData = CryptoHelper.encrypt(parametro);
+    console.log(encryptedData);
+    const json = JSON.stringify(encryptedData);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    return this.http.get<iOptionProfileDTO[]>(`${this.apiUrl}/GetOptionsProfile/${encryptedData}`, {
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
   saveData(profile: iProfile): Observable<any> {
     //console.log(profile);
     const encryptedData = CryptoHelper.encrypt(profile);
@@ -98,4 +120,18 @@ export class ProfileService {
     );
   }
 
+  setOptionsProfile(idProfile: number, optionProfiles: iOptionProfileDTO[]): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+  
+    return this.http.post<any>(`${this.apiUrl}/SetOptionsProfileAsync/${idProfile}`, optionProfiles, {
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
 }

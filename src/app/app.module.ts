@@ -29,6 +29,8 @@ import { ProfilesShowTableComponent } from './views/profiles-folder/profiles-sho
 import { ProfilesEditActionComponent } from './views/profiles-folder/profiles-edit-action/profiles-edit-action.component';
 import { UsersEditActionComponent } from './views/users-folder/users-edit-action/users-edit-action.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { ProfilesSearchOptionsComponent } from './views/profiles-folder/profiles-search-options/profiles-search-options.component';
+import { ProfilesOptionsComponent } from './views/profiles-folder/profiles-options/profiles-options.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +55,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfilesShowTableComponent,
     ProfilesEditActionComponent,
     UsersEditActionComponent,
-    SettingsComponent
+    SettingsComponent,
+    ProfilesSearchOptionsComponent,
+    ProfilesOptionsComponent
   ],
   imports: [
     BrowserModule,

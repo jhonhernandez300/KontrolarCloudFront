@@ -156,7 +156,7 @@ export class UserService {
       .pipe(
         map((encryptedData) => {          
           const decryptedData = CryptoHelper.decrypt(encryptedData);
-          console.log("decryptedData: ", decryptedData);  
+          //console.log("decryptedData: ", decryptedData);  
   
           // Asume que decryptedData ya es un objeto, por lo que no es necesario analizarlo como JSON
           const modules: ModuleDTO[] = decryptedData;

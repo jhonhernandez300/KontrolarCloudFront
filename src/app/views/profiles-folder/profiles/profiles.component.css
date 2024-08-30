@@ -6,6 +6,7 @@
     /* Asegura que el padding no se incluya en el tamaño total del contenedor */
     box-sizing: content-box; 
     background-color: var(--background-color);
+    display: block !important;
 }
 
 li{
@@ -23,7 +24,32 @@ li{
     width: 85px;
     height: 85px; 
     background-color: var(--background-color);
-}  
+} 
+
+#tab{
+    width: 100%;
+    background-color: black;
+    color: rgb(42, 42, 153);
+}
+
+.custom-button {
+  background-color: #3f3c3c; 
+  border-color: black;     
+  border: 2px solid black;
+  color: white;             
+  padding: 10px 20px;        
+  font-size: 16px;           
+  font-weight: bold;         
+  border-radius: 15px;        
+  cursor: pointer;           
+  transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.custom-button:hover {
+  background-color: #1d1c1c; 
+  border-color: #100cd4; 
+  color:#100cd4;
+}
   
 @media (min-width: 992px) {
     .list-group-horizontal-sm {

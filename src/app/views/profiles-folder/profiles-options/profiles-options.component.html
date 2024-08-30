@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-12 col-lg-2">
+        <ul class="list-group list-group-horizontal-sm">
+            <li class="list-group-item"><img class="small-icon" src="../../../assets/img/Save.png" alt="Guardar" (click)="onSave()"></li>
+        </ul>
+    </div>
+    <div class="col-12 col-lg-10">
+      <div class="global-container">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <div class="section">
+            <div class="section-header">
+              <h4>{{ 'SEARCH_PROFILE' | translate }}</h4>
+            </div>
+            <div class="section-body">
+              <div class="row">
+                <div class="col-12 col-lg-3 mb-3 form-group">            
+                  <label for="parametro" class="form-label">{{ 'SEARCH_PARAMETER' | translate }}</label>            
+                  <div class="form-group-inline">
+                    <div>
+                      <div>
+                        <input type="text" 
+                            id="parametro" 
+                            formControlName="parametro" 
+                            class="form-control" 
+                            [ngClass]="{'is-invalid': myForm.get('parametro')?.invalid && myForm.get('parametro')?.touched}">
+                      </div>
+                      <div class="invalid-feedback error-message" *ngIf="myForm.get('parametro')?.invalid && (myForm.get('parametro')?.touched || myForm.get('parametro')?.dirty)">
+                        {{ 'ENTER_A_SEARCH_PARAMETER' | translate }}
+                      </div>
+                    </div>    
+      
+                  </div>  
+                  <div id="service-error" *ngIf="showServiceError">
+                    {{ serviceError }}
+                  </div>
+                </div>
+                <div class="col-12 col-lg-3 mb-3 form-group">
+                  <div id="button-section">
+                    <button type="submit" class="btn btn-primary">{{ 'SEARCH' | translate }}</button>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+        <div class="global-container" *ngIf="submitted">
+          <div class="global-container" *ngIf="optionProfiles && optionProfiles.length > 0">
+            <div class="section">
+              <div class="section-body">
+                <div class="table-wrapper">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>{{ 'MODULE_ID' | translate }}</th>
+                        <th>{{ 'OPTION_ID' | translate }}</th>
+                        <th>{{ 'OPTION_NAME' | translate }}</th>
+                        <th>{{ 'DESCRIPTION' | translate }}</th>
+                        <th>{{ 'ACTION' | translate }}</th>
+                        <th>{{ 'USER_ASSIGNED' | translate }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let option of optionProfiles">
+                        <td>{{ option.idModule }}</td>
+                        <td>{{ option.idOption }}</td>
+                        <td>{{ option.nameOption }}</td>
+                        <td>{{ option.description }}</td>
+                        <td>{{ option.action }}</td>
+                        <td>
+                          <input type="checkbox" [(ngModel)]="option.userAssigned" (change)="onUserAssignedChange(option)" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>        
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

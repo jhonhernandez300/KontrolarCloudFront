@@ -27,27 +27,10 @@
   margin-bottom: 1rem; 
 }
 
-.form-group {
-  display: flex;
-  /* Cambiar a columna para pantallas pequeñas */
-  flex-direction: column; 
-  align-items: flex-start; 
-  width: 100%;
-  padding-top: 1rem;
-}
-
-.form-label {
-  color: var(--text-color);
-  margin-bottom: 0.5rem; 
-}
-
 .form-control {
   background-color: #777; 
   color: white;
-  width: 100%; 
-  max-width: 400px; 
-  text-align: center; 
-}  
+}
 
 #button-section {
   display: flex;
@@ -131,14 +114,6 @@
   font-size: 0.875rem; 
   margin-top: 0.25rem; 
   width: 350px; 
-}
-
-#service-error {
-  color: red;
-  font-size: 0.875rem; 
-  margin-top: 0.25rem; 
-  background-color: white;
-  align-items: center;
 }
 
 .btn-primary {

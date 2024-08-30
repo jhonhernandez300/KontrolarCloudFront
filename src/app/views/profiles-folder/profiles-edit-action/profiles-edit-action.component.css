@@ -14,37 +14,9 @@
   width: 100%;
 }
 
-.section-body {
-  padding: 1rem;
-  background-color: var(--background-color);
-}
-
-.form-group-wrapper {
-  display: flex;
-  justify-content: center; 
-  margin-bottom: 1rem; 
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  /* Alinea verticalmente el label y el input */
-  align-items: flex-start;
-  width: 100%;
-  padding-top: 1rem;
-}
-
-.form-label {
-  color: var(--text-color);
-  margin-bottom: 0.5rem; 
-}
-
 .form-control {
   background-color: #777; 
   color: white;
-  width: 100%; 
-  max-width: 400px; 
-  text-align: center; 
 }
 
 /* .section {
@@ -83,14 +55,6 @@
   border-radius: 5px;
   display: block;
   width: 350px; 
-}
-
-#service-error {
-  color: red;
-  font-size: 0.875rem; 
-  margin-top: 0.25rem; 
-  background-color: white;
-  align-items: center;
 }
 
 /* Estilos para pantallas grandes */
