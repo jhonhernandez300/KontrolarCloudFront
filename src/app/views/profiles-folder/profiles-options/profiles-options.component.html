@@ -4,7 +4,7 @@
             <li class="list-group-item"><img class="small-icon" src="../../../assets/img/Save.png" alt="Guardar" (click)="onSave()"></li>
         </ul>
     </div>
-    <div class="col-12 col-lg-10">
+    <div class="col-11 col-lg-10">
       <div class="global-container">
         <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
           <div class="section">
@@ -51,22 +51,16 @@
                 <div class="table-wrapper">
                   <table class="table table-striped">
                     <thead>
-                      <tr>
-                        <th>{{ 'MODULE_ID' | translate }}</th>
-                        <th>{{ 'OPTION_ID' | translate }}</th>
+                      <tr>                      
                         <th>{{ 'OPTION_NAME' | translate }}</th>
-                        <th>{{ 'DESCRIPTION' | translate }}</th>
-                        <th>{{ 'ACTION' | translate }}</th>
+                        <th>{{ 'DESCRIPTION' | translate }}</th>                       
                         <th>{{ 'USER_ASSIGNED' | translate }}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let option of optionProfiles">
-                        <td>{{ option.idModule }}</td>
-                        <td>{{ option.idOption }}</td>
+                      <tr *ngFor="let option of optionProfiles">                      
                         <td>{{ option.nameOption }}</td>
-                        <td>{{ option.description }}</td>
-                        <td>{{ option.action }}</td>
+                        <td>{{ option.description }}</td>                        
                         <td>
                           <input type="checkbox" [(ngModel)]="option.userAssigned" (change)="onUserAssignedChange(option)" />
                         </td>
@@ -79,4 +73,22 @@
           </div>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div #errorModal class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 translate class="modal-title" id="errorModalLabel">{{ modalHeader }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div translate class="modal-body">
+              {{ modalMessage }}
+          </div>
+          <div class="modal-footer">
+              <button translate type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">{{ 'CLOSE' | translate }}</button>
+          </div>
+      </div>
+  </div>
 </div>

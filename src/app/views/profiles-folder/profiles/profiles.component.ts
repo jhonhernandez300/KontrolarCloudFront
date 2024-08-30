@@ -8,6 +8,8 @@ import { LocalStorageService } from '../../../helpers/local-storage.service';
 import { ActivateEditSaveService } from '../../../services/general/activate-edit-save.service';
 import { ProfilesEditActionComponent } from '../../profiles-folder/profiles-edit-action/profiles-edit-action.component';
 import { EditCommunicationService } from '../../../services/general/edit-communication.service';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageChangeService } from '../../../services/general/language-change-service';
 
 @Component({
   selector: 'app-profiles',
@@ -42,7 +44,9 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
     private localStorageService: LocalStorageService,
     activateEditSaveService: ActivateEditSaveService,
     private viewContainerRef: ViewContainerRef,
-    private editCommunicationService: EditCommunicationService 
+    private editCommunicationService: EditCommunicationService,
+    private languageChangeService: LanguageChangeService,
+    private translate: TranslateService
   ) {
     super(crudActionsVisibilityService, activateEditSaveService);
   }

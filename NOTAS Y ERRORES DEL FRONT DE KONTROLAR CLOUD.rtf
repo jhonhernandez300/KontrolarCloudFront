@@ -2436,5 +2436,82 @@ export class CryptoHelper \{\par
 \par
 ////////////////\par
 \par
+\b tabs de bootstrap explicados\par
+\b0 <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">\par
+      <li class="nav-item" role="presentation">\par
+        <button class="nav-link active" id="management-tab" data-bs-toggle="tab" data-bs-target="#management" type="button" role="tab" aria-controls="management" aria-selected="true">Management</button>\par
+      </li>\par
+      <li class="nav-item" role="presentation">\par
+        <button class="nav-link" id="options-tab" data-bs-toggle="tab" data-bs-target="#options" type="button" role="tab" aria-controls="options" aria-selected="false">Options</button>\par
+      </li>\par
+    </ul>\par
+  \par
+    <div class="tab-content" id="myTabContent">\par
+      <div class="tab-pane fade show active" id="management" role="tabpanel" aria-labelledby="management-tab">\par
+...\par
+</di>\par
+\par
+<div class="tab-pane fade" id="options" role="tabpanel" aria-labelledby="options-tab">\par
+        <app-profiles-options></app-profiles-options>\par
+      </div>\par
+</div><!-- myTabContent -->\par
+\par
+Secci\'f3n <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">\par
+<ul>: Es una lista no ordenada que sirve como contenedor para los elementos de las pesta\'f1as.\par
+class="nav nav-tabs mb-3": Aplica estilos de Bootstrap para crear una barra de pesta\'f1as (nav-tabs). El mb-3 a\'f1ade un margen inferior.\par
+id="myTab": Es un identificador \'fanico para la lista de pesta\'f1as. Puede ser \'fatil para referenciarla desde el JavaScript o CSS.\par
+role="tablist": Define que este contenedor es una lista de pesta\'f1as para accesibilidad.\par
+Secci\'f3n <li class="nav-item" role="presentation">\par
+<li>: Representa un elemento de la lista (una pesta\'f1a individual).\par
+class="nav-item": Aplica el estilo de Bootstrap para los elementos de la barra de navegaci\'f3n.\par
+role="presentation": Es un atributo de accesibilidad que indica que este elemento solo tiene fines de presentaci\'f3n.\par
+Secci\'f3n <button class="nav-link active" ...>\par
+<button>: Representa cada pesta\'f1a y se utiliza para seleccionar la pesta\'f1a correspondiente.\par
+class="nav-link active": Aplica el estilo de Bootstrap para una pesta\'f1a (nav-link). La clase active indica que esta pesta\'f1a es la que est\'e1 seleccionada por defecto.\par
+id="management-tab": Identificador \'fanico para esta pesta\'f1a, utilizado para asociar el contenido con la pesta\'f1a.\par
+data-bs-toggle="tab": Indica a Bootstrap que este bot\'f3n act\'faa como un interruptor de pesta\'f1as.\par
+data-bs-target="#management": Especifica el contenido (div) que se mostrar\'e1 cuando esta pesta\'f1a est\'e9 activa. Aqu\'ed apunta al contenido con el id="management".\par
+type="button": Especifica que este elemento es un bot\'f3n.\par
+role="tab": Define este bot\'f3n como una pesta\'f1a para accesibilidad.\par
+aria-controls="management": Indica qu\'e9 secci\'f3n de contenido controla esta pesta\'f1a.\par
+aria-selected="true": Indica que esta pesta\'f1a est\'e1 seleccionada por defecto.\par
+Secci\'f3n <div class="tab-pane fade" id="options" role="tabpanel" aria-labelledby="options-tab">\par
+<div>: Contenedor para el contenido asociado a la pesta\'f1a "Options".\par
+class="tab-pane fade": Aplica estilos de Bootstrap. tab-pane define un contenedor de contenido asociado a una pesta\'f1a, y fade agrega una transici\'f3n de desvanecimiento cuando se muestra.\par
+id="options": Identificador \'fanico de este contenedor, que coincide con el data-bs-target de la pesta\'f1a correspondiente.\par
+role="tabpanel": Define este contenedor como un panel de pesta\'f1as para accesibilidad.\par
+aria-labelledby="options-tab": Indica qu\'e9 pesta\'f1a est\'e1 asociada con este contenido.\par
+\par
+/////////////////\par
+\par
+lograr que un div tenga una altura fija y que aparezca un scrollbar (barra de desplazamiento) cuando el contenido exceda esa altura, utilizando tanto Bootstrap 5.3 como CSS.\par
+\par
+Opci\'f3n 1: Usando CSS\par
+Puedes utilizar las propiedades height y overflow-y para controlar la altura y el comportamiento del scrollbar:\par
+\par
+css\par
+Copiar c\'f3digo\par
+.scrollable-div \{\par
+  height: 300px; /* Altura fija del div */\par
+  overflow-y: auto; /* Muestra un scrollbar si el contenido es m\'e1s alto */\par
+  border: 1px solid #ccc; /* Opcional: agregar un borde para visualizar mejor el div */\par
+\}\par
+Opci\'f3n 2: Usando Bootstrap 5.3\par
+Bootstrap 5.3 ofrece utilidades de desbordamiento (overflow) que puedes usar directamente en el div sin necesidad de escribir CSS personalizado:\par
+\par
+html\par
+Copiar c\'f3digo\par
+<div class="overflow-auto" style="height: 300px; border: 1px solid #ccc;">\par
+  <!-- Contenido largo que podr\'eda causar desbordamiento -->\par
+</div>\par
+Explicaci\'f3n:\par
+height: 300px;: Define una altura fija para el div. Puedes ajustarlo seg\'fan tus necesidades.\par
+overflow-y: auto;: Configura el div para mostrar un scrollbar vertical solo si el contenido excede la altura establecida. Si usas overflow: auto;, se aplicar\'e1 tanto a la dimensi\'f3n horizontal como a la vertical.\par
+overflow-auto (Bootstrap): Esta clase de Bootstrap es equivalente a overflow: auto; en CSS y gestiona el desbordamiento autom\'e1ticamente, a\'f1adiendo un scrollbar solo cuando es necesario.\par
+\par
+///////////////////\par
+\par
+\par
+\par
 }
  
