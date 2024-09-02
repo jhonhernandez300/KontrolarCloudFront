@@ -117,7 +117,10 @@ export class LoginComponent implements OnInit {
     this.userService
       .GetCompaniesByIdentificationNumber(this.identificationNumber)
       .subscribe(
-        (response) => this.handleCompaniesResponse(response),
+        (response) => {
+          //console.log('Response:', response);
+          this.handleCompaniesResponse(response)
+        },
         (error) => this.handleCompaniesError(error)
       );
   }
@@ -157,7 +160,9 @@ export class LoginComponent implements OnInit {
 
   private handleTokenError(error: any): void {
     console.log(error);
-    if (error.status === 404) {
+    if (error.status === 401) {
+      this.showModal('INCORRECT_PASSWORD_VERIFY_YOUR_CREDENTIALS');
+    }else if(error.status === 404) {
       this.showModal('THERE_WAS_AN_ERROR_GETTING_THE_TOKEN');
     } else {
       console.error('Error al obtener el token ', error);
@@ -166,7 +171,7 @@ export class LoginComponent implements OnInit {
 
   getToken(): void {
     this.userService
-      .getToken(this.identificationNumber, this.idCompany)
+      .getToken(this.identificationNumber, this.idCompany, this.password)
       .subscribe(
         (response) => this.handleTokenResponse(response),
         (error) => this.handleTokenError(error)
@@ -179,10 +184,11 @@ export class LoginComponent implements OnInit {
     if (!this.password) {
       this.showModal('THE_PASSWORD_CANNOT_BE_EMPTY');
       return false;
-    } else if (this.password !== this.companyPassword) {
-      this.showModal('INCORRECT_PASSWORD_VERIFY_YOUR_CREDENTIALS');
-      return false;
-    }
+    } 
+    // else if (this.password !== this.companyPassword) {
+    //   this.showModal('INCORRECT_PASSWORD_VERIFY_YOUR_CREDENTIALS');
+    //   return false;
+    // }
     return true;
   }
 
@@ -199,7 +205,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleLogin(): void {
-    if (!this.isPasswordValid()) return;
+    if (!this.isPasswordValid()) return;    
 
     if (this.isEnabled) {
       if (this.isLicenseValid()) {        

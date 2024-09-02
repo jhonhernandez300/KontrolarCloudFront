@@ -11,6 +11,7 @@ import { iMenu } from '../../models/iMenu';
 import { ModuleDTO } from '../../models/ModuleDTO';
 import { OptionDTO } from '../../models/OptionDTO';
 import { iUserDTO } from '../../models/iUserDTO'
+import { LoginRequestDTO } from '../../models/LoginRequestDTO';
 
 interface Company {
   [x: string]: any;
@@ -202,31 +203,35 @@ export class UserService {
       );
   } 
 
-  getToken(documentNumber: number, idCompany: number): Observable<any> {
-    const encryptedDocumentNumber = CryptoHelper.encrypt(documentNumber.toString());
-    const encryptedIdCompany = CryptoHelper.encrypt(idCompany.toString());
-
-    return this.http.get<string>(
-      `${this.apiUrl}/CreateToken/${encodeURIComponent(encryptedDocumentNumber)}/${encodeURIComponent(encryptedIdCompany)}`,
+  getToken(documentNumber: number, idCompany: number, accessKey: string): Observable<any> {
+    const loginRequestDTO: LoginRequestDTO = {
+      identificationNumber: CryptoHelper.encrypt(documentNumber.toString()),
+      company: CryptoHelper.encrypt(idCompany.toString()),
+      accessKey: CryptoHelper.encrypt(accessKey)
+    };
+  
+    return this.http.post<string>(
+      `${this.apiUrl}/CreateToken`,
+      loginRequestDTO,
       { responseType: 'text' as 'json' }
     ).pipe(
       map(encryptedData => {
         try {
-          //console.log(encryptedData);
           return CryptoHelper.decrypt(encryptedData);
         } catch (error) {
-          console.error('Error al desencriptar los datos:', error);
-          throw error; 
+          console.error('Error decrypting data:', error);
+          throw error;
         }
       })
     );
-  }  
+  }
+  
 
   GetCompaniesByIdentificationNumber(identificationNumber: number): Observable<any> {
     const encryptedDocumentNumber = CryptoHelper.encrypt(
       identificationNumber.toString()
     );
-    //console.log("encryptedDocumentNumber ", encryptedDocumentNumber);
+    
     return this.http
       .get(
         `${this.apiUrl}/GetCompaniesByIdentificationNumber/${encodeURIComponent(
