@@ -148,11 +148,10 @@ export class LoginComponent implements OnInit {
 
   private handleTokenResponse(response: any): void {
     this.token = response;
-    // console.log("this.token ", this.token);
     this.localStorageService.setToken('token', this.token);    
     localStorage.setItem('last date', new Date().toISOString());    
 
-    this.authService.setAuthenticated(true); // Notificar autenticación
+    this.authService.setAuthenticated(true); 
     this.router.navigate(['/bienvenido']);
   }
 

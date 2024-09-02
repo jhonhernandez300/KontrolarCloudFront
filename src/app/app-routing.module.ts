@@ -7,6 +7,7 @@ import { BienvenidoComponent } from '../app/views/bienvenido/bienvenido.componen
 import { UsersComponent } from './views/users-folder/users/users.component';
 import { ProfilesComponent } from '../app/views/profiles-folder/profiles/profiles.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { authLoginGuard } from './helpers/guards/auth-login.guard';
 
 const routes: Routes = [ 
   { path: 'profiles', 
@@ -25,9 +26,9 @@ const routes: Routes = [
     component: SettingsComponent, 
     canActivate: [canActivateGuard]
   },
-  { path: 'login', component: LoginComponent },
-  { path: '', component: LoginComponent }, 
-  { path: '**', component: LoginComponent } 
+  { path: 'login', component: LoginComponent, canActivate: [authLoginGuard] },
+  { path: '', component: LoginComponent, canActivate: [authLoginGuard] }, 
+  { path: '**', component: LoginComponent, canActivate: [authLoginGuard] } 
 ];
 
 @NgModule({

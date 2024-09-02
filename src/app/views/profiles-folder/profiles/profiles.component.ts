@@ -53,6 +53,7 @@ export class ProfilesComponent extends CrudBaseComponent implements AfterViewIni
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.crudActionsVisibilityService.resetVisibility();
     this.editCommunicationService.editModeChanged.subscribe((mode: boolean) => {
       this.editMode = mode;
     });

@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthServiceService } from './services/general/auth-service.service';
 import { ProfileService } from './services/profile/profile.service';
 import { ThemeServiceService } from './services/general/theme-service.service';
+import { Router } from '@angular/router';
+import { LocalStorageService } from './helpers/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +29,9 @@ export class AppComponent {
     private authService: AuthServiceService,
     private profileService: ProfileService,
     private themeService: ThemeServiceService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router,
+    private localStorageService: LocalStorageService,
   ) {
     this.applyTheme(this.themeService.getTheme());
   }
@@ -36,10 +40,14 @@ export class AppComponent {
     this.translate.setDefaultLang('es-CO');
     this.translate.use('es-CO');
     this.checkForUpdates();
-    this.isAuthenticated = this.userService.IsAuthenticated();
-    
-    this.authService.authenticated$.subscribe(isAuthenticated => {
+
+    this.authService.authenticated$.subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated;
+      if (this.isAuthenticated) {
+        this.router.navigate(['/bienvenido']);
+      } else {
+        this.router.navigate(['/login']);
+      }
     });
   }
 

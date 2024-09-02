@@ -22,7 +22,7 @@
             <li><a class="dropdown-item" href="#" translate><i class="bi bi-key"></i> CHANGE_PASSWORD</a></li>
             <li><a class="dropdown-item" [routerLink]="['/settings']" translate><i class="bi bi-blockquote-left"></i> SETTINGS</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#" translate><i class="bi bi-x-circle"></i> CLOSE_SESSION</a></li>
+            <li><a class="dropdown-item" href="#" (click)="logout()" translate><i class="bi bi-x-circle"></i> CLOSE_SESSION</a></li>
           </ul>
           <div class="selected-company">{{selectedCompany}}</div>
         </div>

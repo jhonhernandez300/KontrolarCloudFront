@@ -6,6 +6,8 @@ import { LanguageChangeService } from '../../services/general/language-change-se
 import { ModuleDTO } from '../../models/ModuleDTO';
 import { OptionDTO } from '../../models/OptionDTO';
 import { CryptoHelper } from '../../helpers/CryptoHelper';
+import { Router } from '@angular/router';
+import { AuthServiceService } from '../../services/general/auth-service.service';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -20,7 +22,9 @@ export class SidebarMenuComponent implements OnInit {
     private userService: UserService,
     private localStorageService: LocalStorageService,
     private translate: TranslateService,
-    private languageChangeService: LanguageChangeService
+    private languageChangeService: LanguageChangeService,
+    private router: Router,
+    private authService: AuthServiceService,
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +78,12 @@ export class SidebarMenuComponent implements OnInit {
     const module = this.listaModulos.find(m => m.IdModule === idModule);
     //console.log(module);
     return module ? module.Options : [];
+  }
+
+  logout(): void {
+    this.authService.setAuthenticated(false);
+    this.localStorageService.removeAllData();
+    this.router.navigate(['/login']);
   }
  
 }
